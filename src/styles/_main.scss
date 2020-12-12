@@ -1,0 +1,134 @@
+* {
+    font-size: $font-size;
+    font-family: $font-family;
+    background: $background-color;
+    color: $font-color;
+    max-width: $page-width;
+    line-height: 1.4;
+  }
+  body {
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    height: 3em;
+  }
+  
+  h1 {
+    text-align: left;
+    max-width: 90vw;
+  }
+  
+  .wrapper {
+    display: flex;
+    height: 86vh;
+    align-items: stretch;
+    gap: .5em;
+  }
+  .global_cases {
+    text-align: center;
+    line-height: 4.5;
+    
+  }
+
+
+  .left_page{
+    min-width: 300px;
+    display: flex;
+    gap: .5em;
+    flex-direction: column;  
+  }
+  .center_page {
+    flex: auto; 
+  }
+
+  .right_page{
+    min-width: 400px;
+    display: flex;
+    gap: .5em;
+    flex-direction: column; 
+  }
+
+  .global_cases{
+    height: 5em;
+    background-color: $background-block;
+  }
+  .country_list {
+    height: 100%;
+    background-color: $background-block;
+  }
+
+  .map {
+    height: 100%;
+    background-color: $background-block;
+  }
+  .statistic {
+    height: 70%;
+    background-color: $background-block;
+  }
+  .diagrams {
+    height: 30%;
+    background-color: $background-block;
+  }
+  
+  footer {
+    height: 3em;
+    display: flex;
+    justify-content: space-between;
+    margin: .5em;
+  }
+
+  #Layer_1 path{
+    fill: white;
+  }
+
+  @media (max-width: 1024px) {
+    body {
+    }
+    .wrapper {
+      height: calc(82vh * 2);
+      flex-wrap: wrap;
+      
+    }
+    .center_page {
+      order: 1;
+      
+    }
+    .right_page{
+      width: calc(100vw - 296px - 3em);
+     
+    }
+    .map {
+      min-width: calc(100vw - 3em);
+      
+    }
+    
+  }
+  @media (max-width: 780px) {
+    body {
+    }
+    .wrapper {
+      height: calc(82vh * 3);
+    }
+
+    .left_page{
+      width: 100vw;
+     
+    }
+    .center_page {
+      order: 1;
+      width: 100vw;
+    }
+  
+    .right_page{
+      width: 100vw;
+           
+    }
+  
+    .map {
+      min-width: calc(100vw - 3em);
+      
+    }
+    
+  }
