@@ -3,11 +3,11 @@
     font-family: $font-family;
     background: $background-color;
     color: $font-color;
-    max-width: $page-width;
+    
     line-height: 1.4;
   }
   body {
-    min-width: 320px;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
   }
@@ -122,6 +122,7 @@
     }
   
     .right_page{
+      min-width: 300px;
       width: 100vw;
            
     }
