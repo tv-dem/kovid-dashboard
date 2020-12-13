@@ -1,4 +1,4 @@
-class UI{
+export default class UI{
     // insert your tag with params in beginning of parent tag
 
     // exapmle:
