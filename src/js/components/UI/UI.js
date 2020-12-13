@@ -13,7 +13,6 @@ export default class UI{
             })
         }
         if(innerHtml){
-            console.log(innerHtml)
             element.innerHTML = innerHtml;
         }
         parent.append(element);
