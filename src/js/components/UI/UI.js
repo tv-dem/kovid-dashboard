@@ -1,27 +1,21 @@
-export class UI {
-    constructor() {
+export default class UI{
+    // insert your tag with params in beginning of parent tag
 
-    }
-
-    renderElement(parent, tagName, className = null, innerHtml = null, id = null) {
-
-        const element = document.cre
-        //
-        if (className) {
-
+    // exapmle:
+    // render(parent, "h1", "some text in tag", ["class", "title"], ["id", "main-title"] ...)
+    // and if you don`t need some html in tag
+    // render(parent, "h1", null, ["class", "title"], ["id", "main-title"] ...)
+    render(parent, tagName, innerHtml = null, ...attributes){
+        const element = document.createElement(tagName);
+        if(attributes.length){
+            attributes.forEach(([attribute, value]) => {
+                element.setAttribute(attribute, value)
+            })
         }
-        if (innerHtml) {
-
+        if(innerHtml){
+            element.innerHTML = innerHtml;
         }
-
-        if (id) {
-
-        } 
-
-
-        return element  // должен возвращать ссылку на новый созданный элемент 
-        
-        
+        parent.append(element);
+        return element;
     }
-
 }
