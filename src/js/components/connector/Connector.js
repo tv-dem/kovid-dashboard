@@ -1,13 +1,15 @@
-import { URL_STATISTICS} from '../constants/constants';
+//export const URL_STATISTICS = 'https://api.covid19api.com/summary';
+//import { URL_STATISTICS} from '../constants/constants';
 
-export class Connector {
+export default class Connector {
     constructor(url) {
         this.url = url;
-    }
+    };
     async getStatistics() {
         try {
-            const resultTemp = await fetch(url);
+            const resultTemp = await fetch(this.url);
             const result = await resultTemp.json();
+            console.log(result);
             return result;
         }
         catch (err) {
@@ -15,7 +17,8 @@ export class Connector {
         }
     }
 
-
+}
+//module.exports = Connector;
 // result.Countries[i].CountryCode
 //https://www.countryflags.io/be/shiny/64.png
 
@@ -40,4 +43,4 @@ export class Connector {
 //     "NewDeaths" === количество умерших за последние отчетные сутки
 // "TotalDeaths" === общее количество умерших
 // "NewRecovered" === количество выздоровевших за последние отчетные сутки
-// "TotalRecovered" === общее количество выздоровевших
+// "TotalRecovered" === общее количество выздоровевших;
