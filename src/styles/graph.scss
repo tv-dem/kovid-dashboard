@@ -1,2 +1,59 @@
-@import 'variables';
+@import 'variables.scss';
 
+.chart__container {
+  width: 100%;
+  height: 90%;
+  position: relative;
+}
+
+.scroll {
+
+  &__container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & div {
+      text-align: center;
+    }
+  }
+
+  &__left-arrow {
+    width: 5%;
+    background-color: red;
+
+    & img {
+      
+    }
+  }
+
+  &__right-arrow {
+    width: 5%;
+    background-color: red;
+
+    & img {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__nav {
+    width: 90%;
+    overflow: hidden;
+  }
+
+  &__track {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    & div {
+      // min-width: 33.3%;
+      text-align: center;
+    }
+  }
+  
+}

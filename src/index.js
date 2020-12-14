@@ -6,13 +6,17 @@
 
 // Test import of styles
 import './styles/index.scss';
+import Graph from './js/components/graph/Graph';
+
+// Usage class Graph
+new Graph('.diagram').render();
 
 // Appending to the DOM
 // const logo = document.createElement('img');
 // logo.src = webpackLogo;
 
 /// /const heading = document.createElement('h1');
-heading.textContent = example();
+// heading.textContent = example();
 
 // const app = document.querySelector('#root');
 // app.append(logo, heading);
