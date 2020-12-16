@@ -6,13 +6,14 @@
 
 // Test import of styles
 import './styles/index.scss';
+import './js/components/List/List'
 
 // Appending to the DOM
 // const logo = document.createElement('img');
 // logo.src = webpackLogo;
 
 /// /const heading = document.createElement('h1');
-heading.textContent = example();
+// heading.textContent = example();
 
 // const app = document.querySelector('#root');
 // app.append(logo, heading);
