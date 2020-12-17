@@ -4,6 +4,7 @@
     background: $background-color;
     color: $font-color;
     line-height: 1.4;
+    box-sizing: border-box;
   }
 
   body {
@@ -73,6 +74,7 @@
 
   .diagram {
     height: 30%;
+    position: relative;
     background-color: $background-color;
   }
   

@@ -3,13 +3,16 @@
 .chart__container {
   width: 100%;
   height: 90%;
+  min-height: 240px;
   position: relative;
   background-color: $background-block;
-  border: 1px solid $border-color;
+  border: 2px solid $border-color;
+  border-bottom: 2px solid $background-block;
 }
 
 #chart {
   background-color: $background-block;
+  cursor: pointer;
 }
 
 .scroll {
@@ -30,6 +33,7 @@
   &__left-arrow {
     width: 5%;
     background-color: red;
+    cursor: pointer;
 
     & img {
       
@@ -39,6 +43,7 @@
   &__right-arrow {
     width: 5%;
     background-color: red;
+    cursor: pointer;
 
     & img {
       transform: rotate(180deg);
@@ -48,6 +53,8 @@
   &__nav {
     width: 90%;
     overflow: hidden;
+    border: 2px solid $background-block;
+    border-bottom: 2px solid $border-color;
   }
 
   &__track {
@@ -55,6 +62,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
     position: relative;
     transition: all .3s;
 
@@ -64,12 +72,35 @@
       line-height: 1.5;
       text-align: center;
       background-color: $background-block;
-      border: 1px solid $border-color;
+      box-sizing: border-box;
+      cursor: pointer;
     }
 
     & .active {
       opacity: .7;
+      // border-bottom: 2px solid #2493F2;
     }
   }
-  
+}
+
+.bnt-full-screen__container {
+  width: 25px;
+  height: 25px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #BDBDBD;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background-color: $background-block;
+
+  & img,
+  & div {
+    height: 15px;
+    width: 15px;
+    background-color: transparent;
+    background-image: url('../images/fullScreenBtn.svg');
+  }
 }
