@@ -2,75 +2,13 @@ import '../../../styles/graph.scss';
 import Chart from 'chart.js';
 import UI from '../UI/UI';
 import CreateBtnFullScreen from '../../utils/createBtnFullScreen';
-// import Slider from '../slider/Slider';
-
-function getRandomNumber(n) {
-  return Math.floor(Math.random() * n);
-}
-
-function addZero(n) {
-  return parseInt(n, 10) < 10 ? `0${n}` : n;
-}
-
-const date = new Date();
-const dateArr = () => [...Array(90)].map((item) => {
-  let day = date.getDate() + 1;
-  date.setDate(day);
-  return date.toLocaleDateString('en-US');
-});
-
-const generateDataArr = () => [...Array(90)].map((item) => getRandomNumber(90));
-
-const dataObj = {
-  'Daily Cases': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'bar',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Daily Deaths': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'bar',
-    color: 'rgb(255, 255, 255)',
-  },
-  'Cumulative Cases': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'line',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Cumulative Deaths': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'line',
-    color: 'rgb(255, 255, 255)',
-  },
-  'Log Cases': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'line',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Cumulative Cases on 100.000': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'bar',
-    color: 'rgb(255, 255, 255)',
-  },
-  'Cumulative Deaths on 100.00': {
-    labels: dateArr(),
-    data: generateDataArr(),
-    type: 'bar',
-    color: 'rgb(255, 170, 0)',
-  }
-};
 
 export default class Graph extends UI {
-  constructor(parentSelector) {
+  constructor(parentSelector, dataObj) {
     super();
     this.parent = document.querySelector(parentSelector);
     this.chartContainer = super.render(this.parent, 'div', null, ['class', 'chart__container']);
+    this.data = dataObj;
   }
 
   getData() {
@@ -105,7 +43,7 @@ export default class Graph extends UI {
         bodyFontColor: 'rgb(0, 0, 0)',
         yPadding: 2,
         caretPadding: 10,
-        borderColor: dataObj[labelName].color,
+        borderColor: this.data[labelName].color,
         borderWidth: 1,
       },
       maintainAspectRatio: false,
@@ -140,8 +78,8 @@ export default class Graph extends UI {
             },
           },
           ticks: {
-            min: dataObj[labelName].labels[0],
-            max: dataObj[labelName].labels[dataObj[labelName].labels.length - 1],
+            min: this.data[labelName].labels[0],
+            max: this.data[labelName].labels[this.data[labelName].labels.length - 1],
             // beginAtZero: true,
             // source: 'data',
             fontColor: '#9e9e9e',
@@ -156,12 +94,12 @@ export default class Graph extends UI {
     };
 
     const myChart = new Chart(ctx, {
-      type: dataObj[labelName].type,
+      type: this.data[labelName].type,
       data: {
-        labels: dataObj[labelName].labels,
+        labels: this.data[labelName].labels,
         datasets: [{
           label: labelName,
-          data: dataObj[labelName].data,
+          data: this.data[labelName].data,
           fill: false,
           // lineTension: 0,
           // cubicInterpolationMode: 'monotone',
@@ -169,15 +107,15 @@ export default class Graph extends UI {
           pointRadius: 2,
           pointHoverRadius: 5,
           pointHitRadius: 5,
-          backgroundColor: dataObj[labelName].color,
+          backgroundColor: this.data[labelName].color,
           hoverBackgroundColor: '#f1c400',
-          hoverBorderColor: dataObj[labelName].color,
+          hoverBorderColor: this.data[labelName].color,
           hoverBorderWidth: 2,
           barPercentage: 1,
           categoryPercentage: 1,
           barThickness: 'flex',
           maxBarThickness: 10,
-          borderColor: dataObj[labelName].color,
+          borderColor: this.data[labelName].color,
         }]
       },
       options: chartOptions,
