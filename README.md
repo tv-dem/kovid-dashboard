@@ -11,3 +11,5 @@
 
 ссылка на github
 https://github.com/rolling-scopes-school/tasks/blob/master/tasks/covid-dashboard.md
+
+ссылка на задание https://github.com/rolling-scopes-school/tasks/blob/master/tasks/covid-dashboard.md
