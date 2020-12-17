@@ -124,10 +124,10 @@ export default class Graph extends UI {
     myChart.update();
 
     // Нужно ли будет снимать здесь обработчик?
-    window.addEventListener('resize', () => {
-      console.log('resize');
-      myChart.resize();
-    });
+    // window.addEventListener('resize', () => {
+    //   console.log('resize');
+    //   myChart.resize();
+    // });
 
     return this;
   }

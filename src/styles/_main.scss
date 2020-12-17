@@ -109,6 +109,10 @@
     .map {
       min-width: calc(100vw - 3em);
     }
+
+    .chart__container {
+      min-height: 240px;
+    }
   }
 
   @media (max-width: 780px) {

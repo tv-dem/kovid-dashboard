@@ -5,13 +5,14 @@ export default class Slider extends UI {
   constructor(parentSelector, slidesToScroll = 1, slidesToShow = 3) {
     super();
     this.parent = document.querySelector(parentSelector);
+    this.scrollContainer = super.render(this.parent, 'div', null, ['class', 'scroll__container']);
     this.slidesToScroll = slidesToScroll;
     this.slidesToShow = slidesToShow;
     this.pageCounter = 0;
   }
 
   init(dataLabels) {
-    this.scrollContainer = super.render(this.parent, 'div', null, ['class', 'scroll__container']);
+    this.scrollContainer.innerHTML = '';
     this.scrollLeftArrow = super.render(this.scrollContainer, 'div', null, ['class', 'scroll__left-arrow']);
     this.leftArrow = super.render(this.scrollLeftArrow, 'img', null, ['src', ''], ['alt', '']);
     this.scrollNav = super.render(this.scrollContainer, 'div', null, ['class', 'scroll__nav']);
@@ -28,6 +29,7 @@ export default class Slider extends UI {
     this.scrollLeftArrow.addEventListener('click', this.clickBtnLeftHandler.bind(this, this.scrollTrack, this.movePosition));
     // Вопрос Андрею: Как правильно снимать события в классе?
     this.scrollRightArrow.addEventListener('click', this.clickBtnRightHandler.bind(this, this.scrollTrack, this.movePosition, dataLabels.length - this.slidesToShow));
+    return this;
   }
 
   clickBtnLeftHandler(track, movePosition) {

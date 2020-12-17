@@ -19,13 +19,13 @@ function addZero(n) {
 }
 
 const date = new Date();
-const dateArr = () => [...Array(90)].map((item) => {
+const dateArr = () => [...Array(180)].map((item) => {
   let day = date.getDate() + 1;
   date.setDate(day);
   return date.toLocaleDateString('en-US');
 });
 
-const generateDataArr = () => [...Array(90)].map((item) => getRandomNumber(90));
+const generateDataArr = () => [...Array(180)].map((item) => getRandomNumber(180));
 
 const dataObj = {
   'Daily Cases': {
@@ -92,15 +92,9 @@ document.querySelector('.scroll__track').addEventListener('click', (event) => cl
 document.querySelector('.diagram').addEventListener('mouseenter', () => document.querySelector('.bnt-full-screen__container').style.display = 'flex');
 document.querySelector('.diagram').addEventListener('mouseleave', () => document.querySelector('.bnt-full-screen__container').style.display = 'none');
 
-// Appending to the DOM
-// const logo = document.createElement('img');
-// logo.src = webpackLogo;
-
-/// /const heading = document.createElement('h1');
-// heading.textContent = example();
-
-// const app = document.querySelector('#root');
-// app.append(logo, heading);
-
-const a = 1;
-console.log(a);
+window.addEventListener('resize', () => {
+  console.log('resize');
+  slider.init(data);
+  // slider.replaceWith();
+  // myChart.resize();
+});
