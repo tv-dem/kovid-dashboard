@@ -18,7 +18,7 @@ export default class Slider extends UI {
     this.scrollTrack = super.render(this.scrollNav, 'div', null, ['class', 'scroll__track']);
     const itemWidth = 100 / this.slidesToShow;
     // Render item with required width
-    dataLabels.forEach((labelName, i) => super.render(this.scrollTrack, 'div', labelName).style.minWidth = `${itemWidth}%`);
+    dataLabels.forEach((labelName) => super.render(this.scrollTrack, 'div', labelName).style.minWidth = `${itemWidth}%`);
     this.scrollTrack.querySelector('div').classList.add('active');
     this.scrollRightArrow = super.render(this.scrollContainer, 'div', null, ['class', 'scroll__right-arrow']);
     this.rightArrow = super.render(this.scrollRightArrow, 'img', null, ['src', ''], ['alt', '']);
@@ -28,7 +28,6 @@ export default class Slider extends UI {
     this.scrollLeftArrow.addEventListener('click', this.clickBtnLeftHandler.bind(this, this.scrollTrack, this.movePosition));
     // Вопрос Андрею: Как правильно снимать события в классе?
     this.scrollRightArrow.addEventListener('click', this.clickBtnRightHandler.bind(this, this.scrollTrack, this.movePosition, dataLabels.length - this.slidesToShow));
-    // this.scrollTrack.addEventListener('click', this.clickSliderItemHandler);
   }
 
   clickBtnLeftHandler(track, movePosition) {
@@ -37,9 +36,9 @@ export default class Slider extends UI {
     }
 
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
-    const menuItems = track.querySelectorAll('div');
-    menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
-    menuItems[this.pageCounter].classList.add('active');
+    // const menuItems = track.querySelectorAll('div');
+    // menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
+    // menuItems[this.pageCounter].classList.add('active');
 
     if (this.pageCounter === 0) {
       return;
@@ -52,19 +51,12 @@ export default class Slider extends UI {
     }
 
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
-    const menuItems = track.querySelectorAll('div');
-    menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
-    menuItems[this.pageCounter].classList.add('active');
+    // const menuItems = track.querySelectorAll('div');
+    // menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
+    // menuItems[this.pageCounter].classList.add('active');
 
     if (this.pageCounter === count) {
       return;
     }
   }
-
-  // clickSliderItemHandler({ target }) {
-  //   // логично в этом методе обрабатывать переключение графиков (слайдов), но тогда будет циклическая зависимость
-  //   const menuItems = document.querySelectorAll('.scroll__track div');
-  //   menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
-  //   target.classList.add('active');
-  // }
 }
