@@ -1,0 +1,70 @@
+.statistic--change_type {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #333232;
+    padding: 5px 0;
+}
+
+.informStatistics {
+    width: 100%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333232;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.inf {
+    width: 100%;
+    font-size: 1.5em;
+    border: 1px solid black;
+}
+
+.absolute, .all {
+    width: 100%;
+height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #333232;
+    padding: 5px 0;
+
+}
+
+.btn, .world_content, .all_content, .absolute_content {
+    background-color: #333232;
+
+}
+.btn:hover {
+cursor: pointer;
+background-color: black;
+}
+
+.informStatistics_recovered_title {
+    color:rgb(111, 173, 95);
+}
+.informStatistics_recovered_content {
+    color:rgb(127, 247, 127);
+}
+
+.informStatistics_confirmed_title {
+    color:chocolate;
+}
+.informStatistics_confirmed_content {
+    color:rgb(240, 106, 11);
+}
+
+.informStatistics_deaths_title {
+    color:rgb(231, 94, 94);
+}
+.informStatistics_deaths_content {
+    color:rgb(230, 69, 69);
+}
