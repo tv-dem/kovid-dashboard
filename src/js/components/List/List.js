@@ -1,5 +1,6 @@
 import UI from '../UI/UI';
 import  './_list.scss'
+import lupa from '../../../images/lupa.svg'
 import  Connector from './../connector/connector'
 import {URL_STATISTICS} from "../constants/constants";
 
@@ -94,10 +95,9 @@ export default class List extends UI{
                 break;
         }
         this.typeCases.classList.add('list__button_active');
-        console.log(this.sortState  )
         this.activeData.sort((a, b) => {
             return (this.sortState == 'country') ? this.sortAscending(a, b, 'Country') :
-            this.sortDescending(a, b, this.totalOrNew+this.activeType)
+                this.sortDescending(a, b, this.totalOrNew+this.activeType)
         })
         this.clearList();
         this.renderList(this.listParent);
@@ -106,8 +106,32 @@ export default class List extends UI{
     btnCasesOnClick(target){
         this.countCases.classList.remove('list__button_active')
         this.countCases = target;
-        console.log(target)
         this.countCases.classList.add('list__button_active');
+
+        switch(target.textContent){
+            case 'last Day':
+                this.totalOrNew = 'New'
+                this.isOnHudredCount = false
+                break;
+            case 'general':
+                this.totalOrNew = 'Total'
+                this.isOnHudredCount = false
+                break;
+            case 'on 100 people in general':
+                this.isOnHudredCount = true
+                break;
+            case 'on 100 people on last day':
+                this.isOnHudredCount = true
+                break;
+            default:
+                break;
+        }
+        this.activeData.sort((a, b) => {
+            return (this.sortState == 'country') ? this.sortAscending(a, b, 'Country') :
+                this.sortDescending(a, b, this.totalOrNew+this.activeType)
+        })
+        this.clearList();
+        this.renderList(this.listParent)
     }
 
     clearList(){
@@ -120,7 +144,8 @@ export default class List extends UI{
         this.parent = parent;
 
         const input = this.render(this.parent, 'input', null, ['class', "list__input"])
-
+        const img = this.render(this.parent, 'img', null, ['src', '../../../images/lupa.svg'])
+        // const img = this.render(this.parent, 'img', null, ['class', "list__input"])
         input.addEventListener('input', ({target}) => {
             this.activeData = this.data.filter(el => el.Country.toLowerCase().includes(target.value));
             this.clearList()
