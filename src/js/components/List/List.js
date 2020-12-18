@@ -1,6 +1,6 @@
 import UI from '../UI/UI';
 import  './_list.scss'
-import lupa from '../../../images/lupa.svg'
+import lupa from '../../../../public/lupa.svg'
 import  Connector from './../connector/connector'
 import {URL_STATISTICS} from "../constants/constants";
 
@@ -142,10 +142,10 @@ export default class List extends UI{
 
     renderComponent(parent){
         this.parent = parent;
+        const inputWrapper = this.render(this.parent, 'div', null, ['class', "list__input-wrapper"])
+        const input = this.render(inputWrapper, 'input', null, ['class', "list__input"])
+        this.render(inputWrapper, 'img', null, ['src', '../../../../public/pupa.svg'], ['class', 'list__keyboard'])
 
-        const input = this.render(this.parent, 'input', null, ['class', "list__input"])
-        const img = this.render(this.parent, 'img', null, ['src', '../../../images/lupa.svg'])
-        // const img = this.render(this.parent, 'img', null, ['class', "list__input"])
         input.addEventListener('input', ({target}) => {
             this.activeData = this.data.filter(el => el.Country.toLowerCase().includes(target.value));
             this.clearList()

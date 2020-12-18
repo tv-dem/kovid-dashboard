@@ -21,9 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="59f7e49d-35a9-4e88-b6f9-71c5f74f505c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/webpack.common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/images/lupa.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/lupa.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/components/List/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/List/List.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/components/List/_list.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/List/_list.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/_main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/_main.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +54,11 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\rs\kovid-dashboard\node_modules\prettier" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\rs\kovid-dashboard\public" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -88,5 +94,9 @@
       <screen x="0" y="0" width="1707" height="920" />
     </state>
     <state x="560" y="193" width="587" height="534" key="find.popup/0.0.1707.920@0.0.1707.920" timestamp="1608125857407" />
+    <state x="510" y="211" key="run.anything.popup" timestamp="1608281053674">
+      <screen x="0" y="0" width="1707" height="920" />
+    </state>
+    <state x="510" y="211" key="run.anything.popup/0.0.1707.920@0.0.1707.920" timestamp="1608281053674" />
   </component>
 </project>
