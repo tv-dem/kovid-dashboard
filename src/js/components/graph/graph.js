@@ -6,6 +6,7 @@ import CreateBtnFullScreen from '../../utils/createBtnFullScreen';
 export default class Graph extends UI {
   constructor(parentSelector, dataObj) {
     super();
+    this.parentSelector = parentSelector;
     this.parent = document.querySelector(parentSelector);
     this.chartContainer = super.render(this.parent, 'div', null, ['class', 'chart__container']);
     this.data = dataObj;
@@ -134,7 +135,7 @@ export default class Graph extends UI {
 
   render() {
     this.init();
-    new CreateBtnFullScreen('.diagram').render();
+    new CreateBtnFullScreen(this.parentSelector).render();
 
     return this;
   }
