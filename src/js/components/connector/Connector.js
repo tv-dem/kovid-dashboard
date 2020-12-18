@@ -4,7 +4,8 @@
 export default class Connector {
     constructor(url) {
         this.url = url;
-    };
+    }
+
     async getStatistics() {
         try {
             const resultTemp = await fetch(this.url);
