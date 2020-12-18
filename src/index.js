@@ -8,14 +8,10 @@
 import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import Slider from './js/components/slider/Slider';
-
+import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
 
 function getRandomNumber(n) {
   return Math.floor(Math.random() * n);
-}
-
-function addZero(n) {
-  return parseInt(n, 10) < 10 ? `0${n}` : n;
 }
 
 const date = new Date();
@@ -76,6 +72,7 @@ const dataObj = {
 const graph = new Graph('.diagram', dataObj).render();
 const data = ['Daily Cases', 'Daily Deaths', 'Cumulative Cases', 'Cumulative Deaths', 'Log Cases', 'Cumulative Cases on 100.000', 'Cumulative Deaths on 100.00'];
 const slider = new Slider('.diagram', 1, 2).init(data);
+const btnFullScreen = document.querySelector('.bnt-full-screen__container');
 
 // Handle click slider item
 const clickSliderItemHandler = ({ target }, graph) => {
@@ -89,9 +86,18 @@ const clickSliderItemHandler = ({ target }, graph) => {
 document.querySelector('.scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
 
 // Handle move in/out graph
-document.querySelector('.diagram').addEventListener('mouseenter', () => document.querySelector('.bnt-full-screen__container').style.display = 'flex');
-document.querySelector('.diagram').addEventListener('mouseleave', () => document.querySelector('.bnt-full-screen__container').style.display = 'none');
+document.querySelector('.diagram').addEventListener('mouseenter', () => btnFullScreen.classList.add('active'));
+document.querySelector('.diagram').addEventListener('mouseleave', () => btnFullScreen.classList.remove('active'));
 
+//Handle click open/close full screen
+btnFullScreen.addEventListener('click', () => {
+  clickTogglerFullScreen();
+  const graph = new Graph('.modal', dataObj).render();
+  new Slider('.modal', 1, 2).init(data);
+  document.querySelector('.modal .scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
+});
+
+// Handle resize screen
 window.addEventListener('resize', () => {
   console.log('resize');
   slider.init(data);
