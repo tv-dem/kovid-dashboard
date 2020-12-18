@@ -3,14 +3,16 @@
     font-family: $font-family;
     background: $background-color;
     color: $font-color;
-
     line-height: 1.4;
+    box-sizing: border-box;
   }
+
   body {
     min-width: 300px;
     display: flex;
     flex-direction: column;
   }
+
   header {
     height: 3em;
   }
@@ -26,12 +28,11 @@
     align-items: stretch;
     gap: .5em;
   }
+
   .global_cases {
     text-align: center;
     line-height: 4.5;
-
   }
-
 
   .left_page{
     min-width: 300px;
@@ -42,6 +43,7 @@
     gap: .5em;
     flex-direction: column;
   }
+
   .center_page {
     flex: auto;
   }
@@ -57,6 +59,7 @@
     height: 5em;
     background-color: $background-block;
   }
+
   .country_list {
     height: 100%;
     background-color: $background-block;
@@ -66,13 +69,16 @@
     height: 100%;
     background-color: $background-block;
   }
+
   .statistic {
     height: 70%;
     background-color: $background-block;
   }
-  .diagrams {
+
+  .diagram {
     height: 30%;
-    background-color: $background-block;
+    position: relative;
+    background-color: $background-color;
   }
 
   footer {
@@ -89,28 +95,33 @@
   @media (max-width: 1024px) {
     body {
     }
+
     .wrapper {
       height: calc(82vh * 2);
       flex-wrap: wrap;
-
     }
+
     .center_page {
       order: 1;
-
     }
+
     .right_page{
       width: calc(100vw - 296px - 3em);
-
     }
+
     .map {
       min-width: calc(100vw - 3em);
-
     }
 
+    .chart__container {
+      min-height: 240px;
+    }
   }
+
   @media (max-width: 780px) {
     body {
     }
+
     .wrapper {
       height: calc(82vh * 3);
     }
@@ -119,6 +130,7 @@
       width: 100vw;
 
     }
+
     .center_page {
       order: 1;
       width: 100vw;
@@ -126,13 +138,11 @@
 
     .right_page{
       min-width: 300px;
-      width: 100vw;
-
+      width: 100vw;  
     }
 
     .map {
       min-width: calc(100vw - 3em);
-
     }
-
   }
+
