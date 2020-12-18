@@ -8,10 +8,10 @@
 import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import Slider from './js/components/slider/Slider';
-import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
+// import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
 import List from './js/components/List/List'
 import Connector from "./js/components/connector/Connector";
-import {URL_STATISTICS} from "./js/components/constants/constants";
+import { URL_STATISTICS } from "./js/components/constants/constants";
 
 function getRandomNumber(n) {
   return Math.floor(Math.random() * n);
@@ -25,10 +25,10 @@ const dateArr = () => [...Array(180)].map((item) => {
 });
 
 const ttt = async () => {
-    const connector = new Connector(URL_STATISTICS);
-    const data=await connector.getStatistics();
-    const list = new List(data.Countries, data.Global)
-    list.renderComponent(document.querySelector('#country_list'));
+  const connector = new Connector(URL_STATISTICS);
+  const data = await connector.getStatistics();
+  const list = new List(data.Countries, data.Global)
+  list.renderComponent(document.querySelector('#country_list'));
 }
 
 ttt()
@@ -103,7 +103,7 @@ document.querySelector('.diagram').addEventListener('mouseleave', () => btnFullS
 
 //Handle click open/close full screen
 btnFullScreen.addEventListener('click', () => {
-  clickTogglerFullScreen();
+  // clickTogglerFullScreen();
   const graph = new Graph('.modal', dataObj).render();
   new Slider('.modal', 1, 2).init(data);
   document.querySelector('.modal .scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
