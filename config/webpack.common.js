@@ -1,12 +1,12 @@
 const paths = require('./paths')
-
+require('babel-polyfill');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   // Where webpack looks to start building the bundle
-  entry: [paths.src + '/index.js'],
+  entry: ['babel-polyfill', paths.src + '/index.js'],
 
   // Where webpack outputs the assets and bundles
   output: {
@@ -25,7 +25,7 @@ module.exports = {
       patterns: [
         {
           from: paths.public,
-          to: 'assets',
+          to: 'public',
           globOptions: {
             ignore: ['*.DS_Store'],
           },

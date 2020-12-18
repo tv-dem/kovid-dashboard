@@ -9,6 +9,9 @@ import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import Slider from './js/components/slider/Slider';
 import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
+import List from './js/components/List/List'
+import Connector from "./js/components/connector/Connector";
+import {URL_STATISTICS} from "./js/components/constants/constants";
 
 function getRandomNumber(n) {
   return Math.floor(Math.random() * n);
@@ -20,6 +23,15 @@ const dateArr = () => [...Array(180)].map((item) => {
   date.setDate(day);
   return date.toLocaleDateString('en-US');
 });
+
+const ttt = async () => {
+    const connector = new Connector(URL_STATISTICS);
+    const data=await connector.getStatistics();
+    const list = new List(data.Countries, data.Global)
+    list.renderComponent(document.querySelector('#country_list'));
+}
+
+ttt()
 
 const generateDataArr = () => [...Array(180)].map((item) => getRandomNumber(180));
 
