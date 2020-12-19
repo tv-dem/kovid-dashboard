@@ -18,6 +18,7 @@ export default class Slider extends UI {
     this.scrollNav = super.render(this.scrollContainer, 'div', null, ['class', 'scroll__nav']);
     this.scrollTrack = super.render(this.scrollNav, 'div', null, ['class', 'scroll__track']);
     const itemWidth = 100 / this.slidesToShow;
+
     // Render item with required width
     dataLabels.forEach((labelName) => super.render(this.scrollTrack, 'div', labelName).style.minWidth = `${itemWidth}%`);
     this.scrollTrack.querySelector('div').classList.add('active');
@@ -40,7 +41,7 @@ export default class Slider extends UI {
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
 
     if (this.pageCounter === 0) {
-      return;
+      return '';
     }
   }
 
@@ -52,7 +53,7 @@ export default class Slider extends UI {
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
 
     if (this.pageCounter === count) {
-      return;
+      return '';
     }
   }
 }

@@ -25,7 +25,7 @@ export default class Graph extends UI {
         labels: {
           boxWidth: 80,
           fontColor: 'rgb(189, 189, 189)',
-        }
+        },
       },
       tooltips: {
         intersect: true,
@@ -48,7 +48,7 @@ export default class Graph extends UI {
           ticks: {
             beginAtZero: true,
             fontColor: '#9e9e9e',
-          }
+          },
         }],
         xAxes: [{
           type: 'time',
@@ -64,9 +64,9 @@ export default class Graph extends UI {
             unitStepSize: 1,
             // stepSize: 2,
             // bounds: 'ticks',
-            tooltipFormat: "MM-DD-YYYY",
+            tooltipFormat: 'MM-DD-YYYY',
             displayFormats: {
-              month: "MMMM",
+              month: 'MMMM',
             },
           },
           ticks: {
@@ -78,11 +78,11 @@ export default class Graph extends UI {
           },
           scaleLabel: {
             display: false,
-            labelString: "Time in Days",
-            fontColor: "red",
-          }
-        }]
-      }
+            labelString: 'Time in Days',
+            fontColor: 'red',
+          },
+        }],
+      },
     };
 
     const myChart = new Chart(ctx, {
@@ -108,7 +108,7 @@ export default class Graph extends UI {
           barThickness: 'flex',
           maxBarThickness: 10,
           borderColor: this.data[labelName].color,
-        }]
+        }],
       },
       options: chartOptions,
     });

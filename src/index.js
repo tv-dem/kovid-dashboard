@@ -6,21 +6,19 @@
 
 // Test import of styles
 import './styles/index.scss';
-import Graph from './js/components/graph/Graph';
 import moment from 'moment';
+import Graph from './js/components/graph/graph';
 import Slider from './js/components/slider/Slider';
 import clickSliderItemHandler from './js/utils/clickSliderItemHandler';
 import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
-import Connector from "./js/components/connector/Connector";
-import { URL_STATISTICS, dataObj, sliderItemKeys } from "./js/components/constants/constants";
+import Connector from './js/components/connector/Connector';
+import { URL_STATISTICS, dataObj, sliderItemKeys } from './js/components/constants/constants';
 
 const ttt = async () => {
-  // const data = await Connector.getStatistics(URL_STATISTICS);
-  // const data = await Connector.getStatistics("https://disease.sh/v3/covid-19/historical/all?lastdays=365");
-  // console.log(data);
-  // const list = new List(data.Countries, data.Global)
-  // list.renderComponent(document.querySelector('#country_list'));
+  const data = await Connector.getStatistics(URL_STATISTICS);
+  const list = new List(data.Countries, data.Global)
+  list.renderComponent(document.querySelector('#country_list'));
 };
 
 ttt();
@@ -33,12 +31,12 @@ const getDataChart = async (countryId = 'all') => {
   if (countryId === 'all') {
     populationURL = `https://restcountries.eu/rest/v2/${countryId}?fields=name;population`;
   } else {
-    populationURL = `https://restcountries.eu/rest/v2/${'alpha/' + countryId}?fields=name;population`;
+    populationURL = `https://restcountries.eu/rest/v2/alpha/${countryId}?fields=name;population`;
   }
   // Get data daily
   const dataDaily = await Connector.getStatistics(diseaseURL);
 
-  //Get population
+  // Get population
   const countPopulation = await Connector.getStatistics(populationURL);
 
   // Pass data to dataObj
@@ -79,12 +77,12 @@ const getDataChart = async (countryId = 'all') => {
   document.querySelector('.diagram').addEventListener('mouseenter', () => btnFullScreen.classList.add('active'));
   document.querySelector('.diagram').addEventListener('mouseleave', () => btnFullScreen.classList.remove('active'));
 
-  //Handle click open full screen
+  // Handle click open full screen
   btnFullScreen.addEventListener('click', () => {
     createFullScreenPopUp();
-    const graph = new Graph('.modal', dataObj).render();
+    const graphFullScreen = new Graph('.modal', dataObj).render();
     fullScreenSlider = new Slider('.modal', 1, 2).init(sliderItemKeys);
-    document.querySelector('.modal .scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
+    document.querySelector('.modal .scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graphFullScreen));
 
     const btnCloseModal = document.querySelector('.modal__container .js-graph');
     btnCloseModal.querySelector('img').src = '../public/close-button.svg';
