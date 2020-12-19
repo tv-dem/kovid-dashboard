@@ -9,20 +9,20 @@ import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import moment from 'moment';
 import Slider from './js/components/slider/Slider';
-// import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
+import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from "./js/components/connector/Connector";
 import { URL_STATISTICS } from "./js/components/constants/constants";
 
-const ttt = async () => {
-  const connector = new Connector();
-  const data = await connector.getURL(URL_STATISTICS).getStatistics();
-  console.log(data);
-  const list = new List(data.Countries, data.Global)
-  list.renderComponent(document.querySelector('#country_list'));
-}
+// const ttt = async () => {
+//   const connector = new Connector();
+//   const data = await connector.getURL(URL_STATISTICS).getStatistics();
+//   console.log(data);
+//   const list = new List(data.Countries, data.Global)
+//   list.renderComponent(document.querySelector('#country_list'));
+// }
 
-ttt()
+// ttt()
 
 const dataObj = {
   'Daily Cases': {
@@ -70,13 +70,14 @@ const clickSliderItemHandler = ({ target }, graph) => {
   target.classList.add('active');
   graph.init(target.textContent);
 };
+let fullScreenSlider = null;
 
 const getDataChart = async (countryId = 'US') => {
-  const testURL = `https://disease.sh/v3/covid-19/historical/${countryId}?lastdays=365`;
+  const diseaseURL = `https://disease.sh/v3/covid-19/historical/${countryId}?lastdays=365`;
   const populationURL = `https://restcountries.eu/rest/v2/${'alpha/' + countryId}?fields=name;population`;
   const connector = new Connector();
   // Get data daily
-  const dataDaily = await connector.getURL(testURL).getStatistics();
+  const dataDaily = await connector.getURL(diseaseURL).getStatistics();
 
   //Get population
   const countPopulation = await connector.getURL(populationURL).getStatistics();
@@ -98,7 +99,6 @@ const getDataChart = async (countryId = 'US') => {
       .map((dataValue) => Math.trunc((dataValue * 100000) / countPopulation.population));
     dataObj[dataKey].country = dataObj[dataKeyResponse[i + 3]].country;
   });
-  console.log(dataObj);
 
   // Usage class Graph
   const graph = new Graph('.diagram', dataObj).render();
@@ -107,26 +107,34 @@ const getDataChart = async (countryId = 'US') => {
   // Handle click slider item
   document.querySelector('.scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
 
-  const btnFullScreen = document.querySelector('.bnt-full-screen__container');
+  const btnFullScreen = document.querySelector('.js-graph');
 
   // Handle move in/out graph
   document.querySelector('.diagram').addEventListener('mouseenter', () => btnFullScreen.classList.add('active'));
   document.querySelector('.diagram').addEventListener('mouseleave', () => btnFullScreen.classList.remove('active'));
 
-  //Handle click open/close full screen
+  //Handle click open full screen
   btnFullScreen.addEventListener('click', () => {
-    // clickTogglerFullScreen();
+    createFullScreenPopUp();
     const graph = new Graph('.modal', dataObj).render();
-    new Slider('.modal', 1, 2).init(sliderItemKeys);
+    fullScreenSlider = new Slider('.modal', 1, 2).init(sliderItemKeys);
     document.querySelector('.modal .scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
+
+    const btnCloseModal = document.querySelector('.modal__container .js-graph');
+    btnCloseModal.querySelector('img').src = '../public/close-button.svg';
+
+    // Handle move in/out graph
+    document.querySelector('.modal').addEventListener('mouseenter', () => btnCloseModal.classList.add('active'));
+    document.querySelector('.modal').addEventListener('mouseleave', () => btnCloseModal.classList.remove('active'));
+
+    // Handle close button
+    btnCloseModal.addEventListener('click', () => document.querySelector('.modal__container').remove());
   });
 
   // Handle resize screen
   window.addEventListener('resize', () => {
-    console.log('resize');
     slider.init(sliderItemKeys);
-    // slider.replaceWith();
-    // myChart.resize();
+    fullScreenSlider.init(sliderItemKeys);
   });
 };
 

@@ -12,10 +12,6 @@ export default class Graph extends UI {
     this.data = dataObj;
   }
 
-  getData() {
-    console.log('Give me some data...');
-  }
-
   init(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
     this.canvas = super.render(this.chartContainer, 'canvas', null, ['id', 'chart']);
@@ -120,18 +116,12 @@ export default class Graph extends UI {
 
     myChart.update();
 
-    // Нужно ли будет снимать здесь обработчик?
-    // window.addEventListener('resize', () => {
-    //   console.log('resize');
-    //   myChart.resize();
-    // });
-
     return this;
   }
 
   render() {
     this.init();
-    new CreateBtnFullScreen(this.parentSelector).render();
+    new CreateBtnFullScreen(this.parentSelector, 'js-graph').render();
 
     return this;
   }
