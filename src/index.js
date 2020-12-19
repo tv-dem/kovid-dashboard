@@ -9,6 +9,7 @@ import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import moment from 'moment';
 import Slider from './js/components/slider/Slider';
+import clickSliderItemHandler from './js/utils/clickSliderItemHandler';
 import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from "./js/components/connector/Connector";
@@ -64,12 +65,6 @@ const dataObj = {
 };
 
 const sliderItemKeys = ['Daily Cases', 'Daily Deaths', 'Recovered Cases', 'Cumulative Cases on 100.000', 'Cumulative Deaths on 100.000', 'Cumulative Recovered on 100.000'];
-const clickSliderItemHandler = ({ target }, graph) => {
-  const menuItems = document.querySelectorAll('.scroll__track div');
-  menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
-  target.classList.add('active');
-  graph.init(target.textContent);
-};
 let fullScreenSlider = null;
 
 const getDataChart = async (countryId = 'US') => {

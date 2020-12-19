@@ -113,7 +113,6 @@ export default class Graph extends UI {
       },
       options: chartOptions,
     });
-
     myChart.update();
 
     return this;
