@@ -15,6 +15,15 @@ export default class Graph extends UI {
     console.log('Give me some data...');
   }
 
+  setCallBack(cb) {
+    this.cb = cb;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  update(date) {
+    console.log('Component Graph, date: ', date);
+  }
+
   // addScrollbar(dataLabels) {
   //   new Slider('.diagram', 1, 2).init(dataLabels);
   // }
