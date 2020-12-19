@@ -25,7 +25,6 @@ export default class Graph extends UI {
         labels: {
           boxWidth: 80,
           fontColor: 'rgb(189, 189, 189)',
-          // fontSize: '10',
         }
       },
       tooltips: {

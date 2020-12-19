@@ -13,63 +13,28 @@ import clickSliderItemHandler from './js/utils/clickSliderItemHandler';
 import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from "./js/components/connector/Connector";
-import { URL_STATISTICS } from "./js/components/constants/constants";
+import { URL_STATISTICS, dataObj, sliderItemKeys } from "./js/components/constants/constants";
 
-// const ttt = async () => {
-//   const connector = new Connector();
-//   const data = await connector.getURL(URL_STATISTICS).getStatistics();
-//   console.log(data);
-//   const list = new List(data.Countries, data.Global)
-//   list.renderComponent(document.querySelector('#country_list'));
-// }
-
-// ttt()
-
-const dataObj = {
-  'Daily Cases': {
-    labels: [],
-    data: [],
-    type: 'bar',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Daily Deaths': {
-    labels: [],
-    data: [],
-    type: 'bar',
-    color: 'rgb(255, 255, 255)',
-  },
-  'Recovered Cases': {
-    labels: [],
-    data: [],
-    type: 'line',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Cumulative Cases on 100.000': {
-    labels: [],
-    data: [],
-    type: 'line',
-    color: 'rgb(255, 255, 255)',
-  },
-  'Cumulative Deaths on 100.000': {
-    labels: [],
-    data: [],
-    type: 'line',
-    color: 'rgb(255, 170, 0)',
-  },
-  'Cumulative Recovered on 100.000': {
-    labels: [],
-    data: [],
-    type: 'bar',
-    color: 'rgb(255, 255, 255)',
-  },
+const ttt = async () => {
+  // const data = await Connector.getStatistics(URL_STATISTICS);
+  // const data = await Connector.getStatistics("https://disease.sh/v3/covid-19/historical/all?lastdays=365");
+  // console.log(data);
+  // const list = new List(data.Countries, data.Global)
+  // list.renderComponent(document.querySelector('#country_list'));
 };
 
-const sliderItemKeys = ['Daily Cases', 'Daily Deaths', 'Recovered Cases', 'Cumulative Cases on 100.000', 'Cumulative Deaths on 100.000', 'Cumulative Recovered on 100.000'];
+ttt();
+
 let fullScreenSlider = null;
 
-const getDataChart = async (countryId = 'US') => {
+const getDataChart = async (countryId = 'all') => {
   const diseaseURL = `https://disease.sh/v3/covid-19/historical/${countryId}?lastdays=365`;
-  const populationURL = `https://restcountries.eu/rest/v2/${'alpha/' + countryId}?fields=name;population`;
+  let populationURL;
+  if (countryId === 'all') {
+    populationURL = `https://restcountries.eu/rest/v2/${countryId}?fields=name;population`;
+  } else {
+    populationURL = `https://restcountries.eu/rest/v2/${'alpha/' + countryId}?fields=name;population`;
+  }
   // Get data daily
   const dataDaily = await Connector.getStatistics(diseaseURL);
 
@@ -80,17 +45,24 @@ const getDataChart = async (countryId = 'US') => {
   const dataKeyDaily = ['Daily Cases', 'Daily Deaths', 'Recovered Cases'];
   const dataKeyResponse = ['cases', 'deaths', 'recovered', 'Daily Cases', 'Daily Deaths', 'Recovered Cases'];
   dataKeyDaily.forEach((dataKey, i) => {
-    dataObj[dataKey].labels = Object.keys(dataDaily.timeline[dataKeyResponse[i]])
-      .map((dateValue) => moment(dateValue, 'MM-DD-YY'));
-    dataObj[dataKey].data = Object.values(dataDaily.timeline[dataKeyResponse[i]]);
-    dataObj[dataKey].country = dataDaily.country;
+    if (countryId === 'all') {
+      dataObj[dataKey].labels = Object.keys(dataDaily[dataKeyResponse[i]])
+        .map((dateValue) => moment(dateValue, 'MM-DD-YY'));
+      dataObj[dataKey].data = Object.values(dataDaily[dataKeyResponse[i]]);
+    } else {
+      dataObj[dataKey].labels = Object.keys(dataDaily.timeline[dataKeyResponse[i]])
+        .map((dateValue) => moment(dateValue, 'MM-DD-YY'));
+      dataObj[dataKey].data = Object.values(dataDaily.timeline[dataKeyResponse[i]]);
+    }
+
+    dataObj[dataKey].country = dataDaily.country || 'The Whole World';
   });
 
   const dataKeyPercetage = ['Cumulative Cases on 100.000', 'Cumulative Deaths on 100.000', 'Cumulative Recovered on 100.000'];
   dataKeyPercetage.forEach((dataKey, i) => {
     dataObj[dataKey].labels = dataObj[dataKeyResponse[i + 3]].labels;
     dataObj[dataKey].data = (dataObj[dataKeyResponse[i + 3]].data)
-      .map((dataValue) => Math.trunc((dataValue * 100000) / countPopulation.population));
+      .map((dataValue) => Math.trunc((dataValue * 100000) / (countryId === 'all' ? countPopulation.reduce((acc, current) => acc + current.population, 0) : countPopulation.population)));
     dataObj[dataKey].country = dataObj[dataKeyResponse[i + 3]].country;
   });
 
@@ -132,4 +104,4 @@ const getDataChart = async (countryId = 'US') => {
   });
 };
 
-getDataChart('US');
+getDataChart();

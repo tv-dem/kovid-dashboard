@@ -3,4 +3,4 @@ export default function clickSliderItemHandler({ target }, graph) {
   menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
   target.classList.add('active');
   graph.init(target.textContent);
-};
+}

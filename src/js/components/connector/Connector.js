@@ -6,7 +6,6 @@ export default class Connector {
         try {
             const resultTemp = await fetch(url);
             const result = await resultTemp.json();
-            console.log(result);
             return result;
         }
         catch (err) {
@@ -14,7 +13,6 @@ export default class Connector {
             return null;
         }
     }
-
 }
 
 // result.Countries[i].CountryCode
