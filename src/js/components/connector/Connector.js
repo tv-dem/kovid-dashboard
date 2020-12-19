@@ -2,8 +2,12 @@
 //import { URL_STATISTICS} from '../constants/constants';
 
 export default class Connector {
-    constructor(url) {
+    // constructor(url) {
+    //     this.url = url;
+    // }
+    getURL(url) {
         this.url = url;
+        return this;
     }
 
     async getStatistics() {
@@ -19,7 +23,7 @@ export default class Connector {
     }
 
 }
-//module.exports = Connector;
+
 // result.Countries[i].CountryCode
 //https://www.countryflags.io/be/shiny/64.png
 

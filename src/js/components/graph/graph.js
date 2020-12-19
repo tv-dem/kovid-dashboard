@@ -16,10 +16,6 @@ export default class Graph extends UI {
     console.log('Give me some data...');
   }
 
-  // addScrollbar(dataLabels) {
-  //   new Slider('.diagram', 1, 2).init(dataLabels);
-  // }
-
   init(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
     this.canvas = super.render(this.chartContainer, 'canvas', null, ['id', 'chart']);
@@ -99,7 +95,7 @@ export default class Graph extends UI {
       data: {
         labels: this.data[labelName].labels,
         datasets: [{
-          label: labelName,
+          label: `${labelName} ${this.data[labelName].country}`,
           data: this.data[labelName].data,
           fill: false,
           // lineTension: 0,
