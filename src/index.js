@@ -70,12 +70,11 @@ let fullScreenSlider = null;
 const getDataChart = async (countryId = 'US') => {
   const diseaseURL = `https://disease.sh/v3/covid-19/historical/${countryId}?lastdays=365`;
   const populationURL = `https://restcountries.eu/rest/v2/${'alpha/' + countryId}?fields=name;population`;
-  const connector = new Connector();
   // Get data daily
-  const dataDaily = await connector.getURL(diseaseURL).getStatistics();
+  const dataDaily = await Connector.getStatistics(diseaseURL);
 
   //Get population
-  const countPopulation = await connector.getURL(populationURL).getStatistics();
+  const countPopulation = await Connector.getStatistics(populationURL);
 
   // Pass data to dataObj
   const dataKeyDaily = ['Daily Cases', 'Daily Deaths', 'Recovered Cases'];

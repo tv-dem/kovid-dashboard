@@ -2,23 +2,16 @@
 //import { URL_STATISTICS} from '../constants/constants';
 
 export default class Connector {
-    // constructor(url) {
-    //     this.url = url;
-    // }
-    getURL(url) {
-        this.url = url;
-        return this;
-    }
-
-    async getStatistics() {
+    static async getStatistics(url) {
         try {
-            const resultTemp = await fetch(this.url);
+            const resultTemp = await fetch(url);
             const result = await resultTemp.json();
             console.log(result);
             return result;
         }
         catch (err) {
             alert(err);
+            return null;
         }
     }
 
