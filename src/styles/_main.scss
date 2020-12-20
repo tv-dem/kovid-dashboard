@@ -1,13 +1,13 @@
 * {
     font-size: $font-size;
     font-family: $font-family;
-    background: $background-color;
-    color: $font-color;
     line-height: 1.4;
     box-sizing: border-box;
   }
-
+  
   body {
+    background: $background-color;
+    color: $font-color;
     min-width: 300px;
     display: flex;
     flex-direction: column;
@@ -61,21 +61,28 @@
   }
 
   .country_list {
+    overflow: hidden;
     height: 100%;
     background-color: $background-block;
   }
 
   .map {
+    overflow: hidden;
+    width: calc(100vw - 700px);
     height: 100%;
     background-color: $background-block;
   }
 
   .statistic {
+    overflow: hidden;
+    min-width: 400px;
     height: 70%;
     background-color: $background-block;
   }
 
   .diagram {
+    overflow: hidden;
+    min-width: 400px;
     height: 30%;
     position: relative;
     background-color: $background-color;
@@ -92,7 +99,7 @@
     fill: white;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     body {
     }
 

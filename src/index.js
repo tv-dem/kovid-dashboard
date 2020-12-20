@@ -14,6 +14,8 @@ import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from './js/components/connector/Connector';
 import { URL_STATISTICS, dataObj, sliderItemKeys } from './js/components/constants/constants';
+import Map from './js/components/map/Map';
+// import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
 
 const ttt = async () => {
   const data = await Connector.getStatistics(URL_STATISTICS);
@@ -103,3 +105,7 @@ const getDataChart = async (countryId = 'all') => {
 };
 
 getDataChart();
+
+// map part
+const map = new Map();
+map.initMap();
