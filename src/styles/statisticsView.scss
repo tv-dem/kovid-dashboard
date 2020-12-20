@@ -1,3 +1,7 @@
+.statistic {
+letter-spacing: 1.5px;
+}
+
 .statistic--change_type {
     width: 100%;
     height: 15%;
@@ -18,13 +22,14 @@
     align-items: center;
     background-color: #333232;
     text-align: center;
-    padding: 5px 0;
+    padding: 5px 0 0 0;
 }
 
 .inf {
     width: 100%;
     font-size: 1.5em;
     border: 1px solid black;
+    
 }
 
 .absolute, .all {
@@ -35,8 +40,15 @@ height: 15%;
     justify-content: space-around;
     align-items: center;
     background-color: #333232;
-    padding: 5px 0;
+    padding:5px 0;
+    border: 1px solid black;
 
+
+}
+.btn {
+    width: 60px;
+    height: 30px;
+    text-align: center;
 }
 
 .btn, .world_content, .all_content, .absolute_content {
@@ -46,6 +58,7 @@ height: 15%;
 .btn:hover {
 cursor: pointer;
 background-color: black;
+transition: 0.3s;
 }
 
 .informStatistics_recovered_title {
@@ -67,4 +80,15 @@ background-color: black;
 }
 .informStatistics_deaths_content {
     color:rgb(230, 69, 69);
+}
+
+.world_content {
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+}
+
+.imgFlag {
+    background-color: #333232;
+    padding-left: 5px;
 }
