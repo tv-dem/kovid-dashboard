@@ -8,10 +8,11 @@
 import './styles/index.scss';
 import Graph from './js/components/graph/Graph';
 import Slider from './js/components/slider/Slider';
+import Map from './js/components/map/Map';
 // import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
-import List from './js/components/List/List'
-import Connector from "./js/components/connector/Connector";
-import { URL_STATISTICS } from "./js/components/constants/constants";
+import List from './js/components/List/List';
+import Connector from './js/components/connector/Connector';
+import { URL_STATISTICS } from './js/components/constants/constants';
 
 function getRandomNumber(n) {
   return Math.floor(Math.random() * n);
@@ -19,7 +20,7 @@ function getRandomNumber(n) {
 
 const date = new Date();
 const dateArr = () => [...Array(180)].map((item) => {
-  let day = date.getDate() + 1;
+  const day = date.getDate() + 1;
   date.setDate(day);
   return date.toLocaleDateString('en-US');
 });
@@ -27,11 +28,11 @@ const dateArr = () => [...Array(180)].map((item) => {
 const ttt = async () => {
   const connector = new Connector(URL_STATISTICS);
   const data = await connector.getStatistics();
-  const list = new List(data.Countries, data.Global)
+  const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
-}
+};
 
-ttt()
+ttt();
 
 const generateDataArr = () => [...Array(180)].map((item) => getRandomNumber(180));
 
@@ -77,7 +78,7 @@ const dataObj = {
     data: generateDataArr(),
     type: 'bar',
     color: 'rgb(255, 170, 0)',
-  }
+  },
 };
 
 // Usage class Graph
@@ -88,7 +89,7 @@ const btnFullScreen = document.querySelector('.bnt-full-screen__container');
 
 // Handle click slider item
 const clickSliderItemHandler = ({ target }, graph) => {
-  //в этом методе обрабатывать переключение графиков (слайдов)
+  // в этом методе обрабатывать переключение графиков (слайдов)
   const menuItems = document.querySelectorAll('.scroll__track div');
   menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
   target.classList.add('active');
@@ -101,7 +102,7 @@ document.querySelector('.scroll__track').addEventListener('click', (event) => cl
 document.querySelector('.diagram').addEventListener('mouseenter', () => btnFullScreen.classList.add('active'));
 document.querySelector('.diagram').addEventListener('mouseleave', () => btnFullScreen.classList.remove('active'));
 
-//Handle click open/close full screen
+// Handle click open/close full screen
 btnFullScreen.addEventListener('click', () => {
   // clickTogglerFullScreen();
   const graph = new Graph('.modal', dataObj).render();
@@ -116,3 +117,7 @@ window.addEventListener('resize', () => {
   // slider.replaceWith();
   // myChart.resize();
 });
+
+// map part
+const map = new Map();
+map.initMap();

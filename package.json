@@ -53,6 +53,7 @@
     "url": "git@github.com:taniarascia/webpack-boilerplate"
   },
   "dependencies": {
-    "chart.js": "^2.9.4"
+    "chart.js": "^2.9.4",
+    "ymaps": "^0.2.1"
   }
 }
