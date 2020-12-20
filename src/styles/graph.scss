@@ -32,21 +32,35 @@
 
   &__left-arrow {
     width: 5%;
-    background-color: red;
+    max-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 
     & img {
-      
+      width: 100%;
+      height: 25px;
+      background-color: $background-block;
+      border-left: 2px solid $border-color;
+      border-bottom: 2px solid $border-color;
     }
   }
 
   &__right-arrow {
     width: 5%;
-    background-color: red;
+    max-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 
     & img {
-      transform: rotate(180deg);
+      width: 100%;
+      height: 25px;
+      background-color: $background-block;
+      border-right: 2px solid $border-color;
+      border-bottom: 2px solid $border-color;
     }
   }
 
@@ -67,7 +81,6 @@
     transition: all .3s;
 
     & div {
-      // min-width: 33.3%;
       font-size: .875rem;
       line-height: 1.5;
       text-align: center;
@@ -78,12 +91,11 @@
 
     & .active {
       opacity: .7;
-      // border-bottom: 2px solid #2493F2;
     }
   }
 }
 
-.bnt-full-screen__container {
+.btn-full-screen__container {
   width: 25px;
   height: 25px;
   display: none;
@@ -105,7 +117,6 @@
     height: 15px;
     width: 15px;
     background-color: transparent;
-    background-image: url('../images/fullScreenBtn.svg');
   }
 }
 
@@ -124,7 +135,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background-color: $background-color;
+    background-color: #616161;
     transition: all .3s linear;
     z-index: 10;
   
@@ -132,5 +143,40 @@
       display: block;
       opacity: .6;
     }
+  }
+
+  & .scroll__container {
+    background-color: $background-block;
+  }
+
+  &__header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $background-block;
+    border: 2px solid $border-color;
+  }
+
+  &__header-logo {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../public/logo.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: $background-block;
+  }
+
+  &__header-title {
+    margin-left: 1rem;
+    font-size: 2rem;
+    color: #bdbdbd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    background-color: $background-block;
   }
 }

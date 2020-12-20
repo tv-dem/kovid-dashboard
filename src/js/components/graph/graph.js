@@ -6,18 +6,11 @@ import CreateBtnFullScreen from '../../utils/createBtnFullScreen';
 export default class Graph extends UI {
   constructor(parentSelector, dataObj) {
     super();
+    this.parentSelector = parentSelector;
     this.parent = document.querySelector(parentSelector);
     this.chartContainer = super.render(this.parent, 'div', null, ['class', 'chart__container']);
     this.data = dataObj;
   }
-
-  getData() {
-    console.log('Give me some data...');
-  }
-
-  // addScrollbar(dataLabels) {
-  //   new Slider('.diagram', 1, 2).init(dataLabels);
-  // }
 
   init(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
@@ -32,8 +25,7 @@ export default class Graph extends UI {
         labels: {
           boxWidth: 80,
           fontColor: 'rgb(189, 189, 189)',
-          // fontSize: '10',
-        }
+        },
       },
       tooltips: {
         intersect: true,
@@ -56,7 +48,7 @@ export default class Graph extends UI {
           ticks: {
             beginAtZero: true,
             fontColor: '#9e9e9e',
-          }
+          },
         }],
         xAxes: [{
           type: 'time',
@@ -72,9 +64,9 @@ export default class Graph extends UI {
             unitStepSize: 1,
             // stepSize: 2,
             // bounds: 'ticks',
-            tooltipFormat: "MM-DD-YYYY",
+            tooltipFormat: 'MM-DD-YYYY',
             displayFormats: {
-              month: "MMMM",
+              month: 'MMMM',
             },
           },
           ticks: {
@@ -86,11 +78,11 @@ export default class Graph extends UI {
           },
           scaleLabel: {
             display: false,
-            labelString: "Time in Days",
-            fontColor: "red",
-          }
-        }]
-      }
+            labelString: 'Time in Days',
+            fontColor: 'red',
+          },
+        }],
+      },
     };
 
     const myChart = new Chart(ctx, {
@@ -98,7 +90,7 @@ export default class Graph extends UI {
       data: {
         labels: this.data[labelName].labels,
         datasets: [{
-          label: labelName,
+          label: `${labelName} ${this.data[labelName].country}`,
           data: this.data[labelName].data,
           fill: false,
           // lineTension: 0,
@@ -116,25 +108,18 @@ export default class Graph extends UI {
           barThickness: 'flex',
           maxBarThickness: 10,
           borderColor: this.data[labelName].color,
-        }]
+        }],
       },
       options: chartOptions,
     });
-
     myChart.update();
-
-    // Нужно ли будет снимать здесь обработчик?
-    // window.addEventListener('resize', () => {
-    //   console.log('resize');
-    //   myChart.resize();
-    // });
 
     return this;
   }
 
   render() {
     this.init();
-    new CreateBtnFullScreen('.diagram').render();
+    new CreateBtnFullScreen(this.parentSelector, 'js-graph').render();
 
     return this;
   }
