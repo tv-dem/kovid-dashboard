@@ -7,7 +7,7 @@ letter-spacing: 1.5px;
     height: 15%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: #333232;
     padding: 5px 0;
@@ -51,7 +51,7 @@ height: 15%;
     text-align: center;
 }
 
-.btn, .world_content, .all_content, .absolute_content {
+.btn, .world_content, .all_content, .absolute_content, .imgWorld, .world_left {
     background-color: #333232;
 
 }
@@ -86,9 +86,36 @@ transition: 0.3s;
     display: flex;
     justify-content: space-around;
     font-size: 25px;
+   // padding-left: 10px;
 }
 
 .imgFlag {
     background-color: #333232;
     padding-left: 5px;
+}
+
+.world_right {
+    height:35px;
+    width: 55px;
+    padding-right: 10px;
+    background-color: #333232;
+
+}
+.imgWorld {
+    padding-left: 10px;
+
+}
+.imgWorld_link {
+    cursor: pointer;
+    align-items: flex-end;
+  //  border-radius: 50%;
+
+}
+.imgWorld_link:hover {
+  //  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
+}
+
+.world_left {
+    width: 55px;
 }

@@ -43,23 +43,29 @@ export default class StatisticsView {
         let deathsContent = document.querySelector('.informStatistics_deaths_content');
         let recoveredContent = document.querySelector('.informStatistics_recovered_content');
         let globalCases = document.querySelector('.global_cases');
-        let contentConfirmed = '';
-        let contentDeaths = '';
-        let contentRecovered = '';
-        let contentAll = '';
-        let contentAbsolute = '';
-        let styleTitle = '';
+        let worldRight = document.querySelector('.world_right');
 
+
+        let contentConfirmed = '',
+            contentDeaths = '',
+            contentRecovered = '',
+            contentAll = '',
+            contentAbsolute = '',
+            styleTitle = '',
+            rightWorld = '';
 
         if (this.isHundredK) contentAbsolute = '100K';
         else contentAbsolute = 'Absolute';
-      
 
-        if (this.isCountry) styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
-        else styleTitle = 'World';
+
+        if (this.isCountry) {
+            styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
+            rightWorld=`<img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">`;
+        }
+        else styleTitle = `World <img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">`;
         //`<img src="../../../public/arrow-left.svg" alt="flag" width="20px">`;
-        //
-        
+        //https://raw.githubusercontent.com/SovanMarat/game_img/1c1ff271f56ffc75a294597a16c666b4f91a03a7/3/arrow-left.svg
+
 
         if (this.isOneDay && !this.isHundredK) {
             contentConfirmed = this.NewConfirmed;
@@ -76,9 +82,9 @@ export default class StatisticsView {
         }
 
         if (this.isOneDay && this.isHundredK) {
-        contentConfirmed = Math.ceil(this.NewConfirmed / (this.population / 100000));
-        contentDeaths = Math.ceil(this.NewDeaths / (this.population / 100000));
-        contentRecovered = Math.ceil(this.NewRecovered / (this.population / 100000));
+            contentConfirmed = Math.ceil(this.NewConfirmed / (this.population / 100000));
+            contentDeaths = Math.ceil(this.NewDeaths / (this.population / 100000));
+            contentRecovered = Math.ceil(this.NewRecovered / (this.population / 100000));
             contentAll = 'Last day';
         }
 
@@ -86,8 +92,8 @@ export default class StatisticsView {
             contentConfirmed = Math.ceil(this.TotalConfirmed / (this.population / 100000));
             contentDeaths = Math.ceil(this.TotalDeaths / (this.population / 100000));
             contentRecovered = Math.ceil(this.TotalRecovered / (this.population / 100000));
-                contentAll = 'In all';
-            }
+            contentAll = 'In all';
+        }
         //
         confirmedContent.innerHTML = contentConfirmed;
         deathsContent.innerHTML = contentDeaths;
@@ -96,6 +102,7 @@ export default class StatisticsView {
         worldContent.innerHTML = styleTitle;
         allContent.innerHTML = contentAll;
         absoluteContent.innerHTML = contentAbsolute;
+        worldRight.innerHTML = rightWorld;
     }
 
 

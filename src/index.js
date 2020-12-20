@@ -22,6 +22,13 @@ const init = async () => {
   blockStatistics.render();
   const allBtn = document.querySelectorAll('.all_btn');
   const absoluteBtn = document.querySelectorAll('.absolute_btn');
+  const imgWorldBtn = document.querySelector('.world_right');
+  imgWorldBtn.addEventListener('click', () => {
+    blockStatistics.isCountry = false;
+    blockStatistics.setNewValue(data.Global);
+    blockStatistics.render();
+  });
+
   console.log(blockStatistics);
   let nameCountry = '';
   let res = {};
