@@ -20,11 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59f7e49d-35a9-4e88-b6f9-71c5f74f505c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/js/components/keyboard/js/Keyboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/webpack.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/lupa.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/lupa.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/components/List/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/List/List.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/List/_list.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/List/_list.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/components/UI/UI.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/UI/UI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/components/connector/Connector.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/connector/Connector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/components/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/components/map/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/map/Map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,12 +53,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/js/components/keyboard/js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\rs\kovid-dashboard\node_modules\prettier" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\rs\kovid-dashboard\src\js\components\keyboard\js" />
+      <recent name="C:\rs\kovid-dashboard\src\js\components\keyboard\js\utils" />
+      <recent name="C:\rs\kovid-dashboard\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\rs\kovid-dashboard\public" />
     </key>
