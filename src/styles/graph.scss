@@ -1,0 +1,182 @@
+@import 'variables.scss';
+
+.chart__container {
+  width: 100%;
+  height: 90%;
+  min-height: 213px;
+  position: relative;
+  background-color: $background-block;
+  border: 2px solid $border-color;
+  border-bottom: 2px solid $background-block;
+}
+
+#chart {
+  background-color: $background-block;
+  cursor: pointer;
+}
+
+.scroll {
+
+  &__container {
+    width: 90%;
+    height: 10%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & div {
+      text-align: center;
+    }
+  }
+
+  &__left-arrow {
+    width: 5%;
+    max-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    & img {
+      width: 100%;
+      height: 25px;
+      background-color: $background-block;
+      border-left: 2px solid $border-color;
+      border-bottom: 2px solid $border-color;
+    }
+  }
+
+  &__right-arrow {
+    width: 5%;
+    max-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    & img {
+      width: 100%;
+      height: 25px;
+      background-color: $background-block;
+      border-right: 2px solid $border-color;
+      border-bottom: 2px solid $border-color;
+    }
+  }
+
+  &__nav {
+    width: 90%;
+    overflow: hidden;
+    border: 2px solid $background-block;
+    border-bottom: 2px solid $border-color;
+  }
+
+  &__track {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    position: relative;
+    transition: all .3s;
+
+    & div {
+      font-size: .875rem;
+      line-height: 1.5;
+      text-align: center;
+      background-color: $background-block;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    & .active {
+      opacity: .7;
+    }
+  }
+}
+
+.btn-full-screen__container {
+  width: 25px;
+  height: 25px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #BDBDBD;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background-color: $background-block;
+
+  &.active {
+    display: flex;
+  }
+
+  & img,
+  & div {
+    height: 15px;
+    width: 15px;
+    background-color: transparent;
+  }
+}
+
+.modal {
+  width: 80%;
+  height: 80%;
+  position: fixed;
+  z-index: 11;
+  
+  &__container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #616161;
+    transition: all .3s linear;
+    z-index: 10;
+  
+    &.active {
+      display: block;
+      opacity: .6;
+    }
+  }
+
+  & .scroll__container {
+    background-color: $background-block;
+  }
+
+  &__header {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $background-block;
+    border: 2px solid $border-color;
+  }
+
+  &__header-logo {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../public/logo.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: $background-block;
+  }
+
+  &__header-title {
+    margin-left: 1rem;
+    font-size: 2rem;
+    color: #bdbdbd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    background-color: $background-block;
+  }
+}

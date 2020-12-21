@@ -1,16 +1,18 @@
 * {
     font-size: $font-size;
     font-family: $font-family;
+    line-height: 1.4;
+    box-sizing: border-box;
+  }
+  
+  body {
     background: $background-color;
     color: $font-color;
-
-    line-height: 1.4;
-  }
-  body {
     min-width: 300px;
     display: flex;
     flex-direction: column;
   }
+
   header {
     height: 3em;
   }
@@ -26,12 +28,11 @@
     align-items: stretch;
     gap: .5em;
   }
+
   .global_cases {
     text-align: center;
     line-height: 4.5;
-
   }
-
 
   .left_page{
     min-width: 300px;
@@ -42,6 +43,7 @@
     gap: .5em;
     flex-direction: column;
   }
+
   .center_page {
     flex: auto;
   }
@@ -57,22 +59,33 @@
     height: 5em;
     background-color: $background-block;
   }
+
   .country_list {
+    overflow: hidden;
     height: 100%;
     background-color: $background-block;
   }
 
   .map {
+    overflow: hidden;
+    width: calc(100vw - 700px);
     height: 100%;
     background-color: $background-block;
   }
+
   .statistic {
+    overflow: hidden;
+    min-width: 400px;
     height: 70%;
     background-color: $background-block;
   }
-  .diagrams {
+
+  .diagram {
+    overflow: hidden;
+    min-width: 400px;
     height: 30%;
-    background-color: $background-block;
+    position: relative;
+    background-color: $background-color;
   }
 
   footer {
@@ -86,31 +99,36 @@
     fill: white;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     body {
     }
+
     .wrapper {
       height: calc(82vh * 2);
       flex-wrap: wrap;
-
     }
+
     .center_page {
       order: 1;
-
     }
+
     .right_page{
       width: calc(100vw - 296px - 3em);
-
     }
+
     .map {
       min-width: calc(100vw - 3em);
-
     }
 
+    .chart__container {
+      min-height: 240px;
+    }
   }
+
   @media (max-width: 780px) {
     body {
     }
+
     .wrapper {
       height: calc(82vh * 3);
     }
@@ -119,6 +137,7 @@
       width: 100vw;
 
     }
+
     .center_page {
       order: 1;
       width: 100vw;
@@ -126,13 +145,11 @@
 
     .right_page{
       min-width: 300px;
-      width: 100vw;
-
+      width: 100vw;  
     }
 
     .map {
       min-width: calc(100vw - 3em);
-
     }
-
   }
+
