@@ -10,12 +10,11 @@ import './styles/index.scss';
 import List from './js/components/List/List';
 import Connector from './js/components/connector/Connector';
 import { URL_STATISTICS } from './js/components/constants/constants';
-import kb from './js/components/keyboard/js/script';
 
 const ttt = async () => {
   const connector = new Connector(URL_STATISTICS);
   const data = await connector.getStatistics();
-  const list = new List(data.Countries, data.Global, kb);
+  const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
 };
 

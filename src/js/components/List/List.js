@@ -1,10 +1,10 @@
 import UI from '../UI/UI';
+import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
 
 export default class List extends UI {
-  constructor(dataList, globalData, kb) {
+  constructor(dataList, globalData) {
     super();
-    this.kb = kb;
     this.globalData = globalData;
     this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
     this.activeData = this.data;
@@ -63,7 +63,7 @@ export default class List extends UI {
         break;
     }
     this.typeCases.classList.add('list__button_active');
-    this.activeData.sort((a, b) => ((this.sortState == 'country') ? this.sortAscending(a, b, 'Country')
+    this.activeData.sort((a, b) => ((this.sortState === 'country') ? this.sortAscending(a, b, 'Country')
       : this.sortDescending(a, b, this.totalOrNew + this.activeType)));
     this.clearList();
     this.renderList(this.listParent);
@@ -108,14 +108,18 @@ export default class List extends UI {
     this.parent = parent;
     const inputWrapper = this.render(this.parent, 'div', null, ['class', 'list__input-wrapper']);
     const input = this.render(inputWrapper, 'input', null, ['class', 'list__input']);
-    this.kb.generateLayout(input);
-
+    this.kb = keyboardLink(input);
+    this.kb.render(document.body);
     const img = this.render(inputWrapper, 'img', null, ['src', '../../../../public/pupa.svg'], ['class', 'list__keyboard']);
-    img.addEventListener('click', ({ target }) => {
-      target.classList.toggle('show-kbd_active');
-      this.kb.container.classList.toggle('keyboard_active');
+    img.addEventListener('click', () => {
+      this.kb.hideView();
     });
     input.addEventListener('input', ({ target }) => {
+      this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
+      this.clearList();
+      this.renderList(this.listParent);
+    });
+    input.addEventListener('change', ({ target }) => {
       this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
       this.clearList();
       this.renderList(this.listParent);
@@ -132,18 +136,18 @@ export default class List extends UI {
 
     const typeBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
     const illCases = this.render(typeBtnWrapper, 'button', 'ill', ['class', 'list__button']);
-    const recoveryCases = this.render(typeBtnWrapper, 'button', 'recovery', ['class', 'list__button']);
-    const deathCases = this.render(typeBtnWrapper, 'button', 'death', ['class', 'list__button']);
+    this.render(typeBtnWrapper, 'button', 'recovery', ['class', 'list__button']);
+    this.render(typeBtnWrapper, 'button', 'death', ['class', 'list__button']);
 
     typeBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnTypeOnClick(target);
     });
 
     const CasesBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__cases-btn-wrapper']);
-    const lastDayCases = this.render(CasesBtnWrapper, 'button', 'last Day', ['class', 'list__button']);
+    this.render(CasesBtnWrapper, 'button', 'last Day', ['class', 'list__button']);
     const generalCases = this.render(CasesBtnWrapper, 'button', 'general', ['class', 'list__button']);
-    const onHundredGeneralCases = this.render(CasesBtnWrapper, 'button', 'on 100 people in general', ['class', 'list__button']);
-    const onHundredDayCases = this.render(CasesBtnWrapper, 'button', 'on 100 people on last day', ['class', 'list__button']);
+    this.render(CasesBtnWrapper, 'button', 'on 100 people in general', ['class', 'list__button']);
+    this.render(CasesBtnWrapper, 'button', 'on 100 people on last day', ['class', 'list__button']);
 
     CasesBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnCasesOnClick(target);
@@ -161,10 +165,6 @@ export default class List extends UI {
     const ul = this.render(wrapper, 'ul', null, ['class', 'list__ul']);
 
     this.renderList(ul);
-  }
-
-  whatRender(item, param) {
-
   }
 
   renderList(listParent) {

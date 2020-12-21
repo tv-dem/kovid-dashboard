@@ -1,4 +1,5 @@
 const paths = require('./paths')
+const path = require('path')
 require('babel-polyfill');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -30,6 +31,10 @@ module.exports = {
             ignore: ['*.DS_Store'],
           },
           noErrorOnMissing: true,
+        },
+        {
+          from: path.resolve(__dirname, '../src/js/components/virtual-keyboard/source'),
+          to: 'source',
         },
       ],
     }),
