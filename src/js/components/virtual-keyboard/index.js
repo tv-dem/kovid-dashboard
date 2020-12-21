@@ -232,9 +232,9 @@ const keyboardLink = (output) => {
     insertText(letter || '');
   });
 
-  kb.board.addEventListener('mouseup', (e) => {
+  kb.board.addEventListener('mouseup', ({target}) => {
     textarea.focus();
-    const btn = e.target;
+    const btn = target;
     if (btn.dataset.type === 'shift' || btn.dataset.type === 'capslock' || btn.dataset.type === 'ᐈ') return;
     btn.classList.remove('active');
   });
@@ -276,8 +276,8 @@ const keyboardLink = (output) => {
     textarea.removeEventListener('keydown', capsDown);
   };
 
-  const shiftDown = (e) => {
-    const btn = kb.getBtnByType(e.key.toLowerCase());
+  const shiftDown = ({ key }) => {
+    const btn = kb.getBtnByType(key.toLowerCase());
     if (!btn) return;
     if (btn.dataset.type === 'shift') {
       btn.classList.toggle('active');
@@ -301,13 +301,12 @@ const keyboardLink = (output) => {
     btn.classList.add('active');
   });
 
-  textarea.addEventListener('keyup', (e) => {
+  textarea.addEventListener('keyup', ({key}) => {
     textarea.addEventListener('keydown', capsDown);
     textarea.addEventListener('keydown', shiftDown);
     const btn = kb.getBtnByType(e.key.toLowerCase());
-    if (!btn) return;
-    if (e.key.toLowerCase() === 'capslock') return;
-    if (e.key.toLowerCase() === 'shift') {
+    if (!btn || key.toLowerCase() === 'capslock') return;
+    if (key.toLowerCase() === 'shift') {
       btn.classList.toggle('active');
       kb.isLowerCase ? kb.setUpperCase() : kb.setLowerCase();
       return;
