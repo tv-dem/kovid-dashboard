@@ -43,8 +43,8 @@ export default function mapperDataForChart(dataDaily, countPopulation, countryId
   const dataKeyDaily = ['Daily Cases', 'Daily Deaths', 'Recovered Cases'];
   const dataKeyResponse = ['cases', 'deaths', 'recovered', 'Daily Cases', 'Daily Deaths', 'Recovered Cases'];
   dataKeyDaily.forEach((dataKey, i) => {
-    const responseDataDaily = (countryId === 'all') ?
-      dataDaily[dataKeyResponse[i]]
+    const responseDataDaily = (countryId === 'all')
+      ? dataDaily[dataKeyResponse[i]]
       : dataDaily.timeline[dataKeyResponse[i]];
 
     dataOptionsForChart[dataKey].labels = Object.keys(responseDataDaily)
@@ -56,13 +56,14 @@ export default function mapperDataForChart(dataDaily, countPopulation, countryId
   const dataKeyPercetage = ['Cumulative Cases on 100.000', 'Cumulative Deaths on 100.000', 'Cumulative Recovered on 100.000'];
   const startToAccessToDataObjPropertiesInPercent = 3;
   dataKeyPercetage.forEach((dataKey, i) => {
+    /* eslint max-len: ["error", { "code": 135 }] */
     dataOptionsForChart[dataKey].labels = dataOptionsForChart[dataKeyResponse[i + startToAccessToDataObjPropertiesInPercent]].labels;
     dataOptionsForChart[dataKey].data = (dataOptionsForChart[dataKeyResponse[i + startToAccessToDataObjPropertiesInPercent]].data)
       .map((dataValue) => {
-        const denominatorForPropertiesInPercent = countryId === 'all' ?
-          countPopulation.reduce((acc, current) => acc + current.population, 0)
+        const denominatorForPropertiesInPercent = countryId === 'all'
+          ? countPopulation.reduce((acc, current) => acc + current.population, 0)
           : countPopulation.population;
-        Math.trunc((dataValue * 100000) / denominatorForPropertiesInPercent);
+        return Math.trunc((dataValue * 100000) / denominatorForPropertiesInPercent);
       });
     dataOptionsForChart[dataKey].country = dataOptionsForChart[dataKeyResponse[i + startToAccessToDataObjPropertiesInPercent]].country;
   });
