@@ -13,13 +13,15 @@ import clickSliderItemHandler from './js/utils/clickSliderItemHandler';
 import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from './js/components/connector/Connector';
-import { URL_STATISTICS, dataObj, sliderItemKeys } from './js/components/constants/constants';
+import {
+  URL_STATISTICS, dataObj, sliderItemKeys, URL_POPULATIONS,
+} from './js/components/constants/constants';
 import Map from './js/components/map/Map';
 // import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
 
 const ttt = async () => {
   const data = await Connector.getStatistics(URL_STATISTICS);
-  const list = new List(data.Countries, data.Global)
+  const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
 };
 
@@ -107,5 +109,16 @@ const getDataChart = async (countryId = 'all') => {
 getDataChart();
 
 // map part
+
 const map = new Map();
-map.initMap();
+
+const drawMap = async () => {
+  const data = await Connector.getStatistics(URL_STATISTICS);
+  const population = await Connector.getStatistics(URL_POPULATIONS);
+  map.render(document.querySelector('#global_cases'), 'div', `${data.Global.TotalConfirmed}`);
+  map.init(data, population);
+  map.initMap();
+  // console.log('1111111111', data.Countries, population);
+};
+
+drawMap();

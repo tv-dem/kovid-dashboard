@@ -1,26 +1,38 @@
 import ymaps from 'ymaps';
 import UI from '../UI/UI';
+import { colorCountries } from '../constants/constants';
 
 export default class Map extends UI {
   constructor() {
     super();
-    this.datalist = null;
     this.data = null;
+    this.dataPopulation = null;
     this.contextMap = null;
     this.highlightedDistrict = null;
     this.districtBalloon = null;
     this.ymaps = null;
+    this.isoPopulation = {};
+    this.isoTotalConfirmed = {};
+    this.isoNewConfirmed = {};
     this.districtCollections = {};
     this.bordersInfo = {};
     this.bordersFeatures = {}; // { код страны: feature от this.ymaps.borders.load }
     this.countryIndexes = {}; // { код страны: индекс страны в yandex geoObjects }
   }
 
-  init(datalist, globalData) {
-    this.datalist = datalist;
-    this.data = globalData;
-    this.initMap();
-    this.renderMap();
+  init(data, dataPopulation) {
+    this.data = data;
+    this.dataPopulation = dataPopulation;
+    this.dataPopulation.forEach((el) => {
+      this.isoPopulation[el.alpha2Code] = el.population; // этому научил меня на собесе Андрей )))
+    });
+
+    this.data.Countries.forEach((el) => {
+      this.isoTotalConfirmed[el.CountryCode] = el.TotalConfirmed;
+      this.isoNewConfirmed[el.CountryCode] = el.NewConfirmed;
+    });
+
+    console.log(this.data);
   }
 
   updateData(data) {
@@ -52,8 +64,8 @@ export default class Map extends UI {
     return new this.ymaps.GeoObjectCollection(null, {
       fillColor: color,
       strokeColor: color,
-      strokeOpacity: 0.3,
-      fillOpacity: 0.3,
+      strokeOpacity: 0.7,
+      fillOpacity: 0.7,
       hintCloseTimeout: 0,
       hintOpenTimeout: 0,
     });
@@ -71,7 +83,7 @@ export default class Map extends UI {
   mouseLeaveHandler(event) {
     const district = event.get('target').getParent();
     if (district !== this.highlightedDistrict) {
-      district.options.set({ fillOpacity: 0.3 });
+      district.options.set({ fillOpacity: 0.7 });
     }
   }
 
@@ -80,7 +92,7 @@ export default class Map extends UI {
     const district = target.getParent();
 
     if (this.highlightedDistrict) {
-      this.highlightedDistrict.options.set({ fillOpacity: 0.3 });
+      this.highlightedDistrict.options.set({ fillOpacity: 0.7 });
     }
 
     this.districtBalloon.open(event.get('coords'), district.properties.districts.join('<br>'));
@@ -88,9 +100,21 @@ export default class Map extends UI {
     this.highlightedDistrict = district;
   }
 
+  creatHint(name, iso) {
+    return `<div class='hint'>
+    <div>${name}</div>
+    <div>Population</div>
+    <div>${this.isoPopulation[iso]}</div>
+    <div>TotalConfirmed</div>
+    <div>${this.isoTotalConfirmed[iso]}</div>
+    <div>NewConfirmed</div>
+    <div>${this.isoNewConfirmed[iso]}</div>
+  </div>`;
+  }
+
   createDistrictCollections(feature, color) {
     const { name, iso3166: iso } = feature.properties;
-    feature.properties.hintContent = name;
+    feature.properties.hintContent = this.creatHint(name, iso);
     this.districtCollections[iso] = this.createGeoObjectCollection(color);
     this.districtCollections[iso].properties.districts = [];
 
@@ -133,10 +157,16 @@ export default class Map extends UI {
     this.districtBalloon.options.setParent(this.contextMap.options);
     await this.createBordersInfo();
 
-    let red = 1;
     this.bordersFeatures.forEach((feature) => {
-      red++;
-      const color = `rgb(${red + 1}, 0, 0)`;
+      const iso = feature.properties.iso3166;
+      let casesThousand = 0;
+      if (this.isoTotalConfirmed[iso]) {
+        casesThousand = Math.ceil((this.isoTotalConfirmed[iso] / this.isoPopulation[iso]) * 100);
+      }
+      if (casesThousand > 10) casesThousand = 10;
+      if (casesThousand < 1) casesThousand = 1;
+      const color = colorCountries[casesThousand - 1];
+
       this.createDistrictCollections(feature, color);
     });
 
@@ -152,7 +182,7 @@ export default class Map extends UI {
     await this.initYandexMap();
 
     // Метод для обновления цвета
-    this.updateDistricCollections('RU', 'rgb(3, 133, 7)');
+    // this.updateDistricCollections('RU', 'rgb(3, 133, 7)');
   }
 
   renderMap() {
