@@ -1,35 +1,35 @@
 import './style/style.scss';
 
-const enKeyLayout = [
-  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ᐈ', 'backspace',
-  'lang(en)', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-  'capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'enter',
-  'shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', 'left', 'right', '?',
-  ' ',
-];
-
-const ruKeyLayout = [
-  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ᐈ', 'backspace',
-  'lang(ru)', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з',
-  'capslock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'enter',
-  'shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'left', 'right', '.',
-  ' ',
-];
-
-const wKeys = [
-  'lang(en)',
-  'lang(ru)',
-  'backspace',
-  'capslock',
-  'enter',
-  'shift',
-];
-const wwKeys = [
-  ' ',
-];
-const brAfterKey = [
-  'backspace', 'p', 'enter', '?',
-];
+const keyboardConstants = {
+  enKeyLayout: [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ᐈ', 'backspace',
+    'lang(en)', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
+    'capslock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'enter',
+    'shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', 'left', 'right', '?',
+    ' ',
+  ],
+  ruKeyLayout: [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'ᐈ', 'backspace',
+    'lang(ru)', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з',
+    'capslock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'enter',
+    'shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', 'left', 'right', '.',
+    ' ',
+  ],
+  wideKeys: [
+    'lang(en)',
+    'lang(ru)',
+    'backspace',
+    'capslock',
+    'enter',
+    'shift',
+  ],
+  brAfterKey: [
+    'backspace', 'p', 'enter', '?',
+  ],
+  widerKeys: [
+    ' ',
+  ]
+}
 
 const appendInfoInBtn = (btn, text) => {
   switch (text) {
@@ -128,9 +128,11 @@ class Keyboard {
     keys.forEach((key) => {
       const btn = this.createBut(key);
       br.append(btn);
-      if (key === 'ᐈ') btn.classList.add('active');
+      if (key === 'ᐈ') {
+        btn.classList.add('active');
+      }
       this.keys.push(btn);
-      if (brAfterKey.includes(key)) {
+      if (keyboardConstants.brAfterKey.includes(key)) {
         br = document.createElement('div');
         br.setAttribute('class', `row-${++row}`);
         br.setAttribute('class', 'row');
@@ -146,15 +148,15 @@ class Keyboard {
   createBut(text) {
     const btn = document.createElement('button');
     let additionalClass = 'st-button';
-    if (wKeys.includes(text)) additionalClass = 'w-button';
-    if (wwKeys.includes(text)) additionalClass = 'ww-button';
+    if (keyboardConstants.wideKeys.includes(text)) additionalClass = 'w-button';
+    if (keyboardConstants.widerKeys.includes(text)) additionalClass = 'ww-button';
     btn.classList.add(additionalClass);
     appendInfoInBtn(btn, text);
     return btn;
   }
 
   getBtnByType(value) {
-    return this.keys.find((el) => el.dataset.type === value);
+    return this.keys.find(({dataset}) => dataset.type === value);
   }
 
   setUpperCase() {
@@ -174,23 +176,15 @@ class Keyboard {
   }
 
   changeNumbers() {
+    const setContent = (key, i) => {
+      this.keys[i].textContent = key;
+      this.keys[i].dataset.value = key;
+    }
     if (this.isshiftEnabled) {
-      if (this.isEng) {
-        this.EngSymbols.forEach((key, i) => {
-          this.keys[i].textContent = key;
-          this.keys[i].dataset.value = key;
-        });
-      } else {
-        this.RuSymblos.forEach((key, i) => {
-          this.keys[i].textContent = key;
-          this.keys[i].dataset.value = key;
-        });
-      }
+      const arrName = this.isEng ? 'EngSymbols' : 'RuSymblos'
+      this[arrName].forEach((key, i) => setContent(key, i));
     } else {
-      this.numbers.forEach((key, i) => {
-        this.keys[i].textContent = key;
-        this.keys[i].dataset.value = key;
-      });
+      this.numbers.forEach((key, i) => setContent(key, i));
     }
   }
 
@@ -210,13 +204,12 @@ class Keyboard {
 
 const keyboardLink = (output) => {
   const textarea = output;
-  const kb = new Keyboard(enKeyLayout, true, true);
+  const kb = new Keyboard(keyboardConstants.enKeyLayout, true, true);
 
   const getCaretPos = (objName) => {
     const obj = document.getElementById(objName);
-    obj.focus();
-    if (obj.selectionStart !== false) return obj.selectionStart; // Gecko
-    return 0;
+    obj.focus(); // Gecko
+    return obj.selectionStart ? obj.selectionStart : 0;
   };
 
   const insertText = (text) => {
@@ -248,8 +241,8 @@ const keyboardLink = (output) => {
     }
   };
 
-  kb.board.addEventListener('mousedown', (e) => {
-    const btn = e.target;
+  kb.board.addEventListener('mousedown', ({target}) => {
+    const btn = target;
     if (kb.hasVoice) playKey(btn.dataset.type.toLowerCase());
     if (btn.dataset.type === 'capslock' || btn.dataset.type === 'shift') {
       btn.classList.toggle('active');
@@ -282,40 +275,37 @@ const keyboardLink = (output) => {
     const string = textarea.value;
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
-    if (start === 0) return;
+    if (!start) return;
     textarea.value = string.substring(0, start - 1) + string.substring(end);
     textarea.selectionEnd = start - 1;
   });
 
   kb.getBtnByType('lang').addEventListener('click', () => {
     kb.isEng
-      ? kb.changeLang(ruKeyLayout)
-      : kb.changeLang(enKeyLayout);
+      ? kb.changeLang(keyboardConstants.ruKeyLayout)
+      : kb.changeLang(keyboardConstants.enKeyLayout);
     kb.changeNumbers();
   });
 
   kb.getBtnByType('left').addEventListener('click', () => {
-    if (textarea.selectionEnd === 0) return;
+    if (!textarea.selectionEnd) return;
     --textarea.selectionEnd;
   });
   kb.getBtnByType('right').addEventListener('click', () => {
     ++textarea.selectionStart;
   });
 
-  const capsDown = (e) => {
-    console.log(e.key);
-    const btn = kb.getBtnByType(e.key.toLowerCase());
-    if (!btn) return;
-    if (btn.dataset.type === 'capslock') {
-      if (!btn.classList.contains('active')) {
-        btn.classList.add('active');
-        kb.isLowerCase ? kb.setUpperCase() : kb.setLowerCase();
-      } else {
-        btn.classList.remove('active');
-        kb.isLowerCase ? kb.setUpperCase() : kb.setLowerCase();
-      }
-      textarea.removeEventListener('keydown', capsDown);
+  const capsDown = ({key}) => {
+    const btn = kb.getBtnByType(key.toLowerCase());
+    if (!(btn && btn.dataset.type === 'capslock')) return;
+    if (!btn.classList.contains('active')) {
+      btn.classList.add('active');
+      kb.isLowerCase ? kb.setUpperCase() : kb.setLowerCase();
+    } else {
+      btn.classList.remove('active');
+      kb.isLowerCase ? kb.setUpperCase() : kb.setLowerCase();
     }
+    textarea.removeEventListener('keydown', capsDown);
   };
 
   const shiftDown = (e) => {
@@ -332,10 +322,14 @@ const keyboardLink = (output) => {
 
   textarea.addEventListener('keydown', shiftDown);
 
-  textarea.addEventListener('keydown', (e) => {
-    if (e.key.toLowerCase() === 'capslock' || e.key.toLowerCase() === 'shift') return;
+  textarea.addEventListener('keydown', ({key}) => {
+    if (key.toLowerCase() === 'capslock' || key.toLowerCase() === 'shift') {
+      return;
+    }
     const btn = kb.getBtnByType(e.key.toLowerCase());
-    if (!btn) return;
+    if (!btn) {
+      return;
+    }
     btn.classList.add('active');
   });
 

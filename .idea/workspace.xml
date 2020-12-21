@@ -20,60 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59f7e49d-35a9-4e88-b6f9-71c5f74f505c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/webpack.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/List/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/List/List.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/components/constants/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/constants/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/backspace.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/button.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/caps.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/keyboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/shift.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/sound.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/android-chrome-192x192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/android-chrome-512x512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/apple-touch-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/browserconfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/favicon-16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/favicon-32x32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/mstile-150x150.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/safari-pinned-tab.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/static/site.webmanifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/assets/tia.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-300.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-300.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-300.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-300.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-300.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-500.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-500.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-500.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-500.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-500.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-700.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-700.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-700.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-700.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-700.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/fonts/ubuntu-v14-latin-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/Key.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/Keyboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/layouts/en.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/layouts/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/layouts/ru.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/storage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/components/keyboard/js/utils/create.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/components/virtual-keyboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/components/virtual-keyboard/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
