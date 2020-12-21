@@ -1,6 +1,6 @@
 import { Map, List, Graph, StatisticsView } from '../../index';
 
-class EventEmiiter {
+class EventEmitter {
   constructor(Map, List, Graph, StatisticsView) {
     this.Map = Map;
     this.List = List;
@@ -8,7 +8,7 @@ class EventEmiiter {
     this.StatisticsView = StatisticsView;
   }
 
-  on(event, data) {
+  emit(event, data) {
     switch (event) {
       case 'chooseMapCountry':
         this.chooseListCountryHandler(data);
@@ -35,6 +35,6 @@ class EventEmiiter {
   }
 }
 
-const Emitter = new EventEmiiter(Map, List, Graph, StatisticsView);
+const Emitter = new EventEmitter(Map, List, Graph, StatisticsView);
 
 export default Emitter;
