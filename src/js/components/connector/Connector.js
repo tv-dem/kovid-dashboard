@@ -2,21 +2,26 @@
 // import { URL_STATISTICS} from '../constants/constants';
 
 export default class Connector {
-  constructor(url) {
-    this.url = url;
-  }
-
-  async getStatistics() {
+  static async getStatistics(url) {
     try {
-      const resultTemp = await fetch(this.url);
-      const result = await resultTemp.json();
-      return result;
+      const resultTemp = await fetch(url);
+      if (resultTemp.status===200) {
+        const result = await resultTemp.json();
+        return result;
+      } else {
+       console.log(resultTemp.status);
+       return null;
+      }
+   //   console.log(resultTemp.status);
+      
     } catch (err) {
       console.error(err);
       return null;
     }
   }
 }
+
+
 // module.exports = Connector;
 // result.Countries[i].CountryCode
 // https://www.countryflags.io/be/shiny/64.png

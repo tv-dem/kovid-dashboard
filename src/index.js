@@ -9,13 +9,10 @@ import Connector from './js/components/connector/Connector';
 import { URL_STATISTICS, URL_FLAGS_POPULATION } from './js/components/constants/constants';
 
 const init = async () => {
-  const connector = new Connector(URL_STATISTICS);
-  const data = await connector.getStatistics();
+  const data = await Connector.getStatistics(URL_STATISTICS);
   const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
-
-  const population = new Connector(URL_FLAGS_POPULATION);
-  const dataPopulation = await population.getStatistics();
+  const dataPopulation = await Connector.getStatistics(URL_FLAGS_POPULATION);
 
   // StatisticsView
   const blockStatistics = new StatisticsView(data.Global);
@@ -28,30 +25,37 @@ const init = async () => {
     blockStatistics.setNewValue(data.Global);
     blockStatistics.render();
   });
-
-  console.log(blockStatistics);
   let nameCountry = '';
   let res = {};
   let resPopulation = {};
 
-  function clickCountry(el) {
-    blockStatistics.isCountry = true;
-    nameCountry = el.currentTarget.textContent.replace(/[0-9]/g, '');
-    console.log(nameCountry);
-    res = data.Countries.find((base) => base.Country === nameCountry);
-    resPopulation = dataPopulation.find((base) => base.name === nameCountry);
-    blockStatistics.setNewValue(res, resPopulation);
-    blockStatistics.render();
-  }
+  // function clickCountry(el) {
+  //   blockStatistics.isCountry = true;
+  //   nameCountry = el.currentTarget.textContent.replace(/[0-9]/g, '');
+  //   console.log(nameCountry);
+  //   return population.find(({name}) => name === nameCountry);
+  //   res = data.Countries.find((base) => base.Country === nameCountry);
+  //   resPopulation = dataPopulation.find((base) => base.name === nameCountry);
+  //   blockStatistics.setNewValue(res, resPopulation);
+  //   blockStatistics.render();
+  // }
   const listLi = document.querySelectorAll('.list__li');
   listLi.forEach((e) => {
-    e.addEventListener('click', clickCountry);
+    e.addEventListener('click', (el)=>{
+      blockStatistics.isCountry = true;
+      nameCountry = el.currentTarget.textContent.replace(/[0-9]/g, '');
+     // return population.find(({name}) => name === nameCountry);
+      res = data.Countries.find(({Country}) => Country === nameCountry);
+      resPopulation = dataPopulation.find(({name}) => name === nameCountry);
+      blockStatistics.setNewValue(res, resPopulation);
+      blockStatistics.render();
+    });
   });
 
   allBtn.forEach((el) => {
     el.addEventListener('click', () => {
       blockStatistics.isOneDay = !blockStatistics.isOneDay;
-      if (blockStatistics.Country === undefined) {
+      if (!blockStatistics.Country) {
         blockStatistics.setNewValue(data.Global);
       } else {
         blockStatistics.setNewValue(res);
@@ -62,7 +66,7 @@ const init = async () => {
   absoluteBtn.forEach((e) => {
     e.addEventListener('click', () => {
       blockStatistics.isHundredK = !blockStatistics.isHundredK;
-      if (blockStatistics.Country === undefined) {
+      if (!blockStatistics.Country) {
         blockStatistics.setNewValue(data.Global);
       } else {
         blockStatistics.setNewValue(res);
@@ -71,6 +75,7 @@ const init = async () => {
       blockStatistics.render();
     });
   });
+
   // end StatisticsView
 };
 

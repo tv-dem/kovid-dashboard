@@ -1,12 +1,21 @@
 export default class StatisticsView {
-    isCountry = false;
-    isOneDay = false;
-    isHundredK = false;
-    constructor(dataStatistics, dataPopulation) {
+
+    constructor(
+    dataStatistics, 
+    dataPopulation,
+    isCountry = false,
+    isOneDay = false,
+    isHundredK = false
+        ) {
+
         this.setNewValue(dataStatistics, dataPopulation);
+        this.isCountry=isCountry;
+        this.isOneDay=isOneDay;
+        this.isHundredK=isHundredK;
     }
 
     setNewValue(dataStatistics, dataPopulation) {
+
         this.Country = dataStatistics.Country; //
         this.NewConfirmed = dataStatistics.NewConfirmed; //случаи заражения за последние отчетные сутки
         this.TotalConfirmed = dataStatistics.TotalConfirmed;//общее количество зараженных
@@ -15,35 +24,25 @@ export default class StatisticsView {
         this.NewRecovered = dataStatistics.NewRecovered;//количество выздоровевших за последние отчетные сутки
         this.TotalRecovered = dataStatistics.TotalRecovered;// общее количество выздоровевших
 
-        if (dataPopulation === undefined) this.population = 7855350180;
-        else {
+        if (dataPopulation === undefined) {
+            this.population = 7855350180;
+        } else {
             this.population = dataPopulation.population;
             this.flag = dataPopulation.flag;
             this.name = dataPopulation.name;
         }
     };
 
-    // getHundredK() {
-    //     let contentConfirmed = '';
-    //     let contentDeaths = '';
-    //     let contentRecovered = '';
-    //     contentConfirmed = this.NewConfirmed / (this.population / 100000);
-    //     contentDeaths = this.NewDeaths / (this.population / 100000);
-    //     contentRecovered = this.NewRecovered / (this.population / 100000);
-    // }
-
-
 
     render() {
-        let worldContent = document.querySelector('.world_content');
-        let allContent = document.querySelector('.all_content');
-        let absoluteContent = document.querySelector('.absolute_content');
-
-        let confirmedContent = document.querySelector('.informStatistics_confirmed_content');
-        let deathsContent = document.querySelector('.informStatistics_deaths_content');
-        let recoveredContent = document.querySelector('.informStatistics_recovered_content');
-        let globalCases = document.querySelector('.global_cases');
-        let worldRight = document.querySelector('.world_right');
+    const worldContent = document.querySelector('.world_content'),
+        allContent = document.querySelector('.all_content'),
+        absoluteContent = document.querySelector('.absolute_content'),
+        confirmedContent = document.querySelector('.informStatistics_confirmed_content'),
+        deathsContent = document.querySelector('.informStatistics_deaths_content'),
+        recoveredContent = document.querySelector('.informStatistics_recovered_content'),
+        globalCases = document.querySelector('.global_cases'),
+        worldRight = document.querySelector('.world_right');
 
 
         let contentConfirmed = '',
@@ -103,7 +102,8 @@ export default class StatisticsView {
         allContent.innerHTML = contentAll;
         absoluteContent.innerHTML = contentAbsolute;
         worldRight.innerHTML = rightWorld;
-    }
 
+     }
+   
 
 }
