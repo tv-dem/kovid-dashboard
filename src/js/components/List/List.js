@@ -1,24 +1,19 @@
 import UI from '../UI/UI';
 import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
+// import Emitter from '../../utils/Emitter.js'
 
 export default class List extends UI {
   constructor(dataList, globalData) {
     super();
     this.globalData = globalData;
+    console.log(dataList, globalData);
     this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
     this.activeData = this.data;
-
-    // может быть Deaths Recovered Confirmed определяет какое поле брать для отрисовки  сортировки
     this.activeType = 'Confirmed';
-    // может быть Total or New
     this.totalOrNew = 'Total';
-    // флаг для определения делать ли пересчет на 100 человек при отрисовке
     this.isOnHudredCount = false;
-
-    // изначально сортируем по количеству заболеваний (country or counted)
     this.sortState = 'countend';
-
     this.btnSortOnClick.bind(this);
   }
 
@@ -31,9 +26,21 @@ export default class List extends UI {
   }
 
   liOnclickHandler(currentTarget) {
-    if (this.actvieList && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
+    if (this.actvieList
+            && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
     this.actvieList = currentTarget;
     this.actvieList.classList.toggle('list__li_active');
+    // for use Emitter
+    // const itemIndex = Number(currentTarget.dataset.index);
+    // const { CountryCode } = this.activeData[itemIndex];
+    // Emitter.emit('chooseListCountry', CountryCode);
+  }
+
+  chooseCountry(data) {
+    this.activeData = this.data.filter(({ CountryCode }) => CountryCode === data);
+    this.clearList();
+    this.renderList(this.listParent);
+    this.activeData = this.data;
   }
 
   btnSortOnClick({ target }, callback, param) {
@@ -115,11 +122,6 @@ export default class List extends UI {
       this.kb.hideView();
     });
     input.addEventListener('input', ({ target }) => {
-      this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
-      this.clearList();
-      this.renderList(this.listParent);
-    });
-    input.addEventListener('change', ({ target }) => {
       this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
       this.clearList();
       this.renderList(this.listParent);
