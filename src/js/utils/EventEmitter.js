@@ -1,4 +1,6 @@
-import { Map, List, Graph, StatisticsView } from '../../index';
+import {
+  Map, List, Graph, StatisticsView,
+} from '../../index';
 
 class EventEmitter {
   constructor(Map, List, Graph, StatisticsView) {

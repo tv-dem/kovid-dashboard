@@ -19,7 +19,7 @@ import Map from './js/components/map/Map';
 
 const ttt = async () => {
   const data = await Connector.getStatistics(URL_STATISTICS);
-  const list = new List(data.Countries, data.Global)
+  const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
 };
 
