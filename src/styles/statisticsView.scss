@@ -1,0 +1,121 @@
+.statistic {
+letter-spacing: 1.5px;
+}
+
+.statistic--change_type {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333232;
+    padding: 5px 0;
+}
+
+.informStatistics {
+    width: 100%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333232;
+    text-align: center;
+    padding: 5px 0 0 0;
+}
+
+.inf {
+    width: 100%;
+    font-size: 1.5em;
+    border: 1px solid black;
+    
+}
+
+.absolute, .all {
+    width: 100%;
+height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #333232;
+    padding:5px 0;
+    border: 1px solid black;
+
+
+}
+.btn {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+}
+
+.btn, .world_content, .all_content, .absolute_content, .imgWorld, .world_left {
+    background-color: #333232;
+
+}
+.btn:hover {
+cursor: pointer;
+background-color: black;
+transition: 0.3s;
+}
+
+.informStatistics_recovered_title {
+    color:rgb(111, 173, 95);
+}
+.informStatistics_recovered_content {
+    color:rgb(127, 247, 127);
+}
+
+.informStatistics_confirmed_title {
+    color:chocolate;
+}
+.informStatistics_confirmed_content {
+    color:rgb(240, 106, 11);
+}
+
+.informStatistics_deaths_title {
+    color:rgb(231, 94, 94);
+}
+.informStatistics_deaths_content {
+    color:rgb(230, 69, 69);
+}
+
+.world_content {
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+   // padding-left: 10px;
+}
+
+.imgFlag {
+    background-color: #333232;
+    padding-left: 5px;
+}
+
+.world_right {
+    height:35px;
+    width: 55px;
+    padding-right: 10px;
+    background-color: #333232;
+
+}
+.imgWorld {
+    padding-left: 10px;
+
+}
+.imgWorld_link {
+    cursor: pointer;
+    align-items: flex-end;
+  //  border-radius: 50%;
+
+}
+.imgWorld_link:hover {
+  //  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
+}
+
+.world_left {
+    width: 55px;
+}

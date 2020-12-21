@@ -1,12 +1,15 @@
 import UI from '../UI/UI';
+
 import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
 // import Emitter from '../../utils/Emitter.js'
+
 
 export default class List extends UI {
   constructor(dataList, globalData) {
     super();
     this.globalData = globalData;
+
     console.log(dataList, globalData);
     this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
     this.activeData = this.data;
@@ -14,6 +17,7 @@ export default class List extends UI {
     this.totalOrNew = 'Total';
     this.isOnHudredCount = false;
     this.sortState = 'countend';
+
     this.btnSortOnClick.bind(this);
   }
 
@@ -70,6 +74,7 @@ export default class List extends UI {
         break;
     }
     this.typeCases.classList.add('list__button_active');
+
     this.activeData.sort((a, b) => ((this.sortState === 'country') ? this.sortAscending(a, b, 'Country')
       : this.sortDescending(a, b, this.totalOrNew + this.activeType)));
     this.clearList();
@@ -100,6 +105,7 @@ export default class List extends UI {
         break;
     }
     this.activeData.sort((a, b) => ((this.sortState === 'country') ? this.sortAscending(a, b, 'Country')
+
       : this.sortDescending(a, b, this.totalOrNew + this.activeType)));
     this.clearList();
     this.renderList(this.listParent);
@@ -115,12 +121,14 @@ export default class List extends UI {
     this.parent = parent;
     const inputWrapper = this.render(this.parent, 'div', null, ['class', 'list__input-wrapper']);
     const input = this.render(inputWrapper, 'input', null, ['class', 'list__input']);
+
     this.kb = keyboardLink(input);
     this.kb.render(document.body);
     const img = this.render(inputWrapper, 'img', null, ['src', '../../../../public/pupa.svg'], ['class', 'list__keyboard']);
     img.addEventListener('click', () => {
       this.kb.hideView();
     });
+
     input.addEventListener('input', ({ target }) => {
       this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
       this.clearList();
@@ -138,18 +146,22 @@ export default class List extends UI {
 
     const typeBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
     const illCases = this.render(typeBtnWrapper, 'button', 'ill', ['class', 'list__button']);
+
     this.render(typeBtnWrapper, 'button', 'recovery', ['class', 'list__button']);
     this.render(typeBtnWrapper, 'button', 'death', ['class', 'list__button']);
+
 
     typeBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnTypeOnClick(target);
     });
 
     const CasesBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__cases-btn-wrapper']);
+
     this.render(CasesBtnWrapper, 'button', 'last Day', ['class', 'list__button']);
     const generalCases = this.render(CasesBtnWrapper, 'button', 'general', ['class', 'list__button']);
     this.render(CasesBtnWrapper, 'button', 'on 100 people in general', ['class', 'list__button']);
     this.render(CasesBtnWrapper, 'button', 'on 100 people on last day', ['class', 'list__button']);
+
 
     CasesBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnCasesOnClick(target);
@@ -169,17 +181,20 @@ export default class List extends UI {
     this.renderList(ul);
   }
 
+
   renderList(listParent) {
     this.listParent = listParent;
     this.activeData.forEach((item, index) => {
       const li = this.render(this.listParent, 'li', null, ['class', 'list__li'], ['data-index', index]);
       this.render(li, 'span', String(item[this.totalOrNew + this.activeType]));
       this.render(li, 'span', String(item.Country));
+
       const img = this.render(li, 'img', null, ['src', `https://www.countryflags.io/${item.CountryCode}/shiny/64.png`]);
       img.addEventListener('click', () => {
         document.querySelector('.show-kbd').classList.toggle('show-kbd_active');
         this.kb.container.classList.toggle('keyboard_active');
       });
+
       li.addEventListener('click', ({ currentTarget }) => this.liOnclickHandler(currentTarget));
     });
   }

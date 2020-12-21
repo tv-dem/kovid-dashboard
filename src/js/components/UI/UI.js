@@ -1,4 +1,5 @@
 export default class UI {
+
   constructor() {
     this.parentForBtnFullScreen = null;
     this.classForBtnFullScreen = null;
@@ -99,6 +100,7 @@ export default class UI {
       attributes.forEach(([attribute, value]) => {
         element.setAttribute(attribute, value);
       });
+
     }
     if (innerHtml) {
       element.innerHTML = innerHtml;

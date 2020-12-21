@@ -1,11 +1,3 @@
-// Test import of a JavaScript function
-// import { example } from './js/example';
-
-// Test import of an asset
-// import webpackLogo from './images/webpack-logo.svg';
-
-// Test import of styles
-import './styles/index.scss';
 import moment from 'moment';
 import Graph from './js/components/graph/graph';
 import Slider from './js/components/slider/Slider';
@@ -13,17 +5,23 @@ import clickSliderItemHandler from './js/utils/clickSliderItemHandler';
 import createFullScreenPopUp from './js/utils/createFullScreenPopUp';
 import List from './js/components/List/List';
 import Connector from './js/components/connector/Connector';
-import { URL_STATISTICS, dataObj, sliderItemKeys } from './js/components/constants/constants';
+import { URL_STATISTICS, URL_FLAGS_POPULATION, dataObj, sliderItemKeys } from './js/components/constants/constants';
 import Map from './js/components/map/Map';
+import StatisticsView from './js/components/statisticsView/StatisticsView';
 // import clickTogglerFullScreen from './js/utils/clickTogglerFullScreen';
 
 const ttt = async () => {
   const data = await Connector.getStatistics(URL_STATISTICS);
+  const dataPopulation = await Connector.getStatistics(URL_FLAGS_POPULATION);
   const list = new List(data.Countries, data.Global);
   list.renderComponent(document.querySelector('#country_list'));
 };
 
 ttt();
+
+  // StatisticsView
+  const blockStatistics = new StatisticsView(data.Global);
+  blockStatistics.init();
 
 let fullScreenSlider = null;
 
