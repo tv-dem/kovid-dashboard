@@ -1,11 +1,21 @@
-// export const URL_STATISTICS = 'https://api.covid19api.com/summary';
-// import { URL_STATISTICS} from '../constants/constants';
-
 export default class Connector {
-  static async getStatistics(url) {
+  static async getDataforChart(countryId = 'all') {
+    const diseaseURL = `https://disease.sh/v3/covid-19/historical/${countryId}?lastdays=365`;
+    const path = countryId === 'all' ? countryId : `alpha/${countryId}`;
+    const populationURL = `https://restcountries.eu/rest/v2/${path}?fields=name;population`;
+
+    const dataDaily = await Connector.getData(diseaseURL);
+    const countPopulation = await Connector.getData(populationURL);
+    return {
+      dataDaily,
+      countPopulation,
+    };
+  }
+
+  static async getData(url) {
     try {
-      const resultTemp = await fetch(url);
-      const result = await resultTemp.json();
+      const data = await fetch(url);
+      const result = await data.json();
       return result;
     } catch (err) {
       console.error(err);
@@ -13,27 +23,3 @@ export default class Connector {
     }
   }
 }
-
-// result.Countries[i].CountryCode
-// https://www.countryflags.io/be/shiny/64.png
-
-// "Countries": По конкретной стране:
-
-// "Country": "Afghanistan", === страна
-// "CountryCode": "AF",  ===     код страны (необходим для получения флага)
-// "Slug": "afghanistan",
-// "NewConfirmed": 113, === случаи заражения за последние отчетные сутки
-// "TotalConfirmed": 48229, === общее количество зараженных
-// "NewDeaths": 11, === количество умерших за последние отчетные сутки
-// "TotalDeaths": 1956, === общее количество умерших
-// "NewRecovered": 59, === количество выздоровевших за последние отчетные сутки
-// "TotalRecovered": 38200, === общее количество выздоровевших
-
-// "Global": В МИРЕ:
-
-// "NewConfirmed" === случаи заражения за последние отчетные сутки
-// "TotalConfirmed" === общее количество зараженных
-// "NewDeaths" === количество умерших за последние отчетные сутки
-// "TotalDeaths" === общее количество умерших
-// "NewRecovered" === количество выздоровевших за последние отчетные сутки
-// "TotalRecovered" === общее количество выздоровевших;
