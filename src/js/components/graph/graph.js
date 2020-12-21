@@ -7,14 +7,14 @@ export default class Graph extends UI {
     super();
     this.parentSelector = parentSelector;
     this.parent = document.querySelector(parentSelector);
-    this.chartContainer = super.render(this.parent, 'div', null, ['class', 'chart__container']);
+    this.chartContainer = UI.renderElement(this.parent, 'div', null, ['class', 'chart__container']);
     this.data = dataObj;
     this.isModal = false;
   }
 
   init(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
-    this.canvas = super.render(this.chartContainer, 'canvas', null, ['id', 'chart']);
+    this.canvas = UI.renderElement(this.chartContainer, 'canvas', null, ['id', 'chart']);
 
     const ctx = this.canvas.getContext('2d');
 
