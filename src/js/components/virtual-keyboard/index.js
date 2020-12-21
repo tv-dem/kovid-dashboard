@@ -223,7 +223,6 @@ const keyboardLink = (output) => {
       return;
     }
     if (btn.dataset.type === 'ᐈ') {
-      console.log('sodkjf');
       kb.hasVoice = !kb.hasVoice;
       btn.classList.toggle('active');
       return;
