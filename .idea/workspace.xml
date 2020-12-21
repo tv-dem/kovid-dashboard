@@ -20,7 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59f7e49d-35a9-4e88-b6f9-71c5f74f505c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/utils/EventEmitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/utils/EventEmitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +46,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/js/components" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\rs\kovid-dashboard\node_modules\prettier" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\rs\kovid-dashboard\src\js\components" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\rs\kovid-dashboard\public" />
     </key>
@@ -94,5 +98,9 @@
       <screen x="0" y="0" width="1707" height="920" />
     </state>
     <state x="510" y="211" key="run.anything.popup/0.0.1707.920@0.0.1707.920" timestamp="1608281053674" />
+    <state x="516" y="195" key="search.everywhere.popup" timestamp="1608541956962">
+      <screen x="0" y="0" width="1707" height="920" />
+    </state>
+    <state x="516" y="195" key="search.everywhere.popup/0.0.1707.920@0.0.1707.920" timestamp="1608541956962" />
   </component>
 </project>
