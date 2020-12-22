@@ -13,20 +13,9 @@ export default class StatisticsView {
     this.isOneDay = isOneDay;
     this.isHundredK = isHundredK;
     this.dataStatistics = null;
+    this.dataStatisticsCountries = null;
     this.dataPopulation = null;
   }
-
-  // Country: "France"
-  // CountryCode: "FR"
-  // Date: "2020-12-22T12:32:00Z"
-  // NewConfirmed: 5960
-  // NewDeaths: 354
-  // NewRecovered: 658
-  // Premium: {}
-  // Slug: "france"
-  // TotalConfirmed: 2535716
-  // TotalDeaths: 61019
-  // TotalRecovered: 190296
 
   setNewValue(dataStatistics, dataPopulation) {
     this.Country = dataStatistics.Country; //
@@ -46,17 +35,21 @@ export default class StatisticsView {
     }
   }
 
-  setCountry(data) { 
+  setCountry(data) {
+    if (typeof (data) === 'string') {
+      this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === data);
+    } else {
+      this.res = data;
+    }
     this.isCountry = true;
-    this.res = data;
-    this.Country = data.Country;
+    this.Country = this.res.Country;
     if (this.Country === 'United Kingdom') {
       this.Country = 'United Kingdom of Great Britain and Northern Ireland';
     }
     this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
     this.population = this.resPopulation.population;
     this.flag = this.resPopulation.flag;
-    this.setNewValue(data, this.resPopulation);
+    this.setNewValue(this.res, this.resPopulation);
     this.render();
   }
 
@@ -112,7 +105,6 @@ export default class StatisticsView {
       styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
       rightWorld = '<img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
     } else styleTitle = 'World <img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
-    // `<img src="../../../public/arrow-left.svg" alt="flag" width="20px">`;
    
     if (this.isOneDay && !this.isHundredK) {
       contentConfirmed = this.NewConfirmed;
@@ -152,9 +144,10 @@ export default class StatisticsView {
     worldRight.innerHTML = rightWorld;
   }
 
-  init(dataStatistics, dataPopulation) {
+  init(dataStatistics, dataStatisticsCountries, dataPopulation) {
     this.setNewValue(dataStatistics, dataPopulation);
     this.dataStatistics = dataStatistics;
+    this.dataStatisticsCountries = dataStatisticsCountries;
     this.dataPopulation = dataPopulation;
     this.render();
     this.clickBtn();
