@@ -1,5 +1,7 @@
 import '../../../styles/_graph.scss';
 import UI from '../UI/UI';
+import { graph } from '../../../index';
+import clickSliderItemHandler from '../../utils/clickSliderItemHandler';
 
 export default class Slider extends UI {
   constructor(parentSelector, slidesToScroll = 1, slidesToShow = 3) {
@@ -33,6 +35,8 @@ export default class Slider extends UI {
     // Handle event
     this.scrollLeftArrow.addEventListener('click', this.clickBtnLeftHandler.bind(this, this.scrollTrack, this.movePosition));
     this.scrollRightArrow.addEventListener('click', this.clickBtnRightHandler.bind(this, this.scrollTrack, this.movePosition, dataLabels.length - this.slidesToShow));
+
+    document.querySelector('.scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
     return this;
   }
 

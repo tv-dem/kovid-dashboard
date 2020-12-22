@@ -49,7 +49,17 @@ export default function mapperDataForChart(dataDaily, countPopulation, countryId
 
     dataOptionsForChart[dataKey].labels = Object.keys(responseDataDaily)
       .map((dateValue) => moment(dateValue, 'MM-DD-YY'));
-    dataOptionsForChart[dataKey].data = Object.values(responseDataDaily);
+    const dataValuesForChart = Object.values(responseDataDaily);
+
+    const mappedDataValuesForChart = [];
+    for (let i = dataValuesForChart.length - 1; i >= 0; i -= 1) {
+      if (i === 0) {
+        mappedDataValuesForChart.push(dataValuesForChart[i]);
+      } else {
+        mappedDataValuesForChart.push(Math.abs(dataValuesForChart[i] - dataValuesForChart[i - 1]));
+      }
+    }
+    dataOptionsForChart[dataKey].data = mappedDataValuesForChart.reverse();
     dataOptionsForChart[dataKey].country = dataDaily.country || 'The Whole World';
   });
 
