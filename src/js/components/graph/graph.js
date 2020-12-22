@@ -1,20 +1,20 @@
 import '../../../styles/graph.scss';
 import Chart from 'chart.js';
 import UI from '../UI/UI';
-import CreateBtnFullScreen from '../../utils/createBtnFullScreen';
 
 export default class Graph extends UI {
   constructor(parentSelector, dataObj) {
     super();
     this.parentSelector = parentSelector;
     this.parent = document.querySelector(parentSelector);
-    this.chartContainer = super.render(this.parent, 'div', null, ['class', 'chart__container']);
+    this.chartContainer = UI.renderElement(this.parent, 'div', null, ['class', 'chart__container']);
     this.data = dataObj;
+    this.isModal = false;
   }
 
   init(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
-    this.canvas = super.render(this.chartContainer, 'canvas', null, ['id', 'chart']);
+    this.canvas = UI.renderElement(this.chartContainer, 'canvas', null, ['id', 'chart']);
 
     const ctx = this.canvas.getContext('2d');
 
@@ -62,8 +62,6 @@ export default class Graph extends UI {
           time: {
             unit: 'month',
             unitStepSize: 1,
-            // stepSize: 2,
-            // bounds: 'ticks',
             tooltipFormat: 'MM-DD-YYYY',
             displayFormats: {
               month: 'MMMM',
@@ -72,8 +70,6 @@ export default class Graph extends UI {
           ticks: {
             min: this.data[labelName].labels[0],
             max: this.data[labelName].labels[this.data[labelName].labels.length - 1],
-            // beginAtZero: true,
-            // source: 'data',
             fontColor: '#9e9e9e',
           },
           scaleLabel: {
@@ -93,7 +89,6 @@ export default class Graph extends UI {
           label: `${labelName} ${this.data[labelName].country}`,
           data: this.data[labelName].data,
           fill: false,
-          // lineTension: 0,
           // cubicInterpolationMode: 'monotone',
           borderWidth: labelName === 'bar' ? 1 : 0.5,
           pointRadius: 2,
@@ -119,7 +114,10 @@ export default class Graph extends UI {
 
   render() {
     this.init();
-    new CreateBtnFullScreen(this.parentSelector, 'js-graph').render();
+    this.setParamsForBtnFullScreen(this.parentSelector, 'js-graph');
+    this.setModalWindowComponent(Graph);
+    this.updateDataForModalWindow(this.data);
+    this.renderBtnFullScreen();
 
     return this;
   }

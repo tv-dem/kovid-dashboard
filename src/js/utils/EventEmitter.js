@@ -1,4 +1,6 @@
-import { Map, List, Graph, StatisticsView } from '../../index';
+import {
+  Map, List, Graph, StatisticsView,
+} from '../../index';
 
 class EventEmitter {
   constructor(Map, List, Graph, StatisticsView) {
@@ -10,11 +12,11 @@ class EventEmitter {
 
   emit(event, data) {
     switch (event) {
-      case 'chooseMapCountry':
+      case 'chooseListCountry':
         this.chooseListCountryHandler(data);
         break;
 
-      case 'chooseListCountry':
+      case 'chooseMapCountry':
         this.chooseMapCountryHandler(data);
         break;
       default:

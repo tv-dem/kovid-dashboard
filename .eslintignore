@@ -3,3 +3,4 @@ dist
 node_module
 /.vscode
 /.git
+virtual-keyboard
