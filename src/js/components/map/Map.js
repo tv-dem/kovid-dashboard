@@ -1,8 +1,7 @@
 import ymaps from 'ymaps';
 import UI from '../UI/UI';
 import { colorCountries } from '../constants/constants';
-import { Emitter } from '../../../index';
-
+import {Emitter} from '../../../index';
 export default class Map extends UI {
   constructor() {
     super();
@@ -94,7 +93,7 @@ export default class Map extends UI {
     const target = event.get('target');
     const district = target.getParent();
 
-    Emitter.emit('chooseMapCountry', district.properties.iso[0]);
+    Emitter.emit('chooseMapCountry', district.properties.iso[0])
 
     if (this.highlightedDistrict) {
       this.highlightedDistrict.options.set({ fillOpacity: 0.7 });
@@ -147,7 +146,6 @@ export default class Map extends UI {
   </div>`;
   }
 
-  /* eslint no-param-reassign: ["error", { "props": false }] */
   createDistrictCollections(feature, color) {
     const { name, iso3166: iso } = feature.properties;
     feature.properties.hintContent = this.creatHint(name, iso);

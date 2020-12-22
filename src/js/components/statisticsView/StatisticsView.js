@@ -1,3 +1,5 @@
+import '../../../styles/_statisticsView.scss';
+
 export default class StatisticsView {
   constructor(
     isCountry = false,
