@@ -30,7 +30,7 @@ const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
 
-  const dataForChart = await getDataForChart('CH');
+  const dataForChart = await getDataForChart('CN');
 
   map.init(data, population);
   graph.init('.diagram', dataForChart);
