@@ -1,7 +1,7 @@
 import UI from '../UI/UI';
 import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
-import {Emitter} from '../../../index';
+import { Emitter } from '../../../index';
 
 export default class List extends UI {
   constructor() {
@@ -23,6 +23,7 @@ export default class List extends UI {
     this.activeData = this.data;
   }
 
+  /* eslint class-methods-use-this: ["error", { "exceptMethods": ["sortDescending", "sortAscending"] }] */
   sortDescending(a, b, param) {
     return a[param] < b[param] ? 1 : -1;
   }
@@ -33,7 +34,7 @@ export default class List extends UI {
 
   liOnclickHandler(currentTarget) {
     if (this.actvieList
-            && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
+      && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
     this.actvieList = currentTarget;
     this.actvieList.classList.toggle('list__li_active');
     // for use Emitter

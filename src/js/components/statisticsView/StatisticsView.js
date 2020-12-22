@@ -14,17 +14,17 @@ export default class StatisticsView {
     this.dataPopulation = null;
   }
 
-//   Country: "France"
-// CountryCode: "FR"
-// Date: "2020-12-22T12:32:00Z"
-// NewConfirmed: 5960
-// NewDeaths: 354
-// NewRecovered: 658
-// Premium: {}
-// Slug: "france"
-// TotalConfirmed: 2535716
-// TotalDeaths: 61019
-// TotalRecovered: 190296
+  // Country: "France"
+  // CountryCode: "FR"
+  // Date: "2020-12-22T12:32:00Z"
+  // NewConfirmed: 5960
+  // NewDeaths: 354
+  // NewRecovered: 658
+  // Premium: {}
+  // Slug: "france"
+  // TotalConfirmed: 2535716
+  // TotalDeaths: 61019
+  // TotalRecovered: 190296
 
   setNewValue(dataStatistics, dataPopulation) {
     this.Country = dataStatistics.Country; //
@@ -47,7 +47,7 @@ export default class StatisticsView {
   setCountry(data) { // название страны, а не код страны
     console.log('setCountry ', data);
     this.isCountry = true;
-    // // this.res = this.dataStatistics.Countries.find(({ Country }) => Country === this.nameCountry);
+    // this.res = this.dataStatistics.Countries.find(({ Country }) => Country === this.nameCountry);
     // this.resPopulation = this.dataPopulation.find(({ name }) => name === this.nameCountry);
     this.setNewValue(data);
     this.render();
@@ -78,7 +78,7 @@ export default class StatisticsView {
       this.setNewValue(this.dataStatistics);
       this.render();
     });
-  };
+  }
 
   render() {
     const worldContent = document.querySelector('.world_content');
@@ -146,8 +146,6 @@ export default class StatisticsView {
     allContent.innerHTML = contentAll;
     absoluteContent.innerHTML = contentAbsolute;
     worldRight.innerHTML = rightWorld;
-
-
   }
 
   init(dataStatistics, dataPopulation) {
