@@ -41,6 +41,8 @@ export default class UI {
   openModalWindow() {
     UI.createFullScreenPopUp();
     const componentFullScreen = new this.ModalWindowComponent('.modal', this.modalWindowData);
+    // componentFullScreen.parent = document.querySelector(componentFullScreen.parentSelector);
+    // componentFullScreen.chartContainer = UI.renderElement(componentFullScreen.parent, 'div', null, ['class', 'chart__container']);
     componentFullScreen.setModalWindowStatus();
     componentFullScreen.render();
 
