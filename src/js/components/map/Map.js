@@ -2,6 +2,7 @@ import ymaps from 'ymaps';
 import UI from '../UI/UI';
 import { colorCountries } from '../constants/constants';
 import {Emitter} from '../../../index';
+
 export default class Map extends UI {
   constructor() {
     super();
