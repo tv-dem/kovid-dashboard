@@ -30,7 +30,7 @@ const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
 
-  const dataForChart = await getDataForChart('CN');
+  const dataForChart = await getDataForChart('all');
 
   map.init(data, population);
   graph.init('.diagram', dataForChart);
@@ -42,3 +42,5 @@ const main = async () => {
 };
 
 main();
+
+document.querySelector('.author:nth-of-type(2)').addEventListener('click', () => new Audio('../public/meow.mp3').play());
