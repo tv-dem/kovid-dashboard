@@ -1,4 +1,4 @@
-import '../../styles/graph.scss';
+import '../../styles/_graph.scss';
 import UI from '../components/UI/UI';
 
 export default class CreateBtnFullScreen extends UI {

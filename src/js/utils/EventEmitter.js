@@ -1,6 +1,5 @@
-import {
-  Map, List, Graph, StatisticsView,
-} from '../../index';
+import Connector from '../components/connector/Connector';
+import mapperDataForChart from './mapDataForChart';
 
 class EventEmitter {
   constructor(Map, List, Graph, StatisticsView) {
@@ -24,19 +23,29 @@ class EventEmitter {
     }
   }
 
+  static async updateGraph(country) {
+    const { dataDaily, countPopulation } = await Connector.getDataforChart(country);
+    const data = mapperDataForChart(dataDaily, countPopulation, country);
+
+    return data;
+  }
+
   chooseListCountryHandler(data) {
-    this.Map.chooseCountry(data);
-    this.Graph.chooseCountry(data);
-    this.StatisticsView.chooseCountry(data);
+    this.Map.selectСountry(data.CountryCode);
+    EventEmitter.updateGraph(data.CountryCode).then(
+      (result) => this.Graph.chooseCountry(result),
+    );
+
+    this.StatisticsView.setCountry(data);
   }
 
   chooseMapCountryHandler(data) {
     this.List.chooseCountry(data);
-    this.Graph.chooseCountry(data);
-    this.StatisticsView.chooseCountry(data);
+    EventEmitter.updateGraph(data).then(
+      (result) => this.Graph.chooseCountry(result),
+    );
+    // this.StatisticsView.chooseCountry(data);
   }
 }
 
-const Emitter = new EventEmitter(Map, List, Graph, StatisticsView);
-
-export default Emitter;
+export default EventEmitter;

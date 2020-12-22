@@ -1,4 +1,4 @@
-import '../../../styles/graph.scss';
+import '../../../styles/_graph.scss';
 import UI from '../UI/UI';
 
 export default class Slider extends UI {
