@@ -8,9 +8,11 @@ import StatisticsView from './js/components/statisticsView/StatisticsView';
 import EventEmitter from './js/utils/EventEmitter';
 import {
   URL_STATISTICS,
+  URL_FLAGS_POPULATION,
   URL_POPULATIONS,
   sliderItemKeys,
 } from './js/components/constants/constants';
+
 import mapperDataForChart from './js/utils/mapDataForChart';
 
 export const map = new Map();
@@ -29,13 +31,12 @@ export const getDataForChart = async (country) => {
 const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
-
-  const dataForChart = await getDataForChart('CN');
-
+  const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
+  const dataForChart = await getDataForChart('CH');
   map.init(data, population);
   graph.init('.diagram', dataForChart);
   list.init(data.Countries, data.Global);
-  statistics.init(data.Global, data.Countries);
+  statistics.init(data.Global, populationFlags);
 
   new Slider('.diagram', 1, 2).init(sliderItemKeys);
   list.renderComponent(document.querySelector('#country_list'));
