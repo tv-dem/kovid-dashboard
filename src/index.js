@@ -118,7 +118,8 @@ const drawMap = async () => {
   map.render(document.querySelector('#global_cases'), 'div', `${data.Global.TotalConfirmed}`);
   map.init(data, population);
   map.initMap();
-  // console.log('1111111111', data.Countries, population);
 };
 
 drawMap();
+
+// map.selectСountry('CN'); - после вызова выделяет страну
