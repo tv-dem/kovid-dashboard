@@ -32,7 +32,9 @@ const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
   const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
-  const dataForChart = await getDataForChart('CH');
+
+  const dataForChart = await getDataForChart('all');
+
   map.init(data, population);
   graph.init('.diagram', dataForChart);
   list.init(data.Countries, data.Global);
@@ -43,3 +45,5 @@ const main = async () => {
 };
 
 main();
+
+document.querySelector('.author:nth-of-type(2)').addEventListener('click', () => new Audio('../public/meow.mp3').play());
