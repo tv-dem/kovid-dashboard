@@ -3,12 +3,12 @@ import Chart from 'chart.js';
 import UI from '../UI/UI';
 
 export default class Graph extends UI {
-  constructor(parentSelector, dataObj) {
+  constructor(parentSelector = null, dataObj = null) {
     super();
-    this.parentSelector = null;
+    this.parentSelector = parentSelector;
     this.parent = null;
     this.chartContainer = null;
-    this.data = null;
+    this.data = dataObj;
     this.isModal = false;
   }
 
@@ -19,6 +19,8 @@ export default class Graph extends UI {
     this.chartContainer = UI.renderElement(this.parent, 'div', null, ['class', 'chart__container']);
 
     this.render();
+
+    return this;
   }
 
   chooseCountry(dataObj) {
