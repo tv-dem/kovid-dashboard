@@ -110,8 +110,8 @@ export default class StatisticsView {
 
     if (this.isCountry) {
       styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
-      rightWorld = '<img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
-    } else styleTitle = 'World <img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
+      rightWorld = '<img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
+    } else styleTitle = 'World <img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
     // `<img src="../../../public/arrow-left.svg" alt="flag" width="20px">`;
    
     if (this.isOneDay && !this.isHundredK) {
