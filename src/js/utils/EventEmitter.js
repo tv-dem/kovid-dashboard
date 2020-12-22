@@ -44,7 +44,7 @@ class EventEmitter {
     EventEmitter.updateGraph(data).then(
       (result) => this.Graph.chooseCountry(result),
     );
-    // this.StatisticsView.chooseCountry(data);
+    this.StatisticsView.setCountry(data);
   }
 }
 

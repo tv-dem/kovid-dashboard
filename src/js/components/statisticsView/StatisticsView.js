@@ -13,20 +13,9 @@ export default class StatisticsView {
     this.isOneDay = isOneDay;
     this.isHundredK = isHundredK;
     this.dataStatistics = null;
+    this.dataStatisticsCountries = null;
     this.dataPopulation = null;
   }
-
-  // Country: "France"
-  // CountryCode: "FR"
-  // Date: "2020-12-22T12:32:00Z"
-  // NewConfirmed: 5960
-  // NewDeaths: 354
-  // NewRecovered: 658
-  // Premium: {}
-  // Slug: "france"
-  // TotalConfirmed: 2535716
-  // TotalDeaths: 61019
-  // TotalRecovered: 190296
 
   setNewValue(dataStatistics, dataPopulation) {
     this.Country = dataStatistics.Country; //
@@ -38,7 +27,7 @@ export default class StatisticsView {
     this.TotalRecovered = dataStatistics.TotalRecovered;// общее количество выздоровевших
 
     if (dataPopulation === undefined) {
-      this.population = 7855350180;
+      this.population = 7856655781;
     } else {
       this.population = dataPopulation.population;
       this.flag = dataPopulation.flag;
@@ -46,12 +35,21 @@ export default class StatisticsView {
     }
   }
 
-  setCountry(data) { // название страны, а не код страны
-    console.log('setCountry ', data);
+  setCountry(data) {
+    if (typeof (data) === 'string') {
+      this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === data);
+    } else {
+      this.res = data;
+    }
     this.isCountry = true;
-    // this.res = this.dataStatistics.Countries.find(({ Country }) => Country === this.nameCountry);
-    // this.resPopulation = this.dataPopulation.find(({ name }) => name === this.nameCountry);
-    this.setNewValue(data);
+    this.Country = this.res.Country;
+    if (this.Country === 'United Kingdom') {
+      this.Country = 'United Kingdom of Great Britain and Northern Ireland';
+    }
+    this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
+    this.population = this.resPopulation.population;
+    this.flag = this.resPopulation.flag;
+    this.setNewValue(this.res, this.resPopulation);
     this.render();
   }
 
@@ -63,7 +61,7 @@ export default class StatisticsView {
     allBtn.forEach((el) => {
       el.addEventListener('click', () => {
         this.isOneDay = !this.isOneDay;
-        this.Country ? this.setNewValue(this.res) : this.setNewValue(this.dataStatistics);
+        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
@@ -71,7 +69,7 @@ export default class StatisticsView {
     absoluteBtn.forEach((e) => {
       e.addEventListener('click', () => {
         this.isHundredK = !this.isHundredK;
-        this.Country ? this.setNewValue(this.res) : this.setNewValue(this.dataStatistics);
+        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
@@ -92,31 +90,27 @@ export default class StatisticsView {
     const globalCases = document.querySelector('.global_cases');
     const worldRight = document.querySelector('.world_right');
 
-    let contentConfirmed = '',
-      contentDeaths = '',
-      contentRecovered = '',
-      contentAll = '',
-      contentAbsolute = '',
-      styleTitle = '',
-      rightWorld = '';
+    let contentConfirmed = '';
+    let contentDeaths = '';
+    let contentRecovered = '';
+    let contentAll = '';
+    let contentAbsolute = '';
+    let styleTitle = '';
+    let rightWorld = '';
 
     if (this.isHundredK) contentAbsolute = '100K';
     else contentAbsolute = 'Absolute';
 
     if (this.isCountry) {
       styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
-      rightWorld = `<img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">`;
-    }
-    else styleTitle = `World <img src="https://raw.githubusercontent.com/SovanMarat/game_img/main/3/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">`;
-    //`<img src="../../../public/arrow-left.svg" alt="flag" width="20px">`;
-    //https://raw.githubusercontent.com/SovanMarat/game_img/1c1ff271f56ffc75a294597a16c666b4f91a03a7/3/arrow-left.svg
-
-
+      rightWorld = '<img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
+    } else styleTitle = 'World <img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
+   
     if (this.isOneDay && !this.isHundredK) {
       contentConfirmed = this.NewConfirmed;
       contentDeaths = this.NewDeaths;
       contentRecovered = this.NewRecovered;
-      contentAll = `Last day`;
+      contentAll = 'Last day';
     }
 
     if (!this.isOneDay && !this.isHundredK) {
@@ -150,9 +144,10 @@ export default class StatisticsView {
     worldRight.innerHTML = rightWorld;
   }
 
-  init(dataStatistics, dataPopulation) {
+  init(dataStatistics, dataStatisticsCountries, dataPopulation) {
     this.setNewValue(dataStatistics, dataPopulation);
     this.dataStatistics = dataStatistics;
+    this.dataStatisticsCountries = dataStatisticsCountries;
     this.dataPopulation = dataPopulation;
     this.render();
     this.clickBtn();
