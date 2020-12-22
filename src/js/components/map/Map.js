@@ -1,7 +1,7 @@
 import ymaps from 'ymaps';
 import UI from '../UI/UI';
 import { colorCountries } from '../constants/constants';
-// import Emitter from './…/'
+import {Emitter} from '../../../index';
 
 export default class Map extends UI {
   constructor() {
@@ -34,6 +34,8 @@ export default class Map extends UI {
       this.isoTotalConfirmed[CountryCode] = TotalConfirmed;
       this.isoNewConfirmed[CountryCode] = NewConfirmed;
     });
+
+    this.initMap();
   }
 
   updateData(data) {
@@ -92,7 +94,7 @@ export default class Map extends UI {
     const target = event.get('target');
     const district = target.getParent();
 
-    // Emitter.emit('chooseMapCountry', district.properties.iso)
+    Emitter.emit('chooseMapCountry', district.properties.iso[0])
 
     if (this.highlightedDistrict) {
       this.highlightedDistrict.options.set({ fillOpacity: 0.7 });
@@ -216,12 +218,5 @@ export default class Map extends UI {
   async initMap() {
     this.ymaps = await ymaps.load('https://api-maps.yandex.ru/2.1/?apikey=d79b2dc6-c925-42e8-a5be-459618c5977a&lang=ru_RU');
     await this.initYandexMap();
-
-    // Метод для обновления цвета
-    // this.updateDistricCollections('RU', 'rgb(3, 133, 7)');
-  }
-
-  renderMap() {
-    console.log(this.data);
   }
 }

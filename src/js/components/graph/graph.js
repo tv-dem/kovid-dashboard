@@ -1,18 +1,32 @@
-import '../../../styles/graph.scss';
+import '../../../styles/_graph.scss';
 import Chart from 'chart.js';
 import UI from '../UI/UI';
 
 export default class Graph extends UI {
   constructor(parentSelector, dataObj) {
     super();
-    this.parentSelector = parentSelector;
-    this.parent = document.querySelector(parentSelector);
-    this.chartContainer = UI.renderElement(this.parent, 'div', null, ['class', 'chart__container']);
-    this.data = dataObj;
+    this.parentSelector = null;
+    this.parent = null;
+    this.chartContainer = null;
+    this.data = null;
     this.isModal = false;
   }
 
-  init(labelName = 'Daily Cases') {
+  init(parentSelector, dataObj) {
+    this.parentSelector = parentSelector;
+    this.parent = document.querySelector(parentSelector);
+    this.data = dataObj;
+    this.chartContainer = UI.renderElement(this.parent, 'div', null, ['class', 'chart__container']);
+
+    this.render();
+  }
+
+  chooseCountry(dataObj) {
+    this.data = dataObj;
+    this.initGraph();
+  }
+
+  initGraph(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
     this.canvas = UI.renderElement(this.chartContainer, 'canvas', null, ['id', 'chart']);
 
@@ -113,7 +127,7 @@ export default class Graph extends UI {
   }
 
   render() {
-    this.init();
+    this.initGraph();
     this.setParamsForBtnFullScreen(this.parentSelector, 'js-graph');
     this.setModalWindowComponent(Graph);
     this.updateDataForModalWindow(this.data);

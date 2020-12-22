@@ -1,18 +1,14 @@
 import UI from '../UI/UI';
-
 import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
-// import Emitter from '../../utils/Emitter.js'
-
+import { Emitter } from '../../../index';
 
 export default class List extends UI {
-  constructor(dataList, globalData) {
+  constructor() {
     super();
-    this.globalData = globalData;
-
-    console.log(dataList, globalData);
-    this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
-    this.activeData = this.data;
+    this.globalData = null;
+    this.data = null;
+    this.activeData = null;
     this.activeType = 'Confirmed';
     this.totalOrNew = 'Total';
     this.isOnHudredCount = false;
@@ -21,6 +17,13 @@ export default class List extends UI {
     this.btnSortOnClick.bind(this);
   }
 
+  init(dataList, globalData) {
+    this.globalData = globalData;
+    this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
+    this.activeData = this.data;
+  }
+
+  /* eslint class-methods-use-this: ["error", { "exceptMethods": ["sortDescending", "sortAscending"] }] */
   sortDescending(a, b, param) {
     return a[param] < b[param] ? 1 : -1;
   }
@@ -31,16 +34,16 @@ export default class List extends UI {
 
   liOnclickHandler(currentTarget) {
     if (this.actvieList
-            && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
+      && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
     this.actvieList = currentTarget;
     this.actvieList.classList.toggle('list__li_active');
     // for use Emitter
-    // const itemIndex = Number(currentTarget.dataset.index);
-    // const { CountryCode } = this.activeData[itemIndex];
-    // Emitter.emit('chooseListCountry', CountryCode);
+    const itemIndex = Number(currentTarget.dataset.index);
+    Emitter.emit('chooseListCountry', this.activeData[itemIndex]);
   }
 
   chooseCountry(data) {
+    console.log('List ', data);
     this.activeData = this.data.filter(({ CountryCode }) => CountryCode === data);
     this.clearList();
     this.renderList(this.listParent);
@@ -119,12 +122,12 @@ export default class List extends UI {
 
   renderComponent(parent) {
     this.parent = parent;
-    const inputWrapper = this.render(this.parent, 'div', null, ['class', 'list__input-wrapper']);
-    const input = this.render(inputWrapper, 'input', null, ['class', 'list__input']);
+    const inputWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__input-wrapper']);
+    const input = UI.renderElement(inputWrapper, 'input', null, ['class', 'list__input']);
 
     this.kb = keyboardLink(input);
     this.kb.render(document.body);
-    const img = this.render(inputWrapper, 'img', null, ['src', '../../../../public/pupa.svg'], ['class', 'list__keyboard']);
+    const img = UI.renderElement(inputWrapper, 'img', null, ['src', '../../../../public/pupa.svg'], ['class', 'list__keyboard']);
     img.addEventListener('click', () => {
       this.kb.hideView();
     });
@@ -135,33 +138,31 @@ export default class List extends UI {
       this.renderList(this.listParent);
     });
 
-    const sortWrapper = this.render(this.parent, 'div', null, ['class', 'list__sort-wrapper']);
+    const sortWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__sort-wrapper']);
 
-    this.render(sortWrapper, 'span', 'sort by:', ['class', 'list__sort-by']);
-    const btnCountend = this.render(sortWrapper, 'button', 'countend', ['class', 'list__button']);
-    const btnCountry = this.render(sortWrapper, 'button', 'country', ['class', 'list__button']);
+    UI.renderElement(sortWrapper, 'span', 'sort by:', ['class', 'list__sort-by']);
+    const btnCountend = UI.renderElement(sortWrapper, 'button', 'countend', ['class', 'list__button']);
+    const btnCountry = UI.renderElement(sortWrapper, 'button', 'country', ['class', 'list__button']);
 
     btnCountend.addEventListener('click', (e) => { this.btnSortOnClick(e, this.sortDescending, this.totalOrNew + this.activeType); });
     btnCountry.addEventListener('click', (e) => { this.btnSortOnClick(e, this.sortAscending, 'Country'); });
 
-    const typeBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
-    const illCases = this.render(typeBtnWrapper, 'button', 'ill', ['class', 'list__button']);
+    const typeBtnWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
+    const illCases = UI.renderElement(typeBtnWrapper, 'button', 'ill', ['class', 'list__button']);
 
-    this.render(typeBtnWrapper, 'button', 'recovery', ['class', 'list__button']);
-    this.render(typeBtnWrapper, 'button', 'death', ['class', 'list__button']);
-
+    UI.renderElement(typeBtnWrapper, 'button', 'recovery', ['class', 'list__button']);
+    UI.renderElement(typeBtnWrapper, 'button', 'death', ['class', 'list__button']);
 
     typeBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnTypeOnClick(target);
     });
 
-    const CasesBtnWrapper = this.render(this.parent, 'div', null, ['class', 'list__cases-btn-wrapper']);
+    const CasesBtnWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__cases-btn-wrapper']);
 
-    this.render(CasesBtnWrapper, 'button', 'last Day', ['class', 'list__button']);
-    const generalCases = this.render(CasesBtnWrapper, 'button', 'general', ['class', 'list__button']);
-    this.render(CasesBtnWrapper, 'button', 'on 100 people in general', ['class', 'list__button']);
-    this.render(CasesBtnWrapper, 'button', 'on 100 people on last day', ['class', 'list__button']);
-
+    UI.renderElement(CasesBtnWrapper, 'button', 'last Day', ['class', 'list__button']);
+    const generalCases = UI.renderElement(CasesBtnWrapper, 'button', 'general', ['class', 'list__button']);
+    UI.renderElement(CasesBtnWrapper, 'button', 'on 100 people in general', ['class', 'list__button']);
+    UI.renderElement(CasesBtnWrapper, 'button', 'on 100 people on last day', ['class', 'list__button']);
 
     CasesBtnWrapper.addEventListener('click', ({ target }) => {
       if (target.classList.contains('list__button')) this.btnCasesOnClick(target);
@@ -175,21 +176,20 @@ export default class List extends UI {
     this.typeCases = illCases;
     this.countCases = generalCases;
 
-    const wrapper = this.render(this.parent, 'div', null, ['class', 'list__wrapper']);
-    const ul = this.render(wrapper, 'ul', null, ['class', 'list__ul']);
+    const wrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__wrapper']);
+    const ul = UI.renderElement(wrapper, 'ul', null, ['class', 'list__ul']);
 
     this.renderList(ul);
   }
 
-
   renderList(listParent) {
     this.listParent = listParent;
     this.activeData.forEach((item, index) => {
-      const li = this.render(this.listParent, 'li', null, ['class', 'list__li'], ['data-index', index]);
-      this.render(li, 'span', String(item[this.totalOrNew + this.activeType]));
-      this.render(li, 'span', String(item.Country));
+      const li = UI.renderElement(this.listParent, 'li', null, ['class', 'list__li'], ['data-index', index]);
+      UI.renderElement(li, 'span', String(item[this.totalOrNew + this.activeType]));
+      UI.renderElement(li, 'span', String(item.Country));
 
-      const img = this.render(li, 'img', null, ['src', `https://www.countryflags.io/${item.CountryCode}/shiny/64.png`]);
+      const img = UI.renderElement(li, 'img', null, ['src', `https://www.countryflags.io/${item.CountryCode}/shiny/64.png`]);
       img.addEventListener('click', () => {
         document.querySelector('.show-kbd').classList.toggle('show-kbd_active');
         this.kb.container.classList.toggle('keyboard_active');

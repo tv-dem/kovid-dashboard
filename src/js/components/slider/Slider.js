@@ -1,4 +1,4 @@
-import '../../../styles/graph.scss';
+import '../../../styles/_graph.scss';
 import UI from '../UI/UI';
 
 export default class Slider extends UI {
@@ -20,7 +20,10 @@ export default class Slider extends UI {
     const itemWidth = 100 / this.slidesToShow;
 
     // Render item with required width
-    dataLabels.forEach((labelName) => UI.renderElement(this.scrollTrack, 'div', labelName).style.minWidth = `${itemWidth}%`);
+    dataLabels.forEach((labelName) => {
+      const sliderItem = UI.renderElement(this.scrollTrack, 'div', labelName);
+      sliderItem.style.minWidth = `${itemWidth}%`;
+    });
     this.scrollTrack.querySelector('div').classList.add('active');
     this.scrollRightArrow = UI.renderElement(this.scrollContainer, 'div', null, ['class', 'scroll__right-arrow']);
     this.rightArrow = UI.renderElement(this.scrollRightArrow, 'img', null, ['src', '../../../../public/arrow-right.svg'], ['alt', 'scroll right arrow']);
@@ -33,6 +36,8 @@ export default class Slider extends UI {
     return this;
   }
 
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  /* eslint no-useless-return: 0 */
   clickBtnLeftHandler(track, movePosition) {
     if (this.pageCounter > 0) {
       this.pageCounter -= 1;
@@ -41,7 +46,7 @@ export default class Slider extends UI {
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
 
     if (this.pageCounter === 0) {
-      return '';
+      return;
     }
   }
 
@@ -53,7 +58,7 @@ export default class Slider extends UI {
     track.style.transform = `translateX(${-movePosition * this.pageCounter}px)`;
 
     if (this.pageCounter === count) {
-      return '';
+      return;
     }
   }
 }
