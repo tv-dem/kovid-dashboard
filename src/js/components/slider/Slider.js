@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0] */
 import '../../../styles/_graph.scss';
 import UI from '../UI/UI';
 import { graph } from '../../../index';
@@ -37,6 +38,7 @@ export default class Slider extends UI {
     this.scrollRightArrow.addEventListener('click', this.clickBtnRightHandler.bind(this, this.scrollTrack, this.movePosition, dataLabels.length - this.slidesToShow));
 
     document.querySelector('.scroll__track').addEventListener('click', (event) => clickSliderItemHandler(event, graph));
+
     return this;
   }
 

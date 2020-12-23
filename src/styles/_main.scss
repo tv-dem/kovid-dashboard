@@ -13,18 +13,31 @@
     flex-direction: column;
   }
 
-  header {
-    height: 3em;
+  .header {
+    
+    height: 4em;
+    display: flex;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: $background-block;
+    border: 2px solid $border-color;
+    box-sizing: content-box;
   }
 
   h1 {
-    text-align: left;
+    
     max-width: 90vw;
+    margin: 0;
+    text-align: left;
   }
 
   .wrapper {
+    margin-top: 10px;
     display: flex;
-    height: 86vh;
+    height: 80vh;
+    min-height: 680px;
     align-items: stretch;
     gap: .5em;
   }
@@ -44,8 +57,8 @@
   .left_page{
     min-width: 300px;
     max-width: 300px;
-    height: 100%;
-    //overflow: hidden;
+    height: 80vh;
+    min-height: 680px;
     display: flex;
     gap: .5em;
     flex-direction: column;
@@ -57,6 +70,7 @@
 
   .right_page{
     min-width: 400px;
+    height: 80vh;
     display: flex;
     gap: .5em;
     flex-direction: column;
@@ -75,35 +89,98 @@
 
   .map {
     overflow: hidden;
-    width: calc(100vw - 700px);
+    width: calc(100vw - 740px);
     height: 100%;
     background-color: $background-block;
   }
-
+  .legend_map {
+    display: flex;
+    flex-direction: column;
+    position: absolute; 
+    top: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 8px;
+    font-weight: 900;
+    color: black;
+    background-color: white;
+  }
   .statistic {
     overflow: hidden;
     min-width: 400px;
-    height: 70%;
+    height: 45%;
     background-color: $background-block;
   }
 
   .diagram {
-    overflow: hidden;
-    min-width: 400px;
-    height: 30%;
+    min-width: 300px;
+    height: 55%;
     position: relative;
     background-color: $background-color;
   }
 
-  footer {
+  .footer {
     height: 3em;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     margin: .5em;
+
+    &__school {
+      
+
+      & a {
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      & a:hover {
+        opacity: .9;
+      }
+
+      & svg {
+        height: 2rem;
+        margin-right: 1rem;
+        transition: .3s;
+      }
+    }
   }
 
-  #Layer_1 path{
-    fill: white;
+  .author {
+    padding: 1rem;
+
+    &__container {
+      display: flex;
+    }
+
+    & svg {
+      width: 2rem;
+      height: 2rem;
+      margin-left: 1rem;
+      transition: .3s;
+      cursor: pointer;
+
+      & path {
+        fill: #fff;
+      }
+    }
+
+    & a {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    & a:hover {
+      opacity: .9;
+    }
   }
 
   @media (max-width: 1023px) {
@@ -120,11 +197,11 @@
     }
 
     .right_page{
-      width: calc(100vw - 296px - 3em);
+      width: calc(100vw - 281px - 3em);
     }
 
     .map {
-      min-width: calc(100vw - 3em);
+      min-width: calc(100vw - 1em);
     }
 
     .chart__container {
@@ -132,31 +209,48 @@
     }
   }
 
-  @media (max-width: 780px) {
+  @media (max-width: 730px) {
     body {
     }
 
     .wrapper {
-      height: calc(82vh * 3);
+      display: flex;
+      flex-direction: column;
+      height: calc(82vh*3);
+      min-height: 2040px ;
+    }
+    .global_cases {
+      width: 96vw;
+      min-width: 320px;
+    }
+    .country_list {
+      width: 96vw;
+      min-width: 320px;
     }
 
     .left_page{
-      width: 100vw;
+      min-width: 320px;
+      width: 100%
 
     }
 
     .center_page {
+      min-width: 320px;
+      width: 100%;
       order: 1;
-      width: 100vw;
     }
 
     .right_page{
-      min-width: 300px;
-      width: 100vw;  
+      min-width: 320px;
+      width: 100% 
     }
+    
 
     .map {
-      min-width: calc(100vw - 3em);
+      width: 100%;
+      min-width: 320px;
+      height: 80vh;
+
     }
   }
 

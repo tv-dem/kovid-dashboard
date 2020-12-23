@@ -86,6 +86,9 @@
       text-align: center;
       background-color: $background-block;
       box-sizing: border-box;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       cursor: pointer;
     }
 
@@ -150,7 +153,6 @@
   }
 
   &__header {
-    width: 100%;
     height: 10%;
     display: flex;
     justify-content: space-around;
@@ -171,7 +173,7 @@
 
   &__header-title {
     margin-left: 1rem;
-    font-size: 2rem;
+    font-size: 1rem;
     color: #bdbdbd;
     white-space: nowrap;
     overflow: hidden;

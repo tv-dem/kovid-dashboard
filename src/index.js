@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0] */
 import './styles/index.scss';
 import Connector from './js/components/connector/Connector';
 import Map from './js/components/map/Map';
@@ -32,14 +33,22 @@ const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
   const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
-  const dataForChart = await getDataForChart('CH');
+
+  const dataForChart = await getDataForChart('all');
+
   map.init(data, population);
   graph.init('.diagram', dataForChart);
   list.init(data.Countries, data.Global);
   statistics.init(data.Global, data.Countries, populationFlags);
 
-  new Slider('.diagram', 1, 2).init(sliderItemKeys);
+  const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);
   list.renderComponent(document.querySelector('#country_list'));
+
+  window.addEventListener('resize', () => {
+    slider.init(sliderItemKeys);
+  });
 };
 
 main();
+
+document.querySelector('.author:nth-of-type(2)').addEventListener('click', () => new Audio('../public/meow.mp3').play());

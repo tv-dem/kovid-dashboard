@@ -116,7 +116,6 @@ class Keyboard {
 
   createBut(text) {
     const btn = document.createElement('button');
-    btn.classList.add('button');
     let additionalClass = 'st-button';
     if (keyboardConstants.wideKeys.includes(text)) additionalClass = 'w-button';
     if (keyboardConstants.widerKeys.includes(text)) additionalClass = 'ww-button';
@@ -212,7 +211,7 @@ const keyboardLink = (output) => {
   };
 
   kb.board.addEventListener('mousedown', ({target}) => {
-    if(!target.classList.contains('button')) return;
+    if(!target.classList.contains('st-button')) return;
     const btn = target;
     if (kb.hasVoice) playKey(btn.dataset.type.toLowerCase());
     if (btn.dataset.type === 'capslock' || btn.dataset.type === 'shift') {

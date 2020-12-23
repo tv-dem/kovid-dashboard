@@ -88,7 +88,9 @@ export default class StatisticsView {
     allBtn.forEach((el) => {
       el.addEventListener('click', () => {
         this.isOneDay = !this.isOneDay;
-        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
+        this.Country
+          ? this.setNewValue(this.res, this.resPopulation)
+          : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
@@ -96,7 +98,9 @@ export default class StatisticsView {
     absoluteBtn.forEach((e) => {
       e.addEventListener('click', () => {
         this.isHundredK = !this.isHundredK;
-        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
+        this.Country
+          ? this.setNewValue(this.res, this.resPopulation)
+          : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
