@@ -14,8 +14,8 @@
   }
 
   .header {
+    
     height: 4em;
-    width: 100%;
     display: flex;
     justify-content: space-around;
     -webkit-box-align: center;
@@ -27,14 +27,17 @@
   }
 
   h1 {
+    
     max-width: 90vw;
     margin: 0;
     text-align: left;
   }
 
   .wrapper {
+    margin-top: 10px;
     display: flex;
-    height: 86vh;
+    height: 80vh;
+    min-height: 680px;
     align-items: stretch;
     gap: .5em;
   }
@@ -54,8 +57,8 @@
   .left_page{
     min-width: 300px;
     max-width: 300px;
-    height: 100%;
-    //overflow: hidden;
+    height: 80vh;
+    min-height: 680px;
     display: flex;
     gap: .5em;
     flex-direction: column;
@@ -67,6 +70,7 @@
 
   .right_page{
     min-width: 400px;
+    height: 80vh;
     display: flex;
     gap: .5em;
     flex-direction: column;
@@ -85,7 +89,7 @@
 
   .map {
     overflow: hidden;
-    width: calc(100vw - 700px);
+    width: calc(100vw - 740px);
     height: 100%;
     background-color: $background-block;
   }
@@ -93,13 +97,13 @@
   .statistic {
     overflow: hidden;
     min-width: 400px;
-    height: 70%;
+    height: 60%;
     background-color: $background-block;
   }
 
   .diagram {
     min-width: 300px;
-    height: 30%;
+    height: 40%;
     position: relative;
     background-color: $background-color;
   }
@@ -112,7 +116,7 @@
     margin: .5em;
 
     &__school {
-      padding: 1rem;
+      
 
       & a {
         display: flex;
@@ -182,11 +186,11 @@
     }
 
     .right_page{
-      width: calc(100vw - 296px - 3em);
+      width: calc(100vw - 281px - 3em);
     }
 
     .map {
-      min-width: calc(100vw - 3em);
+      min-width: calc(100vw - 1em);
     }
 
     .chart__container {
@@ -194,31 +198,48 @@
     }
   }
 
-  @media (max-width: 780px) {
+  @media (max-width: 730px) {
     body {
     }
 
     .wrapper {
-      height: calc(82vh * 3);
+      display: flex;
+      flex-direction: column;
+      height: calc(82vh*3);
+      min-height: 2040px ;
+    }
+    .global_cases {
+      width: 96vw;
+      min-width: 320px;
+    }
+    .country_list {
+      width: 96vw;
+      min-width: 320px;
     }
 
     .left_page{
-      width: 100vw;
+      min-width: 320px;
+      width: 100%
 
     }
 
     .center_page {
+      min-width: 320px;
+      width: 100%;
       order: 1;
-      width: 100vw;
     }
 
     .right_page{
-      min-width: 300px;
-      width: 100vw;  
+      min-width: 320px;
+      width: 100% 
     }
+    
 
     .map {
-      min-width: calc(100vw - 3em);
+      width: 100%;
+      min-width: 320px;
+      height: 80vh;
+
     }
   }
 
