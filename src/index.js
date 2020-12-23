@@ -33,16 +33,16 @@ const main = async () => {
   const data = await Connector.getData(URL_STATISTICS);
   const population = await Connector.getData(URL_POPULATIONS);
   const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
-
   const dataForChart = await getDataForChart('all');
 
   map.init(data, population);
   graph.init('.diagram', dataForChart);
-  list.init(data.Countries, data.Global);
+  list.init('#country_list', data);
   statistics.init(data.Global, data.Countries, populationFlags);
 
+  graph.setSliderParams(Slider, true);
+
   const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);
-  list.renderComponent(document.querySelector('#country_list'));
 
   window.addEventListener('resize', () => {
     slider.init(sliderItemKeys);

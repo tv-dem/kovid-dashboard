@@ -5,6 +5,9 @@ export default class UI {
     this.ModalWindowComponent = null;
     this.modalWindowData = null;
     this.modalWindowStatus = null;
+    this.componentFullScreen = null;
+    this.Slider = null;
+    this.isSliderUsed = null;
   }
 
   setParamsForBtnFullScreen(parentSelector, classValue) {
@@ -38,18 +41,27 @@ export default class UI {
     document.querySelector(`.${this.classForBtnFullScreen}`).classList.remove('active');
   }
 
+  clickSliderItemHandler({ target }) {
+    const menuItems = document.querySelectorAll('.scroll__track div');
+    menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
+    target.classList.add('active');
+    this.componentFullScreen.initGraph(target.textContent);
+  }
+
   openModalWindow() {
     UI.createFullScreenPopUp();
-    const componentFullScreen = new this.ModalWindowComponent('.modal', this.modalWindowData);
-    componentFullScreen.setModalWindowStatus();
-    componentFullScreen.render();
+    this.componentFullScreen = new this.ModalWindowComponent();
+    this.componentFullScreen.setModalWindowStatus();
+    this.componentFullScreen.init('.modal', this.modalWindowData);
 
-    // const graphFullScreen = new Graph('.modal', data).render();
-    // fullScreenSlider = new Slider('.modal', 1, 2).init(sliderItemKeys);
-    // document.querySelector('.modal .scroll__track')
-    // .addEventListener('click', (event) => clickSliderItemHandler(event, graphFullScreen));
+    if (this.isSliderUsed) {
+      const sliderItemKeys = ['Daily Cases', 'Daily Deaths', 'Recovered Cases', 'Cumulative Cases on 100.000', 'Cumulative Deaths on 100.000', 'Cumulative Recovered on 100.000'];
+      new this.Slider('.modal', 1, 2).init(sliderItemKeys);
+      document.querySelector('.modal .scroll__track')
+        .addEventListener('click', (event) => this.clickSliderItemHandler(event));
+    }
 
-    const btnCloseModal = document.querySelector('.modal__container .js-graph');
+    const btnCloseModal = document.querySelector(`.modal__container .${this.classForBtnFullScreen}`);
     btnCloseModal.querySelector('img').src = '../public/close-button.svg';
     document.querySelector('.modal').addEventListener('mouseenter', () => btnCloseModal.classList.add('active'));
     document.querySelector('.modal').addEventListener('mouseleave', () => btnCloseModal.classList.remove('active'));
@@ -95,15 +107,19 @@ export default class UI {
 
   static renderElement(parent, tagName, innerHtml = null, ...attributes) {
     const element = document.createElement(tagName);
+
     if (attributes.length) {
       attributes.forEach(([attribute, value]) => {
         element.setAttribute(attribute, value);
       });
     }
+
     if (innerHtml) {
       element.innerHTML = innerHtml;
     }
+
     parent.append(element);
+
     return element;
   }
 }
