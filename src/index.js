@@ -40,8 +40,12 @@ const main = async () => {
   list.init(data.Countries, data.Global);
   statistics.init(data.Global, data.Countries, populationFlags);
 
-  new Slider('.diagram', 1, 2).init(sliderItemKeys);
+  const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);
   list.renderComponent(document.querySelector('#country_list'));
+
+  window.addEventListener('resize', () => {
+    slider.init(sliderItemKeys);
+  });
 };
 
 main();
