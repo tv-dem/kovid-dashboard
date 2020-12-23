@@ -37,18 +37,43 @@ export default class StatisticsView {
 
   setCountry(data) {
     if (typeof (data) === 'string') {
+      if (data === "GL") {
+        data = "DK";
+      }
       this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === data);
     } else {
       this.res = data;
     }
-    this.isCountry = true;
-    this.Country = this.res.Country;
-    if (this.Country === 'United Kingdom') {
-      this.Country = 'United Kingdom of Great Britain and Northern Ireland';
+    if (this.res === undefined) {
+      this.res =
+      {
+        Country: "no info",
+        NewConfirmed: "no info",
+        TotalConfirmed: "no info",
+        NewDeaths: "no info",
+        TotalDeaths: "no info",
+        NewRecovered: "no info",
+        TotalRecovered: "no info"
+      };
+      this.resPopulation = {
+        population: 0,
+        flag: "../../../public/noneFlag.png"
+      };
+      this.Country = this.res.Country;
+    } else {
+      if (this.Country === 'United Kingdom') {
+        this.Country = 'United Kingdom of Great Britain and Northern Ireland';
+      }
+      if (this.Country === 'Korea (South)') {
+        this.Country = 'Korea (Republic of)';
+      }
+      
+      this.Country = this.res.Country;
+      this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
+      this.population = this.resPopulation.population;
+      this.flag = this.resPopulation.flag;
     }
-    this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
-    this.population = this.resPopulation.population;
-    this.flag = this.resPopulation.flag;
+    this.isCountry = true;
     this.setNewValue(this.res, this.resPopulation);
     this.render();
   }
@@ -106,7 +131,7 @@ export default class StatisticsView {
     else contentAbsolute = 'Absolute';
 
     if (this.isCountry) {
-      styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
+      styleTitle = `${this.Country} <img src="${this.flag}" alt="" width="40px" height="30px" class ="imgFlag">`;
       rightWorld = '<img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
     } else styleTitle = 'World <img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
 
@@ -128,6 +153,11 @@ export default class StatisticsView {
       contentConfirmed = Math.ceil(this.NewConfirmed / (this.population / 100000));
       contentDeaths = Math.ceil(this.NewDeaths / (this.population / 100000));
       contentRecovered = Math.ceil(this.NewRecovered / (this.population / 100000));
+      if (this.Country === "no info") {
+        contentConfirmed = "no info";
+        contentDeaths = "no info";
+        contentRecovered = "no info";
+      }
       contentAll = 'Last day';
     }
 
@@ -135,13 +165,18 @@ export default class StatisticsView {
       contentConfirmed = Math.ceil(this.TotalConfirmed / (this.population / 100000));
       contentDeaths = Math.ceil(this.TotalDeaths / (this.population / 100000));
       contentRecovered = Math.ceil(this.TotalRecovered / (this.population / 100000));
+      if (this.Country === "no info") {
+        contentConfirmed = "no info";
+        contentDeaths = "no info";
+        contentRecovered = "no info";
+      }
       contentAll = 'In all';
     }
     //
     confirmedContent.innerHTML = contentConfirmed;
     deathsContent.innerHTML = contentDeaths;
     recoveredContent.innerHTML = contentRecovered;
-    globalCases.innerHTML = `Global Cases ${this.TotalConfirmed}`;
+    globalCases.innerHTML = `Global Cases ${this.dataStatistics.TotalConfirmed}`;
     worldContent.innerHTML = styleTitle;
     allContent.innerHTML = contentAll;
     absoluteContent.innerHTML = contentAbsolute;
