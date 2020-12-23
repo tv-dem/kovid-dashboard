@@ -37,7 +37,7 @@ const main = async () => {
 
   map.init(data, population);
   graph.init('.diagram', dataForChart);
-  list.init('#country_list', data);
+  list.init('#country_list', data, population);
   statistics.init(data.Global, data.Countries, populationFlags);
 
   graph.setSliderParams(Slider, true);
