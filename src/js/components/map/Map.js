@@ -221,8 +221,42 @@ export default class Map extends UI {
     });
   }
 
+  initLegend() {
+    const ButtonLayout = this.ymaps.templateLayoutFactory.createClass([
+      '<div  class="legend_map">',
+      '<div class="force">Number of cases</div>',
+      '<div class="force_100">over 5000</div>',
+      '<div class="force_80">4000 - 3000</div>',
+      '<div class="force_60">3000 - 2000</div>',
+      '<div class="force_40">1000 - 2000</div>',
+      '<div class="force_20">less 1000</div>',
+      '</div>',
+
+    ].join(''));
+
+    const button = new this.ymaps.control.Button({
+      data: {
+        content: '',
+        image: '',
+        title: '',
+      },
+      options: {
+        layout: ButtonLayout,
+      },
+    });
+
+    this.contextMap.controls.add(button, {
+      float: 'none',
+      position: {
+        top: 5,
+        left: 5,
+      },
+    });
+  }
+
   async initMap() {
     this.ymaps = await ymaps.load('https://api-maps.yandex.ru/2.1/?apikey=d79b2dc6-c925-42e8-a5be-459618c5977a&lang=ru_RU');
     await this.initYandexMap();
+    this.initLegend();
   }
 }
