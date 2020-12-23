@@ -18,6 +18,11 @@ class EventEmitter {
       case 'chooseMapCountry':
         this.chooseMapCountryHandler(data);
         break;
+
+      case 'chooseWholeWorld':
+        this.chooseGraphHandler(data);
+        break;
+
       default:
         break;
     }
@@ -45,6 +50,12 @@ class EventEmitter {
       (result) => this.Graph.chooseCountry(result),
     );
     this.StatisticsView.setCountry(data);
+  }
+
+  chooseGraphHandler(data) {
+    EventEmitter.updateGraph(data).then(
+      (result) => this.Graph.chooseCountry(result),
+    );
   }
 }
 
