@@ -149,7 +149,7 @@ export default class List extends UI {
     img.addEventListener('click', () => {
       this.kb.hideView();
     });
-
+    this.kb.board.addEventListener('click', (e) => this.onKeyboardClick(e, input));
     input.addEventListener('input', ({ target }) => {
       this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
       this.clearList();
@@ -206,6 +206,13 @@ export default class List extends UI {
     }
     const { population } = this.population.find(({ alpha2Code }) => CountryCode === alpha2Code);
     return Math.ceil((count / population) * 100000);
+  }
+
+  onKeyboardClick({ target }, input) {
+    if (!target.classList.contains('button')) return;
+    this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(input.value));
+    this.clearList();
+    this.renderList(this.listParent);
   }
 
   renderList(listParent) {
