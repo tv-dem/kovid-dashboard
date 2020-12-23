@@ -52,11 +52,11 @@ export default function mapperDataForChart(dataDaily, countPopulation, countryId
     const dataValuesForChart = Object.values(responseDataDaily);
 
     const mappedDataValuesForChart = [];
-    for (let i = dataValuesForChart.length - 1; i >= 0; i -= 1) {
-      if (i === 0) {
-        mappedDataValuesForChart.push(dataValuesForChart[i]);
+    for (let j = dataValuesForChart.length - 1; j >= 0; j -= 1) {
+      if (j === 0) {
+        mappedDataValuesForChart.push(dataValuesForChart[j]);
       } else {
-        mappedDataValuesForChart.push(Math.abs(dataValuesForChart[i] - dataValuesForChart[i - 1]));
+        mappedDataValuesForChart.push(Math.abs(dataValuesForChart[j] - dataValuesForChart[j - 1]));
       }
     }
     dataOptionsForChart[dataKey].data = mappedDataValuesForChart.reverse();

@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0] */
 import UI from '../UI/UI';
 import keyboardLink from '../virtual-keyboard/index';
 import './_list.scss';
@@ -23,6 +24,7 @@ export default class List extends UI {
     this.activeData = this.data;
   }
 
+  /* eslint max-len: ["error", { "code": 140 }] */
   /* eslint class-methods-use-this: ["error", { "exceptMethods": ["sortDescending", "sortAscending"] }] */
   sortDescending(a, b, param) {
     return a[param] < b[param] ? 1 : -1;

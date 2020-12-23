@@ -61,7 +61,9 @@ export default class StatisticsView {
     allBtn.forEach((el) => {
       el.addEventListener('click', () => {
         this.isOneDay = !this.isOneDay;
-        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
+        this.Country
+          ? this.setNewValue(this.res, this.resPopulation)
+          : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
@@ -69,7 +71,9 @@ export default class StatisticsView {
     absoluteBtn.forEach((e) => {
       e.addEventListener('click', () => {
         this.isHundredK = !this.isHundredK;
-        this.Country ? this.setNewValue(this.res, this.resPopulation) : this.setNewValue(this.dataStatistics);
+        this.Country
+          ? this.setNewValue(this.res, this.resPopulation)
+          : this.setNewValue(this.dataStatistics);
         this.render();
       });
     });
@@ -105,7 +109,7 @@ export default class StatisticsView {
       styleTitle = `${this.Country} <img src="${this.flag}" alt="flag" width="40px" height="30px" class ="imgFlag">`;
       rightWorld = '<img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld imgWorld_link">';
     } else styleTitle = 'World <img src="../../../public/world2.png" alt="flag" width="45px" height="35px" class ="imgWorld">';
-   
+
     if (this.isOneDay && !this.isHundredK) {
       contentConfirmed = this.NewConfirmed;
       contentDeaths = this.NewDeaths;
