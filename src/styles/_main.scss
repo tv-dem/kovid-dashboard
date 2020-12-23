@@ -152,7 +152,7 @@
   }
 
   .statistic {
-    overflow: hidden;
+    position: relative;
     min-width: 400px;
     height: 45%;
     background-color: $background-block;
