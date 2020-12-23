@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0] */
 import '../../../styles/_graph.scss';
 import UI from '../UI/UI';
 import { graph } from '../../../index';

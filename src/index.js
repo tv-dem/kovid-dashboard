@@ -1,3 +1,4 @@
+/* eslint import/no-cycle: [0] */
 import './styles/index.scss';
 import Connector from './js/components/connector/Connector';
 import Map from './js/components/map/Map';
