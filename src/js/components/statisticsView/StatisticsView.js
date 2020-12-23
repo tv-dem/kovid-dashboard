@@ -1,35 +1,85 @@
 /* eslint-disable no-unused-expressions */
+import UI from '../UI/UI';
 import '../../../styles/_statisticsView.scss';
 
-export default class StatisticsView {
-  constructor(
-    isCountry = false,
-    isOneDay = false,
-    isHundredK = false,
-  ) {
+export default class StatisticsView extends UI {
+  constructor() {
+    super();
     this.nameCountry = null;
     this.res = {};
     this.resPopulation = {};
-    this.isCountry = isCountry;
-    this.isOneDay = isOneDay;
-    this.isHundredK = isHundredK;
+    this.isCountry = false;
+    this.isOneDay = false;
+    this.isHundredK = false;
     this.dataStatistics = null;
     this.dataStatisticsCountries = null;
     this.dataPopulation = null;
+
+    this.parent = null;
+    this.dataForModal = null;
+    this.parentSelector = null;
+    this.worldContent = null;
+    this.allContent = null;
+    this.absoluteContent = null;
+    this.confirmedContent = null;
+    this.deathsContent = null;
+    this.recoveredContent = null;
+    this.globalCases = null;
+    this.worldRight = null;
+  }
+
+  static renderInfromStatistic(parent, innerHTML) {
+    const css = innerHTML.toLowerCase().replace(/:/g, '');
+    const inf = UI.renderElement(parent, 'div', null, ['class', `informStatistics_${css}`]);
+    UI.renderElement(inf, 'div', innerHTML, ['class', `informStatistics_${css}_title`]);
+    return UI.renderElement(inf, 'div', '1', ['class', `informStatistics_${css}_content`]);
+  }
+
+  renderFirstBtn(parent) {
+    const btnOptions = UI.renderElement(parent, 'div', null, ['class', 'btn_options']);
+    const all = UI.renderElement(btnOptions, 'div', null, ['class', 'all']);
+    const allBtnFist = UI.renderElement(all, 'div', null, ['class', 'all_btn btn']);
+    UI.renderElement(allBtnFist, 'img', null, ['src', './public/arrow-left.svg']);
+    this.allContent = UI.renderElement(all, 'div', 'In all', ['class', 'all_content']);
+    const allBtnSecond = UI.renderElement(all, 'div', null, ['class', 'all_btn btn']);
+    UI.renderElement(allBtnSecond, 'img', null, ['src', './public/arrow-right.svg']);
+  }
+
+  renderSecondBtn(parent) {
+    const btnOptions = UI.renderElement(parent, 'div', null, ['class', 'absolute']);
+    const allBtnFist = UI.renderElement(btnOptions, 'div', null, ['class', 'absolute_btn btn']);
+    UI.renderElement(allBtnFist, 'img', null, ['src', './public/arrow-left.svg']);
+    this.absoluteContent = UI.renderElement(btnOptions, 'div', 'Absolute', ['class', 'absolute_content']);
+    const allBtnSecond = UI.renderElement(btnOptions, 'div', null, ['class', 'absolute_btn btn']);
+    UI.renderElement(allBtnSecond, 'img', null, ['src', './public/arrow-right.svg']);
+  }
+
+  renderComponent() {
+    this.parent = document.querySelector(this.parent);
+    const statisticChange = UI.renderElement(this.parent, 'div', null, ['class', 'statistic--change']);
+    const statisticChangeType = UI.renderElement(statisticChange, 'div', null, ['class', 'statistic--change_type']);
+    UI.renderElement(statisticChangeType, 'div', null, ['class', 'world_left']);
+    this.worldContent = UI.renderElement(statisticChangeType, 'div', 'World', ['class', 'world_content']);
+    this.worldRight = UI.renderElement(statisticChangeType, 'div', null, ['class', 'world_right']);
+    const informStatistics = UI.renderElement(this.parent, 'div', null, ['class', 'informStatistics']);
+    this.confirmedContent = StatisticsView.renderInfromStatistic(informStatistics, 'Confirmed:');
+    this.deathsContent = StatisticsView.renderInfromStatistic(informStatistics, 'Deaths:');
+    this.recoveredContent = StatisticsView.renderInfromStatistic(informStatistics, 'Recovered:');
+    this.renderFirstBtn(this.parent);
+    this.renderSecondBtn(this.parent);
   }
 
   setNewValue(dataStatistics, dataPopulation) {
-    this.Country = dataStatistics.Country; //
-    this.NewConfirmed = dataStatistics.NewConfirmed; // случаи заражения за последние отчетные сутки
-    this.TotalConfirmed = dataStatistics.TotalConfirmed;// общее количество зараженных
-    this.NewDeaths = dataStatistics.NewDeaths;// количество умерших за последние отчетные сутки
-    this.TotalDeaths = dataStatistics.TotalDeaths;// общее количество умерших
-    this.NewRecovered = dataStatistics.NewRecovered;// количество выздоровевших за отчетные сутки
-    this.TotalRecovered = dataStatistics.TotalRecovered;// общее количество выздоровевших
+    this.population = 7856655781;
+    this.Country = dataStatistics.Country;
+    this.NewConfirmed = dataStatistics.NewConfirmed;
+    this.TotalConfirmed = dataStatistics.TotalConfirmed;
+    this.NewDeaths = dataStatistics.NewDeaths;
+    this.TotalDeaths = dataStatistics.TotalDeaths;
+    this.NewRecovered = dataStatistics.NewRecovered;
+    this.TotalRecovered = dataStatistics.TotalRecovered;
 
-    if (dataPopulation === undefined) {
-      this.population = 7856655781;
-    } else {
+    if (dataPopulation) {
       this.population = dataPopulation.population;
       this.flag = dataPopulation.flag;
       this.name = dataPopulation.name;
@@ -38,17 +88,15 @@ export default class StatisticsView {
 
   setCountry(data) {
     let dataTemp = '';
+
     if (typeof (data) === 'string') {
-      if (data === 'GL') {
-        dataTemp = 'DK';
-      } else {
-        dataTemp = data;
-      }
+      dataTemp = data === 'GL' ? 'DK' : data;
       this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === dataTemp);
     } else {
       this.res = data;
     }
-    if (this.res === undefined) {
+
+    if (!this.res) {
       this.res = {
         Country: 'no info',
         NewConfirmed: 'no info',
@@ -63,28 +111,36 @@ export default class StatisticsView {
         flag: '../../../public/noneFlag.png',
       };
       this.Country = this.res.Country;
-    } else {
-      if (this.Country === 'United Kingdom') {
-        this.Country = 'United Kingdom of Great Britain and Northern Ireland';
-      }
-      if (this.Country === 'Korea (South)') {
-        this.Country = 'Korea (Republic of)';
-      }
 
-      this.Country = this.res.Country;
-      this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
-      this.population = this.resPopulation.population;
-      this.flag = this.resPopulation.flag;
+      return;
     }
+
+    if (this.Country === 'United Kingdom') {
+      this.Country = 'United Kingdom of Great Britain and Northern Ireland';
+    }
+    if (this.Country === 'Korea (South)') {
+      this.Country = 'Korea (Republic of)';
+    }
+
+    this.Country = this.res.Country;
+    this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
+    this.population = this.resPopulation.population;
+    this.flag = this.resPopulation.flag;
     this.isCountry = true;
+
     this.setNewValue(this.res, this.resPopulation);
-    this.render();
+    // this.updateDataForModalWindow({
+    //   dataStatistics: this.res,
+    //   dataPopulation: this.resPopulation,
+    // });
+
+    this.renderStatistic();
   }
 
   clickBtn() {
     const allBtn = document.querySelectorAll('.all_btn');
     const absoluteBtn = document.querySelectorAll('.absolute_btn');
-    const imgWorldBtn = document.querySelector('.world_right');
+    const imgWorldBtn = this.worldRight;
 
     allBtn.forEach((el) => {
       el.addEventListener('click', () => {
@@ -92,7 +148,7 @@ export default class StatisticsView {
         this.Country
           ? this.setNewValue(this.res, this.resPopulation)
           : this.setNewValue(this.dataStatistics);
-        this.render();
+        this.renderStatistic();
       });
     });
 
@@ -102,25 +158,18 @@ export default class StatisticsView {
         this.Country
           ? this.setNewValue(this.res, this.resPopulation)
           : this.setNewValue(this.dataStatistics);
-        this.render();
+        this.renderStatistic();
       });
     });
     imgWorldBtn.addEventListener('click', () => {
       this.isCountry = false;
       this.setNewValue(this.dataStatistics);
-      this.render();
+      this.renderStatistic();
     });
   }
 
-  render() {
-    const worldContent = document.querySelector('.world_content');
-    const allContent = document.querySelector('.all_content');
-    const absoluteContent = document.querySelector('.absolute_content');
-    const confirmedContent = document.querySelector('.informStatistics_confirmed_content');
-    const deathsContent = document.querySelector('.informStatistics_deaths_content');
-    const recoveredContent = document.querySelector('.informStatistics_recovered_content');
+  renderStatistic() {
     const globalCases = document.querySelector('.global_cases');
-    const worldRight = document.querySelector('.world_right');
 
     let contentConfirmed = '';
     let contentDeaths = '';
@@ -176,22 +225,32 @@ export default class StatisticsView {
       contentAll = 'In all';
     }
     //
-    confirmedContent.innerHTML = contentConfirmed;
-    deathsContent.innerHTML = contentDeaths;
-    recoveredContent.innerHTML = contentRecovered;
+    this.confirmedContent.innerHTML = contentConfirmed;
+    this.deathsContent.innerHTML = contentDeaths;
+    this.recoveredContent.innerHTML = contentRecovered;
     globalCases.innerHTML = `Global Cases ${this.dataStatistics.TotalConfirmed}`;
-    worldContent.innerHTML = styleTitle;
-    allContent.innerHTML = contentAll;
-    absoluteContent.innerHTML = contentAbsolute;
-    worldRight.innerHTML = rightWorld;
+    this.worldContent.innerHTML = styleTitle;
+    this.allContent.innerHTML = contentAll;
+    this.absoluteContent.innerHTML = contentAbsolute;
+    this.worldRight.innerHTML = rightWorld;
   }
 
-  init(dataStatistics, dataStatisticsCountries, dataPopulation) {
-    this.setNewValue(dataStatistics, dataPopulation);
-    this.dataStatistics = dataStatistics;
-    this.dataStatisticsCountries = dataStatisticsCountries;
-    this.dataPopulation = dataPopulation;
-    this.render();
+  init(parent, input) {
+    this.dataForModal = input;
+    this.parentSelector = parent;
+    this.parent = parent;
+
+    this.setNewValue(input.dataStatistics, input.dataPopulation);
+    this.dataStatistics = input.dataStatistics;
+    this.dataStatisticsCountries = input.dataStatisticsCountries;
+    this.dataPopulation = input.dataPopulation;
+    this.renderComponent();
+    this.renderStatistic();
     this.clickBtn();
+
+    this.setParamsForBtnFullScreen(parent, 'js-statistic');
+    this.setModalWindowComponent(StatisticsView);
+    this.updateDataForModalWindow(this.dataForModal);
+    this.renderBtnFullScreen();
   }
 }
