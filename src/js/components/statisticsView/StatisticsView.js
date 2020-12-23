@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-expressions */
+/* eslint import/no-cycle: [0] */
 import '../../../styles/_statisticsView.scss';
+import { Emitter } from '../../../index';
 
 export default class StatisticsView {
   constructor(
@@ -106,6 +108,7 @@ export default class StatisticsView {
       });
     });
     imgWorldBtn.addEventListener('click', () => {
+      Emitter.emit('chooseWholeWorld', 'all');
       this.isCountry = false;
       this.setNewValue(this.dataStatistics);
       this.render();
