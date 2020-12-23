@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
-import UI from '../UI/UI';
 /* eslint import/no-cycle: [0] */
+import UI from '../UI/UI';
 import '../../../styles/_statisticsView.scss';
 import { Emitter } from '../../../index';
 
