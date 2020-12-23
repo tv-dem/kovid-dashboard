@@ -94,19 +94,65 @@
     background-color: $background-block;
   }
   .legend_map {
+    width: 105px;
     display: flex;
-    flex-direction: column;
-    position: absolute; 
-    top: 10px;
+    flex-wrap: wrap;
+    
+    justify-content: center;
     border: 1px solid black;
-    padding: 5px;
-    font-size: 8px;
+    padding: 1px;
+    font-size: 12px;
     font-weight: 900;
     color: black;
     background-color: white;
   }
+  .legend_map>div {
+    text-align: center;
+  }
+  .force {
+    font-size: 12px;
+    font-weight: 900;
+    width: 100px;
+
+  }
+  .force_100 {
+    font-size: 12px;
+    font-weight: 900;
+    color:white;
+    background-color: rgb(255, 0, 0);
+    width: 100px;
+  }
+  .force_80 {
+    font-size: 12px;
+    font-weight: 900;
+    color:white;
+    background-color: rgb(255, 20, 0);
+    width: 100px;
+  }
+  .force_60 {
+    font-size: 12px;
+    font-weight: 900;
+    color:white;
+    background-color: rgb(255, 60, 0);
+    width: 100px;
+  }
+  .force_40 {
+    font-size: 12px;
+    font-weight: 900;
+    color:white;
+    background-color: rgb(208, 100, 0);
+    width: 100px;
+  }
+  .force_20 {
+    font-size: 12px;
+    font-weight: 900;
+    color:white;
+    background-color: rgb(255, 150, 0);
+    width: 100px;
+  }
+
   .statistic {
-    overflow: hidden;
+    position: relative;
     min-width: 400px;
     height: 45%;
     background-color: $background-block;

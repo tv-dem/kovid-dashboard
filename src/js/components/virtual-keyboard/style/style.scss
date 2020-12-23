@@ -33,6 +33,7 @@
 
 .keyboard-container {
     position: absolute;
+    z-index: 20;
     left: -150%;
     bottom: 0;
     transition: left .4s ease-in;

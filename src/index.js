@@ -30,16 +30,21 @@ export const getDataForChart = async (country) => {
 };
 
 const main = async () => {
-  document.querySelector('#main-loader').classList.remove('hide');
   try {
+    document.querySelector('#main-loader').classList.remove('hide');
     const data = await Connector.getData(URL_STATISTICS);
     const population = await Connector.getData(URL_POPULATIONS);
     const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
     const dataForChart = await getDataForChart('all');
+
     map.init(data, population);
     graph.init('.diagram', dataForChart);
     list.init('#country_list', data, population);
-    statistics.init(data.Global, data.Countries, populationFlags);
+    statistics.init('#statistic', {
+      dataStatistics: data.Global,
+      dataStatisticsCountries: data.Countries,
+      dataPopulation: populationFlags,
+    });
 
     graph.setSliderParams(Slider, true);
 
@@ -51,6 +56,7 @@ const main = async () => {
   } catch (err) {
     alert(err);
   }
+
   document.querySelector('#main-loader').classList.add('hide');
 };
 
