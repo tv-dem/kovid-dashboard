@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-expressions */
+/* eslint import/no-cycle: [0] */
 import '../../../styles/_statisticsView.scss';
 import { Emitter } from '../../../index';
 
