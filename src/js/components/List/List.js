@@ -47,7 +47,11 @@ export default class List extends UI {
     Emitter.emit('chooseListCountry', this.activeData[itemIndex]);
   }
 
-  chooseCountry(data) {
+  chooseCountry(d) {
+    let data = d;
+    if (data === 'GL') {
+      data = 'DK';
+    }
     this.activeData = this.data.filter(({ CountryCode }) => CountryCode === data);
     this.clearList();
     this.renderList(this.listParent);
