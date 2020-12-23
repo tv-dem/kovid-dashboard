@@ -28,6 +28,11 @@ export default class Graph extends UI {
     this.initGraph();
   }
 
+  setSliderParams(instance, flag) {
+    this.Slider = instance;
+    this.isSliderUsed = flag;
+  }
+
   initGraph(labelName = 'Daily Cases') {
     this.chartContainer.innerHTML = '';
     this.canvas = UI.renderElement(this.chartContainer, 'canvas', null, ['id', 'chart']);

@@ -48,7 +48,7 @@ export default class Map extends UI {
       center: [34.41, 0],
       zoom: 2,
       autoFitToViewport: 'always',
-      controls: ['zoomControl','fullscreenControl'],
+      controls: ['zoomControl', 'fullscreenControl'],
     });
   }
 
@@ -94,15 +94,15 @@ export default class Map extends UI {
   clickHandler(event) {
     const target = event.get('target');
     const district = target.getParent();
-    
+
     Emitter.emit('chooseMapCountry', district.properties.iso[0]);
 
     if (this.highlightedDistrict) {
       this.highlightedDistrict.options.set({ fillOpacity: 0.7 });
     }
     const localIso = district.properties.iso;
-    this.isoTotalConfirmed[localIso] = (!this.isoTotalConfirmed[localIso]) ? 'No date' :this.isoTotalConfirmed[localIso];
-    this.isoNewConfirmed[localIso] = (!this.isoNewConfirmed[localIso]) ? 'No date' :this.isoNewConfirmed[localIso];
+    this.isoTotalConfirmed[localIso] = (!this.isoTotalConfirmed[localIso]) ? 'No date' : this.isoTotalConfirmed[localIso];
+    this.isoNewConfirmed[localIso] = (!this.isoNewConfirmed[localIso]) ? 'No date' : this.isoNewConfirmed[localIso];
     this.districtBalloon.open(event.get('coords'), this.creatBalloon(localIso));
     district.options.set({ fillOpacity: 1 });
     this.highlightedDistrict = district;
@@ -153,8 +153,8 @@ export default class Map extends UI {
   /* eslint no-param-reassign: ["error", { "props": false }] */
   createDistrictCollections(feature, color) {
     const { name, iso3166: iso } = feature.properties;
-    this.isoTotalConfirmed[iso] = (!this.isoTotalConfirmed[iso]) ? 'No date' :this.isoTotalConfirmed[iso];
-    this.isoNewConfirmed[iso] = (!this.isoNewConfirmed[iso]) ? 'No date' :this.isoNewConfirmed[iso];
+    this.isoTotalConfirmed[iso] = (!this.isoTotalConfirmed[iso]) ? 'No date' : this.isoTotalConfirmed[iso];
+    this.isoNewConfirmed[iso] = (!this.isoNewConfirmed[iso]) ? 'No date' : this.isoNewConfirmed[iso];
     feature.properties.hintContent = this.creatHint(name, iso);
     this.districtCollections[iso] = this.createGeoObjectCollection(color);
     this.districtCollections[iso].properties.districts = [];
@@ -224,6 +224,5 @@ export default class Map extends UI {
   async initMap() {
     this.ymaps = await ymaps.load('https://api-maps.yandex.ru/2.1/?apikey=d79b2dc6-c925-42e8-a5be-459618c5977a&lang=ru_RU');
     await this.initYandexMap();
-    
   }
 }

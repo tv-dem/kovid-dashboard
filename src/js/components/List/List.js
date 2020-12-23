@@ -14,14 +14,26 @@ export default class List extends UI {
     this.totalOrNew = 'Total';
     this.isOnHudredCount = false;
     this.sortState = 'countend';
+    this.dataForModal = null;
+    this.parentSelector = null;
 
     this.btnSortOnClick.bind(this);
   }
 
-  init(dataList, globalData) {
-    this.globalData = globalData;
-    this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
+  init(parent, input) {
+    this.dataForModal = input;
+    this.parentSelector = parent;
+
+    this.parent = document.querySelector(parent);
+    this.globalData = input.Global;
+    this.data = input.Countries.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
     this.activeData = this.data;
+    this.renderComponent();
+
+    this.setParamsForBtnFullScreen(parent, 'js-list');
+    this.setModalWindowComponent(List);
+    this.updateDataForModalWindow(this.dataForModal);
+    this.renderBtnFullScreen();
   }
 
   /* eslint max-len: ["error", { "code": 140 }] */
@@ -45,7 +57,6 @@ export default class List extends UI {
   }
 
   chooseCountry(data) {
-    console.log('List ', data);
     this.activeData = this.data.filter(({ CountryCode }) => CountryCode === data);
     this.clearList();
     this.renderList(this.listParent);
@@ -122,8 +133,8 @@ export default class List extends UI {
     }
   }
 
-  renderComponent(parent) {
-    this.parent = parent;
+  renderComponent() {
+    // this.parent = parent;
     const inputWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__input-wrapper']);
     const input = UI.renderElement(inputWrapper, 'input', null, ['class', 'list__input']);
 

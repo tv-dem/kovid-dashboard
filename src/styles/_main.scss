@@ -82,9 +82,9 @@
   }
 
   .country_list {
-    overflow: hidden;
     height: 100%;
     background-color: $background-block;
+    position: relative;
   }
 
   .map {
