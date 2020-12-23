@@ -75,7 +75,6 @@ class Keyboard {
     this.engAud = new Audio('./source/eng.mp3');
     this.enterAud = new Audio('./source/enter.mp3');
     this.shiftAud = new Audio('./source/shift.mp3');
-    this.spaceAud = new Audio('./source/ .mp3');
     this.bsAud = new Audio('./source/backspace.mp3');
     this.capsAud = new Audio('./source/capslock.mp3');
     this.EngSymbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
