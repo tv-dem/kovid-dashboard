@@ -93,7 +93,18 @@
     height: 100%;
     background-color: $background-block;
   }
-
+  .legend_map {
+    display: flex;
+    flex-direction: column;
+    position: absolute; 
+    top: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 8px;
+    font-weight: 900;
+    color: black;
+    background-color: white;
+  }
   .statistic {
     overflow: hidden;
     min-width: 400px;

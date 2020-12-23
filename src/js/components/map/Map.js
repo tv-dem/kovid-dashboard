@@ -48,7 +48,7 @@ export default class Map extends UI {
       center: [34.41, 0],
       zoom: 2,
       autoFitToViewport: 'always',
-      controls: ['zoomControl'],
+      controls: ['zoomControl','fullscreenControl'],
     });
   }
 
@@ -224,5 +224,6 @@ export default class Map extends UI {
   async initMap() {
     this.ymaps = await ymaps.load('https://api-maps.yandex.ru/2.1/?apikey=d79b2dc6-c925-42e8-a5be-459618c5977a&lang=ru_RU');
     await this.initYandexMap();
+    
   }
 }
