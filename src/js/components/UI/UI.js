@@ -66,6 +66,7 @@ export default class UI {
     document.querySelector('.modal').addEventListener('mouseenter', () => btnCloseModal.classList.add('active'));
     document.querySelector('.modal').addEventListener('mouseleave', () => btnCloseModal.classList.remove('active'));
     btnCloseModal.addEventListener('click', () => {
+      document.body.style.overflow = '';
       const modal = document.querySelector('.modal__container');
       while (modal.firstChild) {
         modal.removeChild(modal.firstChild);
