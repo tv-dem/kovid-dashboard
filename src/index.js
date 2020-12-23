@@ -35,10 +35,11 @@ const main = async () => {
   const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
 
   const dataForChart = await getDataForChart('all');
+  console.log(population);
 
   map.init(data, population);
   graph.init('.diagram', dataForChart);
-  list.init(data.Countries, data.Global);
+  list.init(data.Countries, population);
   statistics.init(data.Global, data.Countries, populationFlags);
 
   const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);

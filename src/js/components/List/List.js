@@ -7,7 +7,6 @@ import { Emitter } from '../../../index';
 export default class List extends UI {
   constructor() {
     super();
-    this.globalData = null;
     this.data = null;
     this.activeData = null;
     this.activeType = 'Confirmed';
@@ -15,11 +14,12 @@ export default class List extends UI {
     this.isOnHudredCount = false;
     this.sortState = 'countend';
 
-    this.btnSortOnClick.bind(this);
+    // this.btnSortOnClick.bind(this);
+    this.sortByPopulation.bind(this);
   }
 
-  init(dataList, globalData) {
-    this.globalData = globalData;
+  init(dataList, population) {
+    this.population = population;
     this.data = dataList.sort((a, b) => this.sortDescending(a, b, 'TotalConfirmed'));
     this.activeData = this.data;
   }
@@ -34,27 +34,28 @@ export default class List extends UI {
     return a[param] > b[param] ? 1 : -1;
   }
 
+  sortByPopulation(a, b, param) {
+    return this.recountPeople(a[param], a) < this.recountPeople(b[param], b) ? 1 : -1;
+  }
+
   liOnclickHandler(currentTarget) {
     if (this.actvieList
       && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
     this.actvieList = currentTarget;
     this.actvieList.classList.toggle('list__li_active');
-    // for use Emitter
     const itemIndex = Number(currentTarget.dataset.index);
     Emitter.emit('chooseListCountry', this.activeData[itemIndex]);
   }
 
   chooseCountry(data) {
-    console.log('List ', data);
     this.activeData = this.data.filter(({ CountryCode }) => CountryCode === data);
     this.clearList();
     this.renderList(this.listParent);
-    this.activeData = this.data;
   }
 
   btnSortOnClick({ target }, callback, param) {
     this.sortState = param === 'Country' ? 'country' : 'counted';
-    this.activeData.sort((a, b) => callback(a, b, param));
+    this.activeData.sort((a, b) => callback.apply(this, [a, b, param]));
     this.clearList();
     this.renderList(this.listParent);
     this.enabledBtn.classList.remove('list__button_active');
@@ -79,11 +80,22 @@ export default class List extends UI {
         break;
     }
     this.typeCases.classList.add('list__button_active');
-
-    this.activeData.sort((a, b) => ((this.sortState === 'country') ? this.sortAscending(a, b, 'Country')
-      : this.sortDescending(a, b, this.totalOrNew + this.activeType)));
-    this.clearList();
-    this.renderList(this.listParent);
+    let callback = this.isOnHudredCount ? this.sortByPopulation : this.sortDescending;
+    if (this.sortState === 'country') {
+      callback = this.sortAscending;
+    }
+    this.btnSortOnClick({
+      target: this.enabledBtn,
+    }, callback, this.sortState === 'country' ? 'Country' : this.totalOrNew + this.activeType);
+    // this.activeData.sort((a, b) => {
+    //   if (this.sortState === 'country') {
+    //     return this.sortAscending(a, b, 'Country');
+    //   }
+    //   return !this.isOnHudredCount ? this.sortDescending(a, b, this.totalOrNew + this.activeType) :
+    //     this.recountPeople(a, b, this.totalOrNew + this.activeType);
+    // });
+    // this.clearList();
+    // this.renderList(this.listParent);
   }
 
   btnCasesOnClick(target) {
@@ -101,19 +113,23 @@ export default class List extends UI {
         this.isOnHudredCount = false;
         break;
       case 'on 100 people in general':
+        this.totalOrNew = 'Total';
         this.isOnHudredCount = true;
         break;
       case 'on 100 people on last day':
+        this.totalOrNew = 'New';
         this.isOnHudredCount = true;
         break;
       default:
         break;
     }
-    this.activeData.sort((a, b) => ((this.sortState === 'country') ? this.sortAscending(a, b, 'Country')
-
-      : this.sortDescending(a, b, this.totalOrNew + this.activeType)));
-    this.clearList();
-    this.renderList(this.listParent);
+    let callback = this.isOnHudredCount ? this.sortByPopulation : this.sortDescending;
+    if (this.sortState === 'country') {
+      callback = this.sortAscending;
+    }
+    this.btnSortOnClick({
+      target: this.enabledBtn,
+    }, callback, this.sortState === 'country' ? 'Country' : this.totalOrNew + this.activeType);
   }
 
   clearList() {
@@ -146,7 +162,7 @@ export default class List extends UI {
     const btnCountend = UI.renderElement(sortWrapper, 'button', 'countend', ['class', 'list__button']);
     const btnCountry = UI.renderElement(sortWrapper, 'button', 'country', ['class', 'list__button']);
 
-    btnCountend.addEventListener('click', (e) => { this.btnSortOnClick(e, this.sortDescending, this.totalOrNew + this.activeType); });
+    btnCountend.addEventListener('click', (e) => { this.btnSortOnClick(e, this.isOnHudredCount ? this.sortByPopulation : this.sortDescending, this.totalOrNew + this.activeType); });
     btnCountry.addEventListener('click', (e) => { this.btnSortOnClick(e, this.sortAscending, 'Country'); });
 
     const typeBtnWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
@@ -184,13 +200,21 @@ export default class List extends UI {
     this.renderList(ul);
   }
 
+  recountPeople(count, { CountryCode }) {
+    if (!this.isOnHudredCount) {
+      return count;
+    }
+    const { population } = this.population.find(({ alpha2Code }) => CountryCode === alpha2Code);
+    return Math.ceil((count / population) * 100000);
+  }
+
   renderList(listParent) {
+    if(this.actvieList) this.actvieList.classList.add('list__li_active');
     this.listParent = listParent;
     this.activeData.forEach((item, index) => {
       const li = UI.renderElement(this.listParent, 'li', null, ['class', 'list__li'], ['data-index', index]);
-      UI.renderElement(li, 'span', String(item[this.totalOrNew + this.activeType]));
-      UI.renderElement(li, 'span', String(item.Country));
-
+      UI.renderElement(li, 'span', this.recountPeople(item[this.totalOrNew + this.activeType], item));
+      UI.renderElement(li, 'span', item.Country);
       const img = UI.renderElement(li, 'img', null, ['src', `https://www.countryflags.io/${item.CountryCode}/shiny/64.png`]);
       img.addEventListener('click', () => {
         document.querySelector('.show-kbd').classList.toggle('show-kbd_active');
