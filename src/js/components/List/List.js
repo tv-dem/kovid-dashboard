@@ -42,7 +42,7 @@ export default class List extends UI {
     if (this.actvieList
       && this.actvieList !== currentTarget) this.actvieList.classList.remove('list__li_active');
     this.actvieList = currentTarget;
-    this.actvieList.classList.toggle('list__li_active');
+    this.actvieList.classList.add('list__li_active');
     const itemIndex = Number(currentTarget.dataset.index);
     Emitter.emit('chooseListCountry', this.activeData[itemIndex]);
   }
@@ -149,7 +149,7 @@ export default class List extends UI {
     img.addEventListener('click', () => {
       this.kb.hideView();
     });
-    this.kb.board.addEventListener('click', (e) => this.onKeyboardClick(e, input));
+    this.kb.board.addEventListener('click', (e) => this.onKeyboardClick(e, input, this.kb));
     input.addEventListener('input', ({ target }) => {
       this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
       this.clearList();
@@ -162,7 +162,8 @@ export default class List extends UI {
     const btnCountend = UI.renderElement(sortWrapper, 'button', 'countend', ['class', 'list__button']);
     const btnCountry = UI.renderElement(sortWrapper, 'button', 'country', ['class', 'list__button']);
 
-    btnCountend.addEventListener('click', (e) => { this.btnSortOnClick(e, this.isOnHudredCount ? this.sortByPopulation : this.sortDescending, this.totalOrNew + this.activeType); });
+    const cb = this.isOnHudredCount ? this.sortByPopulation : this.sortDescending;
+    btnCountend.addEventListener('click', (e) => { this.btnSortOnClick(e, cb, this.totalOrNew + this.activeType); });
     btnCountry.addEventListener('click', (e) => { this.btnSortOnClick(e, this.sortAscending, 'Country'); });
 
     const typeBtnWrapper = UI.renderElement(this.parent, 'div', null, ['class', 'list__type-btn-wrapper']);
@@ -208,15 +209,19 @@ export default class List extends UI {
     return Math.ceil((count / population) * 100000);
   }
 
-  onKeyboardClick({ target }, input) {
+  onKeyboardClick({ target }, input, kb) {
     if (!target.classList.contains('button')) return;
+    if (target.textContent === 'enter') {
+      kb.hideView();
+      return;
+    }
     this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(input.value));
     this.clearList();
     this.renderList(this.listParent);
   }
 
   renderList(listParent) {
-    if(this.actvieList) this.actvieList.classList.add('list__li_active');
+    if (this.actvieList) this.actvieList.classList.add('list__li_active');
     this.listParent = listParent;
     this.activeData.forEach((item, index) => {
       const li = UI.renderElement(this.listParent, 'li', null, ['class', 'list__li'], ['data-index', index]);
