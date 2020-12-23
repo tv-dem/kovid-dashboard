@@ -166,11 +166,13 @@
   }
 
   .footer {
-    height: 3em;
+    height: 77px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: .5em;
+    flex: 0 0 auto;ж
+
 
     &__school {
       
