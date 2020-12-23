@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import '../../../styles/_statisticsView.scss';
 
 export default class StatisticsView {
@@ -36,28 +37,30 @@ export default class StatisticsView {
   }
 
   setCountry(data) {
+    let dataTemp = '';
     if (typeof (data) === 'string') {
-      if (data === "GL") {
-        data = "DK";
+      if (data === 'GL') {
+        dataTemp = 'DK';
+      } else {
+        dataTemp = data;
       }
-      this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === data);
+      this.res = this.dataStatisticsCountries.find(({ CountryCode }) => CountryCode === dataTemp);
     } else {
       this.res = data;
     }
     if (this.res === undefined) {
-      this.res =
-      {
-        Country: "no info",
-        NewConfirmed: "no info",
-        TotalConfirmed: "no info",
-        NewDeaths: "no info",
-        TotalDeaths: "no info",
-        NewRecovered: "no info",
-        TotalRecovered: "no info"
+      this.res = {
+        Country: 'no info',
+        NewConfirmed: 'no info',
+        TotalConfirmed: 'no info',
+        NewDeaths: 'no info',
+        TotalDeaths: 'no info',
+        NewRecovered: 'no info',
+        TotalRecovered: 'no info',
       };
       this.resPopulation = {
         population: 0,
-        flag: "../../../public/noneFlag.png"
+        flag: '../../../public/noneFlag.png',
       };
       this.Country = this.res.Country;
     } else {
@@ -67,7 +70,7 @@ export default class StatisticsView {
       if (this.Country === 'Korea (South)') {
         this.Country = 'Korea (Republic of)';
       }
-      
+
       this.Country = this.res.Country;
       this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
       this.population = this.resPopulation.population;
@@ -153,10 +156,10 @@ export default class StatisticsView {
       contentConfirmed = Math.ceil(this.NewConfirmed / (this.population / 100000));
       contentDeaths = Math.ceil(this.NewDeaths / (this.population / 100000));
       contentRecovered = Math.ceil(this.NewRecovered / (this.population / 100000));
-      if (this.Country === "no info") {
-        contentConfirmed = "no info";
-        contentDeaths = "no info";
-        contentRecovered = "no info";
+      if (this.Country === 'no info') {
+        contentConfirmed = 'no info';
+        contentDeaths = 'no info';
+        contentRecovered = 'no info';
       }
       contentAll = 'Last day';
     }
@@ -165,10 +168,10 @@ export default class StatisticsView {
       contentConfirmed = Math.ceil(this.TotalConfirmed / (this.population / 100000));
       contentDeaths = Math.ceil(this.TotalDeaths / (this.population / 100000));
       contentRecovered = Math.ceil(this.TotalRecovered / (this.population / 100000));
-      if (this.Country === "no info") {
-        contentConfirmed = "no info";
-        contentDeaths = "no info";
-        contentRecovered = "no info";
+      if (this.Country === 'no info') {
+        contentConfirmed = 'no info';
+        contentDeaths = 'no info';
+        contentRecovered = 'no info';
       }
       contentAll = 'In all';
     }
