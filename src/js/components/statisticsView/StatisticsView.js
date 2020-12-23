@@ -67,9 +67,7 @@ export default class StatisticsView {
       if (this.Country === 'Korea (South)') {
         this.Country = 'Korea (Republic of)';
       }
-      if (this.Country === 'Korea (South)') {
-        this.Country = 'Korea (Republic of)';
-      }
+      
       this.Country = this.res.Country;
       this.resPopulation = this.dataPopulation.find(({ name }) => name === this.Country);
       this.population = this.resPopulation.population;
