@@ -168,7 +168,7 @@ export default class List extends UI {
     });
     this.kb.board.addEventListener('click', (e) => this.onKeyboardClick(e, input, this.kb));
     input.addEventListener('input', ({ target }) => {
-      this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value));
+      this.activeData = this.data.filter((el) => el.Country.toLowerCase().includes(target.value.toLowerCase()));
       this.clearList();
       this.renderList(this.listParent);
     });

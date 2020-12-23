@@ -30,23 +30,28 @@ export const getDataForChart = async (country) => {
 };
 
 const main = async () => {
-  const data = await Connector.getData(URL_STATISTICS);
-  const population = await Connector.getData(URL_POPULATIONS);
-  const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
-  const dataForChart = await getDataForChart('all');
+  document.querySelector('#main-loader').classList.remove('hide');
+  try {
+    const data = await Connector.getData(URL_STATISTICS);
+    const population = await Connector.getData(URL_POPULATIONS);
+    const populationFlags = await Connector.getData(URL_FLAGS_POPULATION);
+    const dataForChart = await getDataForChart('all');
+    map.init(data, population);
+    graph.init('.diagram', dataForChart);
+    list.init('#country_list', data, population);
+    statistics.init(data.Global, data.Countries, populationFlags);
 
-  map.init(data, population);
-  graph.init('.diagram', dataForChart);
-  list.init('#country_list', data, population);
-  statistics.init(data.Global, data.Countries, populationFlags);
+    graph.setSliderParams(Slider, true);
 
-  graph.setSliderParams(Slider, true);
+    const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);
 
-  const slider = new Slider('.diagram', 1, 2).init(sliderItemKeys);
-
-  window.addEventListener('resize', () => {
-    slider.init(sliderItemKeys);
-  });
+    window.addEventListener('resize', () => {
+      slider.init(sliderItemKeys);
+    });
+  } catch (err) {
+    alert(err);
+  }
+  document.querySelector('#main-loader').classList.add('hide');
 };
 
 main();
